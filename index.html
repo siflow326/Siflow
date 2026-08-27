@@ -1,755 +1,1295 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Secret Space ❤️</title>
-    <!-- استدعاء قاعدة البيانات السحابية Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* خلفية صورة هالو كيتي الثابتة */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('1000118576.jpg');
-            background-repeat: repeat;
-            background-size: 300px;
-            opacity: 0.18;
-            z-index: -1;
-            pointer-events: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .container {
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+<title>Our Secret Space ❤️</title>
 
-        /* مجسم هالو كيتي المتحرك في الأعلى */
-        .hello-kitty-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .hello-kitty-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 2px solid #f43f5e;
-            background-image: url('1000118576.jpg');
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
-            animation: floatKitty 3s ease-in-out infinite;
-        }
-        @keyframes floatKitty {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:"Segoe UI",Tahoma,sans-serif;
+}
 
-        h1 {
-            color: #f43f5e;
-            margin-top: 15px;
-            font-size: 2rem;
-            cursor: pointer;
-            user-select: none;
-        }
-        .couple-name {
-            font-size: 1.1rem;
-            color: #fb7185;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            text-shadow: 0 2px 10px rgba(244, 63, 94, 0.3);
-        }
-        .subtitle {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-bottom: 25px;
-        }
+body{
+    min-height:100vh;
+    padding:18px;
+    color:#54263b;
+    overflow-x:hidden;
+    background:#ffdce9;
+}
 
-        /* مشغل الموسيقى الأنيق */
-        .music-player-box {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid #f43f5e40;
-            border-radius: 14px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .music-info {
-            font-size: 0.9rem;
-            color: #fda4af;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .music-btn {
-            background: #f43f5e;
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .music-btn:active {
-            transform: scale(0.95);
-        }
+/* خلفية Hello Kitty */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
 
-        .romantic-quote {
-            background: rgba(244, 63, 94, 0.1);
-            border: 1px dashed #f43f5e50;
-            padding: 12px;
-            border-radius: 12px;
-            color: #fda4af;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .gold-birthday-card {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(234, 179, 8, 0.4);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px -5px rgba(234, 179, 8, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .gold-birthday-card::after {
-            content: "";
-            position: absolute;
-            top: 0; right: 0; width: 4px; height: 100%;
-            background: linear-gradient(to bottom, #facc15, #ca8a04);
-        }
-        .gold-birthday-title {
-            font-size: 0.85rem;
-            color: #fde047;
-            font-weight: bold;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-        .gold-birthday-text {
-            font-size: 1.15rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fef08a, #facc15, #ca8a04);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(234, 179, 8, 0.2);
-            font-family: 'Georgia', serif;
-        }
+    background-image:
+        linear-gradient(
+            rgba(255,225,238,.70),
+            rgba(255,225,238,.70)
+        ),
+        url("41368ecda373b5f915aba31e9c3178b4.jpg");
 
-        .counter-box {
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.1);
-        }
-        .timer {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-        }
-        .time-unit {
-            display: flex;
-            flex-direction: column;
-        }
-        .time-num {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #fb7185;
-        }
-        .time-label {
-            font-size: 0.7rem;
-            color: #94a3b8;
-        }
-        .btn-miss {
-            background: linear-gradient(135deg, #e11d48, #f43f5e);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
-        }
-        .btn-miss:active {
-            transform: scale(0.97);
-        }
-        .message-box {
-            display: none;
-            background: rgba(244, 63, 94, 0.15);
-            backdrop-filter: blur(8px);
-            border: 1px solid #f43f5e50;
-            color: #fda4af;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            animation: fadeIn 0.4s ease-in-out;
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-        .card {
-            background: rgba(30, 41, 59, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: right;
-            border-right: 4px solid #f43f5e;
-            position: relative;
-        }
-        .card h3 {
-            font-size: 1rem;
-            color: #f8fafc;
-            margin-bottom: 5px;
-        }
-        .card p {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-bottom: 10px;
-        }
-        .card img, .card video {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-            max-height: 300px;
-            object-fit: cover;
-        }
-        
-        .admin-panel {
-            display: none;
-            background: #020617;
-            border: 1px solid #f43f5e;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 25px;
-            text-align: right;
-        }
-        .admin-panel h3 {
-            color: #f43f5e;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 5px;
-        }
-        .admin-panel input, .admin-panel textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 6px 0 12px 0;
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: white;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-        .admin-panel button {
-            background: #f43f5e;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .delete-btn {
-            background: #ef4444 !important;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            float: left;
-        }
-        .list-item {
-            background: #0f172a;
-            padding: 8px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+body::after{
+    content:"❤️  🌸  🎀  💕  ✨  🌸  ❤️  🎀";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    opacity:.13;
+    font-size:35px;
+    line-height:3;
+    word-spacing:35px;
+    pointer-events:none;
+}
+
+.container{
+    width:100%;
+    max-width:580px;
+    margin:auto;
+}
+
+header{
+    text-align:center;
+    padding:18px 5px 12px;
+}
+
+.logo{
+    width:105px;
+    height:105px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid white;
+    box-shadow:0 10px 30px rgba(180,50,100,.25);
+}
+
+h1{
+    margin-top:12px;
+    color:#d52d68;
+    font-size:28px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.names{
+    margin-top:5px;
+    color:#e05283;
+    font-weight:bold;
+    letter-spacing:2px;
+    font-size:17px;
+}
+
+.subtitle{
+    margin-top:6px;
+    color:#805368;
+    font-size:13px;
+}
+
+.card{
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:22px;
+    padding:18px;
+    margin:15px 0;
+    box-shadow:0 10px 30px rgba(180,60,110,.13);
+}
+
+.quote{
+    text-align:center;
+    color:#88445e;
+    line-height:1.9;
+    font-size:15px;
+}
+
+.section-title{
+    color:#d52d68;
+    font-weight:bold;
+    font-size:17px;
+    margin-bottom:12px;
+}
+
+.birthday{
+    text-align:center;
+    border:2px solid #ffd36b;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.95),
+        rgba(255,247,218,.95)
+    );
+}
+
+.birthday-title{
+    color:#d99b00;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.birthday-date{
+    color:#b87500;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.timer{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.unit{
+    text-align:center;
+    background:#fff0f6;
+    border-radius:14px;
+    padding:10px 3px;
+}
+
+.number{
+    display:block;
+    color:#d52d68;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.label{
+    color:#956276;
+    font-size:11px;
+}
+
+.miss{
+    width:100%;
+    border:0;
+    border-radius:30px;
+    padding:15px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #d52d68,
+        #f06595
+    );
+
+    box-shadow:0 8px 22px rgba(213,45,104,.25);
+}
+
+.miss:active{
+    transform:scale(.98);
+}
+
+.message{
+    display:none;
+    margin-top:12px;
+    padding:15px;
+    border-radius:15px;
+    background:#fff0f6;
+    color:#984663;
+    line-height:1.8;
+    text-align:center;
+}
+
+.memory{
+    background:#fff7fa;
+    border-radius:16px;
+    padding:13px;
+    margin-top:12px;
+}
+
+.memory h3{
+    color:#d52d68;
+    margin-bottom:7px;
+}
+
+.memory p{
+    color:#795265;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.memory img,
+.memory video{
+    width:100%;
+    max-height:350px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-top:10px;
+}
+
+/* لوحة الإدارة */
+.admin{
+    display:none;
+    background:rgba(255,255,255,.97);
+    border:2px solid #d52d68;
+    border-radius:22px;
+    padding:18px;
+    margin-top:20px;
+    box-shadow:0 15px 40px rgba(150,30,80,.25);
+}
+
+.admin h2{
+    color:#d52d68;
+    margin-bottom:15px;
+}
+
+.admin h3{
+    color:#c53c70;
+    margin-top:20px;
+    margin-bottom:8px;
+}
+
+.admin input,
+.admin textarea{
+    width:100%;
+    border:1px solid #efb4ca;
+    border-radius:10px;
+    padding:11px;
+    margin:5px 0;
+    outline:none;
+    color:#54263b;
+    background:#fff8fb;
+}
+
+.admin textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.admin button{
+    border:0;
+    border-radius:9px;
+    padding:10px 15px;
+    margin-top:5px;
+    color:white;
+    background:#d52d68;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.close{
+    width:100%;
+    background:#777 !important;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    background:#fff0f6;
+    border-radius:10px;
+    padding:9px;
+    margin:7px 0;
+    font-size:13px;
+}
+
+.delete{
+    background:#dc3545 !important;
+    padding:6px 10px !important;
+    font-size:11px;
+}
+
+.login{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(80,20,45,.55);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:360px;
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+}
+
+.login-box h2{
+    color:#d52d68;
+    margin-bottom:15px;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #efb4ca;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.login-box button{
+    width:100%;
+    border:0;
+    padding:12px;
+    border-radius:10px;
+    background:#d52d68;
+    color:white;
+    font-weight:bold;
+}
+
+.error{
+    color:#d62839;
+    margin-top:10px;
+    font-size:13px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#956276;
+    font-size:12px;
+}
+
+@media(max-width:400px){
+    h1{
+        font-size:24px;
+    }
+
+    .number{
+        font-size:18px;
+    }
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <!-- مجسم هلو كيتي المتحرك -->
-    <div class="hello-kitty-container">
-        <div class="hello-kitty-avatar" title="Hello Kitty ❤️"></div>
-    </div>
 
-    <h1 onclick="secretAdminTrigger()">مساحتنا الخاصة ❤️</h1>
-    <div class="couple-name">AMINA ♾️ OUSSAMA</div>
-    <p class="subtitle">كل لحظة معك هي بداية لذكرى أجمل</p>
+<header>
 
-    <!-- مشغل الموسيقى المخصص -->
-    <div class="music-player-box">
-        <div class="music-info">
-            <span>🎶</span> <span>هدية الموسيقى الخاصة لكِ</span>
-        </div>
-        <button class="music-btn" id="playMusicBtn" onclick="toggleMusic()">تشغيل</button>
-        <!-- عنصر الصوت المخفي -->
-        <audio id="bgMusic" src="https://docs.google.com/uc?export=download&id=1wEG2mddnx7EOp5a0YU5zsbJ96Rvtn6-j" preload="auto"></audio>
-    </div>
+<img src="41368ecda373b5f915aba31e9c3178b4.jpg"
+     class="logo"
+     alt="Hello Kitty">
 
-    <!-- رسالة رومانسية خاصة -->
-    <div class="romantic-quote">
-        "إلى أميرتي وقطعة من قلبي.. منذ أن التقينا، أصبحتِ أنتِ النبض الذي تحيا به أيامي، وكل ثانية معكِ تساوى عندي الدنيا وما فيها. أحبكِ اليوم وغداً وإلى الأبد. ✨💖🌸"
-    </div>
+<h1 id="siteTitle">
+    مساحتنا الخاصة ❤️
+</h1>
 
-    <!-- بطاقة عيد الميلاد الذهبية الأنيقة -->
-    <div class="gold-birthday-card">
-        <div class="gold-birthday-title">✨ يوم ميلاد أميرتي ✨</div>
-        <div class="gold-birthday-text">ولدت من أشرقت لها الأرض وأنارت حياتي.. السبت 24 نوفمبر 2012 👑❤️🐱</div>
-    </div>
-
-    <!-- عدادات التعارف والارتباط -->
-    <div id="countersContainer"></div>
-
-    <button class="btn-miss" onclick="showRandomMessage()">اضغطي هنا عندما تشتاقين لي 💌</button>
-    <div class="message-box" id="secretMessage"></div>
-
-    <div id="memoriesContainer"></div>
-
-    <!-- لوحة التحكم السرية -->
-    <div class="admin-panel" id="adminPanel">
-        <h3>لوحة التحكم السحابية 🔒 (تظهر للجميع)</h3>
-        
-        <h3>إدارة رسائل الشوق</h3>
-        <textarea id="newRandomMsg" placeholder="اكتب رسالة جديدة..."></textarea>
-        <button onclick="addRandomMessage()">إضافة رسالة جديدة</button>
-        <div id="adminRandomList" style="max-height: 120px; overflow-y: auto; margin-bottom: 15px;"></div>
-
-        <h3>إضافة مناسبة أو عداد جديد</h3>
-        <input type="text" id="eventTitle" placeholder="اسم المناسبة">
-        <input type="date" id="eventDate">
-        <button onclick="addEvent()">إضافة المناسبة</button>
-        <div id="adminEventsList" style="max-height: 120px; overflow-y: auto; margin-bottom: 15px;"></div>
-
-        <h3>إضافة ذكرى جديدة</h3>
-        <input type="text" id="memTitle" placeholder="عنوان الذكرى">
-        <textarea id="memDesc" placeholder="تفاصيل الذكرى..."></textarea>
-        <input type="text" id="memMedia" placeholder="رابط الصورة أو الفيديو (مباشر URL)">
-        <button onclick="addMemory()">حفظ ونشر الذكرى</button>
-        <div id="adminMemoriesList" style="max-height: 150px; overflow-y: auto;"></div>
-        
-        <button style="background:#334155; width:100%; margin-top:15px;" onclick="closeAdmin()">إغلاق لوحة التحكم</button>
-    </div>
+<div class="names" id="names">
+    AMINA ♾️ OUSSAMA
 </div>
 
+<div class="subtitle" id="subtitle">
+    كل لحظة معك بداية لذكرى أجمل 🌸
+</div>
+
+</header>
+
+
+<div class="card quote" id="quote">
+    إلى أجمل شخص دخل حياتي،
+    أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️
+</div>
+
+
+<div class="card birthday">
+
+<div class="birthday-title">
+    🎀 يوم ميلاد أميرتي 🎀
+</div>
+
+<div class="birthday-date">
+    السبت 24 نوفمبر 2012 👑❤️
+</div>
+
+</div>
+
+
+<div id="eventsContainer"></div>
+
+
+<div class="card">
+
+<button class="miss" onclick="showMessage()">
+    💌 اضغطي هنا عندما تشتاقين لي
+</button>
+
+<div class="message" id="message"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-title">
+    📸 ذكرياتنا
+</div>
+
+<div id="memoriesContainer"></div>
+
+</div>
+
+
+<footer>
+    Made with ❤️ for Amina & Oussama
+</footer>
+
+
+<!-- لوحة التحكم -->
+
+<div class="admin" id="admin">
+
+<h2>👑 لوحة التحكم الخاصة بأسامة</h2>
+
+<h3>✏️ معلومات الموقع</h3>
+
+<input id="editTitle"
+       placeholder="عنوان الموقع">
+
+<input id="editNames"
+       placeholder="الأسماء">
+
+<input id="editSubtitle"
+       placeholder="الوصف">
+
+<textarea id="editQuote"
+          placeholder="الرسالة الرئيسية"></textarea>
+
+<button onclick="saveSettings()">
+    💾 حفظ التغييرات
+</button>
+
+
+<h3>⏱️ إضافة عداد</h3>
+
+<input id="eventName"
+       placeholder="اسم المناسبة">
+
+<input id="eventDate"
+       type="date">
+
+<button onclick="addEvent()">
+    ➕ إضافة
+</button>
+
+<div id="eventsAdmin"></div>
+
+
+<h3>💌 إضافة رسالة شوق</h3>
+
+<textarea id="newMessage"
+          placeholder="اكتب رسالة..."></textarea>
+
+<button onclick="addMessage()">
+    ➕ إضافة الرسالة
+</button>
+
+<div id="messagesAdmin"></div>
+
+
+<h3>📸 إضافة ذكرى</h3>
+
+<input id="memoryTitle"
+       placeholder="عنوان الذكرى">
+
+<textarea id="memoryDesc"
+          placeholder="تفاصيل الذكرى"></textarea>
+
+<input id="memoryMedia"
+       placeholder="رابط الصورة أو الفيديو">
+
+<button onclick="addMemory()">
+    📤 نشر الذكرى
+</button>
+
+<div id="memoriesAdmin"></div>
+
+
+<button class="close"
+        onclick="closeAdmin()">
+    إغلاق لوحة التحكم
+</button>
+
+</div>
+
+</div>
+
+
+<!-- تسجيل الدخول -->
+
+<div class="login" id="login">
+
+<div class="login-box">
+
+<h2>🔐 دخول أسامة</h2>
+
+<input id="password"
+       type="password"
+       placeholder="كلمة المرور">
+
+<button onclick="checkPassword()">
+    دخول
+</button>
+
+<div class="error"
+     id="loginError"></div>
+
+</div>
+
+</div>
+
+
 <script>
-    const firebaseConfig = {
-        databaseURL: "https://siflow-space-default-rtdb.firebaseio.com/"
-    };
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-    const db = firebase.database();
 
-    const defaultEvents = [
-        { id: 1, title: "بداية تعارفنا ✨", date: "2025-03-02" },
-        { id: 2, title: "تاريخ ارتباطنا الرسمي ❤️", date: "2026-01-01" }
-    ];
+/* كلمة المرور */
+const ADMIN_PASSWORD = "Karlos@2026";
 
-    const defaultMessages = [
-        "1. أشتاق إليكِ لدرجة أنني أتمنى لو أستطيع اختصار المسافات والأزمان لأكون بقربك الآن 💖",
-        "2. كلما عصفت بي ريح الشوق، أغمض عيني وأتخيل ضحكتكِ فتهدأ روحي تماماً ✨",
-        "3. هل تعلمين أن الشوق إليكِ يشبه النبض، لا يتردد أبداً بل يزيد مع كل ثانية تمر؟ 🌹",
-        "4. أفتقد تفاصيل حديثكِ، وعينيكِ اللتين ترويان لي قصصاً من الجمال لا تنتهي 🥰",
-        "5. في غيابكِ، تتوقف ساعات اليوم عن المضي، وتصبح دقات قلبي تنادي اسمك وحده 💓",
-        "6. لو أن للشوق مسافة، لقطعتها إليك حافياً، فقط لأحظى بنظرة واحدة من عيونكِ 🌸",
-        "7. أشتقت لارتجافة صوتكِ حين تخبرينني كم تشتاقين لي، يا أجمل أقداري 💕",
-        "8. كأن الكون في غيابكِ يخلو من الألوان، ولا يعود زاهياً إلا بمرور طيفكِ في خاطري 🎨",
-        "9. أحتاجكِ بقربي الآن، لأخبركِ كيف مر يومي الطويل وكيف كنتِ حاضرة في كل تفاصيله 🧸",
-        "10. الشوق إليكِ ليس عيباً، بل هو دليل قاطع على أنكِ أثمن ما يمتلكه قلبي 👑",
-        "11. كم هو قاسٍ هذا البعد، وكم هو حنون طيفكِ حين يزورني في خيالي قبل النوم ✨",
-        "12. أينما نظرت، أرى وجهكِ المشرق وابتسامتكِ التي تضيء لي عتمة أيامي ☀️",
-        "13. اشتقت لأن ألمس يديكِ وأنسى معكِ تعب العالم وهمومه بلمسة حنان واحدة 🤲❤️",
-        "14. تمر الأوقات ثقيلة خالية منكِ، وكأن الوقت يرفض التحرك بدونكِ ⏳",
-        "15. أفتقدكِ بحجم السماء وواسع الفضاء، وبقدر ما يحمله قلبي من عشق لكِ 🌌",
-        "16. يا من ملكتِ الفؤاد، هل تدرين كم أتعذب شوقاً وأنا أعد الساعات للقائكِ؟ 🥺",
-        "17. الشوق إليكِ يقتلني حيناً، ويحييني حيناً آخر على أمل أن ألقاكِ قريباً 💫",
-        "18. صوتكِ هو الموسيقى الوحيدة التي ترتاح لها أذناي في وسط هذا الصخب 🎶",
-        "19. أفتقدكِ بالقدر الذي جعلني أتحدث عنكِ كثيراً أمام مرآتي وقلبي 🪞",
-        "20. لا تبتعدي كثيراً، فروحي معلقة بكِ وأينما ذهبتِ ترتحل روحي معكِ 🕊️",
-        "21. اشتقت لعينيكِ الواسعتين حين تحاولان إخباري بكل ما تعجز عنه الكلمات 👀",
-        "22. أعد الأيام والليالي بلهفة الأطفال، منتظراً تلك اللحظة التي يجمعنا فيها اللقاء 🗓️",
-        "23. الشوق إليكِ يشبه المطر الناعم، يروي جفاف روحي وينبت فيها ورود العشق 🌧️🌹",
-        "24. أفتقدكِ في كل صباح تبدأ به شمس جديدة وفي كل مساء يلوح في الأفق 🌅",
-        "25. كم أتمنى أن أترك كل شيء خلفي وأأتي إليكِ لأختبئ في حضنكِ الدافئ 🤗",
-        "26. حين يشتاق قلبي، لا يطلب سوى شيء واحد: أن تكوني أمامي الآن ومباشرة 💖",
-        "27. أشتقت لتفاصيلكِ الصغيرة، لطريقتكِ في الكلام، وحتى لغيرتكِ الجميلة عليّ 🥰",
-        "28. البعد يزيد المحبة كما يقال، لكنه أيضاً يزيد ألم الشوق في صدري بضراوة 💔",
-        "29. أفتقدكِ بقدر ما أحببتكِ، وحبي لكِ يتجاوز حدود الوصف والعدّ 📈",
-        "30. ليتني أملك سحر الكلمات لأصف لكِ كم أنا متيم بحبكِ وكم أشتقت إليكِ الآن ✨",
-        "31. أشتاق لرائحة عطركِ العالقة في وسادتي، تذكرني بكِ طوال الليل 🌙",
-        "32. في كل أغنية رومانسية أسمعها، لا أرى فيها سوى وجهكِ وصوتكِ العذب 🎧",
-        "33. أفتقدكِ الأمان الذي أشعر به حين تكونين جواري، فأنا بدونكِ أبحث عن ملجأ 🏰",
-        "34. اشتقت لحديثنا الطويل الذي لا ينتهي والذي يبدأ بكلمة وينتهي بصباح الخير 💬",
-        "35. هل تشعرين بي الآن؟ قلبي ينبض باسمكِ في كل ثانية من شدة الشوق والحنين 💓",
-        "36. أفتقدكِ يا من أضفتِ لحياتي بهجة لم أكن أعرفها من قبل 🎉",
-        "37. اشتقت لأن أشارككِ تفاصيل قهوتي وصباحي الهادئ يا سيدة قلبي ☕",
-        "38. الشوق إليكِ يملأني إلهاماً، لأكتب لكِ أجمل قصائد العشق والغرام ✍️",
-        "39. أفتقدكِ بشدة حين تواجهني المواقف الصعبة وأتمنى لو كنتِ هنا لتدعميني 🤝",
-        "40. اشتقت لضحكتكِ التي ترسم السعادة على وجهي مهما كانت ظروفي قاسية 😊",
-        "41. كأنني أدمنتكِ لدرجة أن غيابكِ لعدة ساعات يصيبني بالاشتياق الجنوني 🧪",
-        "42. أفتقدكِ نظراتكِ الحنونة التي تخترق دفاعاتي وتصل إلى أعماق روحي مباشرة 🎯",
-        "43. اشتقت لأن أنادي باسمكِ وأنتِ تردين عليّ بابتسامة دافئة تذيب قلبي 🗣️",
-        "44. الشوق إليكِ يشبه النار الهادئة، تدفئني حيناً وتكوي قلبي أحياناً أخرى 🔥",
-        "45. أفتقدكِ في كل زاوية من غرفتي، كأن ظلكِ ما زال يملأ المكان روعةً وبهاءً 🏠",
-        "46. اشتقت لأن أمشي بجانبكِ ونمسك بأيدينا وكأننا امتلكنا العالم بأسره 👫",
-        "47. أفتقدكِ الأوقات التي كنا نضحك فيها على أتفه الأسباب بلا إزعاج 😂",
-        "48. اشتقت لكِ يا توأم الروح ويا من سكني عشقها حتى العظم 🦴",
-        "49. كم تمنيت لو أن الشوق يترجم إلى عناق، لكنت عانقتكِ الآن بلا توقف 🤗",
-        "50. أفتقدكِ بقدر ما أخشى فقدانكِ يوماً، فحبي لكِ خوف وعشق مقدس 🛡️",
-        "51. اشتقت لعينيكِ الناعستين حين تحاولان مقاومة النوم وأنتِ تحدثينني 😴",
-        "52. أفتقدكِ في كل خطوة أخطوها، وكأن ظلكِ يرافقني في طريقي وحدي 🚶‍♂️",
-        "53. اشتقت لجرعة الحنان التي أكتسبها فقط حين أكون بقربكِ 🍯",
-        "54. الشوق إليكِ هو الثمن الذي أدفعه مقابل عمق هذا الحب العظيم 🏷️",
-        "55. أفتقدكِ حين أرى شيئاً جميلاً وأتمنى لو كنتِ تراهين معي الآن 👀",
-        "56. اشتقت لكل كلمة حب قلتها لي، وكل وعد عاهدتني به على الوفاء 📜",
-        "57. أفتقدكِ كما يفتقد النبات قطرات المطر بعد شحٍ طويل 🌱",
-        "58. اشتقت لأن أغمض عيني وأفتحها فأجدكِ أمامي تماماً كما أتمناكِ ✨",
-        "59. أفتقدكِ صوت تنفسكِ الهادئ حين تقتربين مني في لحظات الصفاء 🌬️",
-        "60. اشتقت لأن أقول لكِ وجهات نظري في كل شيء وتستمعين لي باهتمام 👂",
-        "61. أفتقدكِ بحجم الشوق الذي يملأ صدري ولا أستطيع بوحه لأحد سواه 🤐",
-        "62. اشتقت لأن تكوني ملجئي الوحيد حين تضيق بي مساحات هذا العالم 🌍",
-        "63. أفتقدكِ وكأنني لم أراكِ منذ سنوات طويلة رغم قصر غيابكِ 🕰️",
-        "64. اشتقت لأن أعبث بشعركِ وأرى ردة فعلكم الكيوت والدلوعة 🎀",
-        "65. أفتقدكِ حتى وأنتِ في خاطري، فالتفكير فيكِ لا يروي ظمأ لقياكِ 💭",
-        "66. اشتقت للحظات الصمت الجميلة التي تجمعنا دون الحاجة لكلام 🤐",
-        "67. أفتقدكِ بقدر ما في الكون من نجوم متلألئة في ليالي الصيف 🌟",
-        "68. اشتقت لأن أشارككِ أسراري الصغيرة والكبيرة بلا خوف ولا تردد 🔐",
-        "69. أفتقدكِ حين تشرق الشمس وحين تغيب، فكل أوقاتي مرتبطة بكِ 🌅",
-        "70. اشتقت لدفء يديكِ الباردتين حين تبحثان عن الدفء بين كفيّ 🤝",
-        "71. أفتقدكِ يا من أعدتها للحياة بعد أن كانت مواتاً وسكوناً رمادياً 🌪️",
-        "72. اشتقت لأن أسمع صوتكِ أول ما أستيقظ وآخر ما أنام على صوته 📞",
-        "73. أفتقدكِ بقدر اشتياق الأرض للعشب والأزهار بعد فصل الشتاء 🌸",
-        "74. اشتقت لأن أرى ملامح وجهكِ البريئة وأنتِ مركزة في عملكِ أو دراستكِ 💻",
-        "75. أفتقدكِ حين أسمع أداء أغنية كنا نرددها معاً بسعادة 🎵",
-        "76. اشتقت لأن أقول لكِ صباح الخير بطريقة تختلف عن كل الناس ☀️",
-        "77. أفتقدكِ في تفاصيل يومي السريعة والبطيئة على حد سواء 🏃‍♂️",
-        "78. اشتقت لأن أقبل رأسكِ وأخبركِ أنني سأظل أحميكِ طوال العمر 👑",
-        "79. أفتقدكِ وكأن غيابكِ ينزع جزءاً أساسياً من روحي وقلبي 🧩",
-        "80. اشتقت لنبرة حنانكِ الخاصة التي لا أسمعها إلا منكِ وحدكِ 🎶",
-        "81. أفتقدكِ بقدر شوق العطشان لجرعة ماء باردة في يوم صيفي حار 💧",
-        "82. اشتقت لأن أكون سبب ابتسامتكِ الوحيد في الأيام المتعبة 🎈",
-        "83. أفتقدكِ يا قطتي المدللة ويا أميرة قلبي المتفرجدة على عرشه 🐱👑",
-        "84. اشتقت لخطواتكِ الخفيفة وهي تقترب مني لأستقبلها بشوق عارم 👣",
-        "85. أفتقدكِ حين يمر اسمكِ صدفة أمامي فأبتسم كالمجنون وحدي 😄",
-        "86. اشتقت لأن أنظر في عينيكِ وأقرأ رسائل الحب المخبأة في عمقيهما 💌",
-        "87. أفتقدكِ حين يشتد بي الحنين وأجد هاتفي خالياً من رسالة منكِ 📱",
-        "88. اشتقت لأن أستمد قوتي من طاقتكِ الإيجابية وحنانكِ الجارف 💪❤️",
-        "89. أفتقدكِ وكأن العالم كله صامت ولا صوت يعلو فوق صوت اشتياقي لكِ 🔇",
-        "90. اشتقت لأن أحكي لكِ عن تفاصيل يومي التافهة وتستمعي لي بشغف 🗣️",
-        "91. أفتقدكِ بقدر حبات الرمل في الصحراء وبعدد قطرات البحر الشاسع 🏖️",
-        "92. اشتقت لأن أشارككِ طعامي ومشروبي المفضل وتضحكي عليّ 🍕",
-        "93. أفتقدكِ حين يحل الليل بهدوءه المخيف فأبحث عن طيفكِ لأأنس به 🌃",
-        "94. اشتقت لأن أضع رأسي على كتفكِ وأنسى هموم الدنيا وأثقالها 🛋️",
-        "95. أفتقدكِ يا من جعلتِ لحياتي طعماً آخر ومعنىً أعمق بكثير 🍒",
-        "96. اشتقت لملامح وجهكِ حين تعصبين وتغارين عليّ بشكل كيوت 😡",
-        "97. أفتقدكِ بقدر ما أتمنى أن أمضي بقية عمري بجانبكِ بلا فراق 💍",
-        "98. اشتقت لكل خطأ طفيف كنا نصلحه بنقاش لطيف وضحكة عريضة 😂",
-        "99. أفتقدكِ حين أتذكر وعودنا المستقبلية وكيف سنبني عالمنا معاً 🏰",
-        "100. اشتقت لأن أقول لكِ أحبكِ بصوت خافت وأنتِ في حضني 🤫❤️",
-        "101. أفتقدكِ وكأنكِ الهواء الذي أتنفسه، وكلما غبتِ شعرت بالاختناق 💨",
-        "102. اشتقت لأن أرى لمعة السعادة في عينيكِ كلما فاجأتكِ بشيء تحبينه 🎁",
-        "103. أفتقدكِ بقدر المسافة بين قلبي وقلبكِ، رغم أنكِ تسكنين وسطه 🎯",
-        "104. اشتقت لأن أعاتبكي بحب على غيابكِ الطويل وتعتذري لي بابتسامة سحرية 🌹",
-        "105. أفتقدكِ وكأن كل قصائد الحب التي كتبت في التاريخ كُتبت لأجلكِ 📖",
-        "106. اشتقت لأن أمسك بيدكِ الباردة وأدفئها بين كفيّ بحناني كله 🔥",
-        "107. أفتقدكِ حين أرى ثنائياً يسيران معاً فأتمنى لو كنا مكانهما الآن 👫",
-        "108. اشتقت لكل دقيقة أمضيناها معاً نتحدث عن أحلامنا البريئة 🌠",
-        "109. أفتقدكِ بقدر ما يملأ قلبي من حنين وشوق جارف لا ينطفئ أبداً 🌋",
-        "110. اشتقت لأن أشم رائحة شعركِ وأنسى بها كل عناء وسفر طويل 🌸",
-        "111. أفتقدكِ يا من غيرتِ مجرى أيامي وجعلتِ لعمري عنواناً جميلاً 📌",
-        "112. اشتقت لأن أتأمل ملامحكِ الهادئة وأنتِ نائمة كالملائكة 👼",
-        "113. أفتقدكِ حين أقوم بكل شيء وحدي وأتمنى لو كنتِ تساعديني بمرحكِ 🛠️",
-        "114. اشتقت لكلمات التشجيع التي كنتِ تهمسين بها في أذني وقت ضعفي 📣",
-        "115. أفتقدكِ بقدر ما أحلم بيوم نلتقي فيه ولا نفترق أبداً حتى الموت 🕊️",
-        "116. اشتقت لنظرة العتاب اللطيفة حين أتأخر عليكِ بالرد ⏱️",
-        "117. أفتقدكِ وكأن الشوق مرض لا شفاء منه إلا برؤياكِ وسماع صوتكِ 💊",
-        "118. اشتقت لأن أكتب اسمكِ على رمل الشاطئ وأترك الأمواج تحافظ عليه 🌊",
-        "119. أفتقدكِ يا أجمل وردة نبتت في بستان عمري وأنتِ سر سعادتي الأبدية 🌷",
-        "120. اشتقت لكِ بجميع تفاصيلكِ، بحزنكِ وفرحكِ، بغضبكِ رضاكِ، فأنتِ كل شيء لي ❤️"
-    ];
 
-    db.ref('messages').on('value', (snapshot) => {
-        const data = snapshot.val();
-        window.randomMessages = data ? data : defaultMessages;
-        renderAdminLists();
-    });
+/* البيانات */
 
-    db.ref('events').on('value', (snapshot) => {
-        const data = snapshot.val();
-        window.events = data ? data : defaultEvents;
-        renderCounters();
-        renderAdminLists();
-    });
+let data = JSON.parse(
+    localStorage.getItem("secretSpaceData")
+) || {
 
-    db.ref('memories').on('value', (snapshot) => {
-        const data = snapshot.val();
-        window.memories = data ? data : [{ id: 1, title: "أول لقاء مميز ✨", desc: "اليوم الذي بدأت فيه أحلى قصة.", media: "" }];
-        renderMemories();
-        renderAdminLists();
-    });
+    settings:{
+        title:"مساحتنا الخاصة ❤️",
+        names:"AMINA ♾️ OUSSAMA",
+        subtitle:"كل لحظة معك بداية لذكرى أجمل 🌸",
+        quote:
+        "إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️"
+    },
 
-    // التحكم في مشغل الموسيقى
-    const music = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('playMusicBtn');
-
-    function toggleMusic() {
-        if (music.paused) {
-            music.play().then(() => {
-                musicBtn.innerText = "إيقاف ⏸";
-                musicBtn.style.background = "#e11d48";
-            }).catch(e => {
-                alert("تعذر تشغيل الصوت تلقائياً، يرجى المحاولة مرة أخرى.");
-            });
-        } else {
-            music.pause();
-            musicBtn.innerText = "تشغيل ▶";
-            musicBtn.style.background = "#f43f5e";
+    events:[
+        {
+            id:1,
+            title:"بداية تعارفنا ✨",
+            date:"2025-03-02"
+        },
+        {
+            id:2,
+            title:"تاريخ ارتباطنا الرسمي ❤️",
+            date:"2026-01-01"
         }
-    }
+    ],
 
-    function renderCounters() {
-        const container = document.getElementById('countersContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        (window.events || defaultEvents).forEach(ev => {
-            container.innerHTML += `
-                <div class="counter-box">
-                    <p style="color: #fda4af; font-size: 0.85rem; font-weight: bold;">${ev.title}:</p>
-                    <div class="timer" data-date="${ev.date}">
-                        <div class="time-unit"><span class="time-num years">0</span><span class="time-label">سنة</span></div>
-                        <div class="time-unit"><span class="time-num months">0</span><span class="time-label">شهر</span></div>
-                        <div class="time-unit"><span class="time-num days">0</span><span class="time-label">يوم</span></div>
-                        <div class="time-unit"><span class="time-num hours">0</span><span class="time-label">ساعة</span></div>
-                        <div class="time-unit"><span class="time-num minutes">0</span><span class="time-label">دقيقة</span></div>
-                        <div class="time-unit"><span class="time-num seconds">0</span><span class="time-label">ثانية</span></div>
-                    </div>
+    messages:[
+        "أشتاق إليكِ كثيراً، وأتمنى أن تكوني بخير دائماً ❤️",
+        "بعض الأشخاص يجعلون الحياة أجمل بمجرد وجودهم 🌸",
+        "كل ذكرى جميلة معك تستحق أن تبقى للأبد ✨",
+        "أتمنى أن تبتسمي اليوم، لأن ابتسامتك تستحق كل شيء 💕",
+        "مهما مر الوقت، تبقى الذكريات الجميلة في القلب ❤️",
+        "وجودك في حياتي جعل للكثير من الأيام معنى أجمل 🌷",
+        "أحياناً تكفي ذكرى جميلة واحدة لتجعل يومنا أفضل ✨",
+        "أتمنى أن تجمعنا دائماً أيام أجمل من التي مضت 💗",
+        "كل لحظة جميلة تصبح يوماً ما ذكرى نبتسم عندما نتذكرها 🎀",
+        "رسالة صغيرة لتذكيرك بأنك شخص مميز جداً ❤️"
+    ],
+
+    memories:[
+        {
+            id:1,
+            title:"أول ذكرى ✨",
+            desc:"هنا يمكنك إضافة أجمل ذكرياتكم.",
+            media:""
+        }
+    ]
+};
+
+
+/* حفظ */
+
+function saveData(){
+
+    localStorage.setItem(
+        "secretSpaceData",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* الإعدادات */
+
+function renderSettings(){
+
+    document.getElementById("siteTitle")
+        .textContent=data.settings.title;
+
+    document.getElementById("names")
+        .textContent=data.settings.names;
+
+    document.getElementById("subtitle")
+        .textContent=data.settings.subtitle;
+
+    document.getElementById("quote")
+        .textContent=data.settings.quote;
+
+
+    document.getElementById("editTitle")
+        .value=data.settings.title;
+
+    document.getElementById("editNames")
+        .value=data.settings.names;
+
+    document.getElementById("editSubtitle")
+        .value=data.settings.subtitle;
+
+    document.getElementById("editQuote")
+        .value=data.settings.quote;
+
+}
+
+
+function saveSettings(){
+
+    data.settings.title =
+        document.getElementById("editTitle").value;
+
+    data.settings.names =
+        document.getElementById("editNames").value;
+
+    data.settings.subtitle =
+        document.getElementById("editSubtitle").value;
+
+    data.settings.quote =
+        document.getElementById("editQuote").value;
+
+    saveData();
+    renderSettings();
+
+    alert("تم حفظ التغييرات ❤️");
+
+}
+
+
+/* العدادات */
+
+function renderEvents(){
+
+    const box =
+        document.getElementById("eventsContainer");
+
+    box.innerHTML="";
+
+
+    data.events.forEach(ev=>{
+
+        box.innerHTML+=`
+
+        <div class="card">
+
+            <div class="section-title">
+                ${escapeHTML(ev.title)}
+            </div>
+
+            <div class="timer"
+                 data-date="${ev.date}">
+
+                <div class="unit">
+                    <span class="number years">0</span>
+                    <span class="label">سنة</span>
                 </div>
-            `;
-        });
-    }
 
-    function updateTimers() {
+                <div class="unit">
+                    <span class="number months">0</span>
+                    <span class="label">شهر</span>
+                </div>
+
+                <div class="unit">
+                    <span class="number days">0</span>
+                    <span class="label">يوم</span>
+                </div>
+
+                <div class="unit">
+                    <span class="number hours">0</span>
+                    <span class="label">ساعة</span>
+                </div>
+
+                <div class="unit">
+                    <span class="number minutes">0</span>
+                    <span class="label">دقيقة</span>
+                </div>
+
+                <div class="unit">
+                    <span class="number seconds">0</span>
+                    <span class="label">ثانية</span>
+                </div>
+
+            </div>
+
+        </div>
+        `;
+
+    });
+
+}
+
+
+function updateTimers(){
+
+    document
+    .querySelectorAll(".timer")
+    .forEach(timer=>{
+
+        const start =
+            new Date(
+                timer.dataset.date+"T00:00:00"
+            );
+
         const now = new Date();
-        document.querySelectorAll('.timer').forEach(timer => {
-            const targetDate = new Date(timer.getAttribute('data-date'));
-            let diff = now - targetDate;
-            if(diff > 0) {
-                let years = now.getFullYear() - targetDate.getFullYear();
-                let months = now.getMonth() - targetDate.getMonth();
-                let days = now.getDate() - targetDate.getDate();
 
-                if (days < 0) {
-                    months--;
-                    let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                    days += prevMonth.getDate();
-                }
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
+        if(now < start) return;
 
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / 1000 / 60) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
+        let years =
+            now.getFullYear() -
+            start.getFullYear();
 
-                timer.querySelector('.years').innerText = years;
-                timer.querySelector('.months').innerText = months;
-                timer.querySelector('.days').innerText = days;
-                timer.querySelector('.hours').innerText = hours;
-                timer.querySelector('.minutes').innerText = minutes;
-                timer.querySelector('.seconds').innerText = seconds;
-            }
-        });
-    }
-    setInterval(updateTimers, 1000);
+        let months =
+            now.getMonth() -
+            start.getMonth();
 
-    function renderMemories() {
-        const container = document.getElementById('memoriesContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        (window.memories || []).forEach(mem => {
-            let mediaHTML = '';
-            if(mem.media) {
-                if(mem.media.includes('mp4') || mem.media.includes('webm') || mem.media.includes('video')) {
-                    mediaHTML = `<video src="${mem.media}" controls></video>`;
-                } else {
-                    mediaHTML = `<img src="${mem.media}" alt="Memory Media">`;
-                }
-            }
-            container.innerHTML += `
-                <div class="card">
-                    <h3>${mem.title}</h3>
-                    <p>${mem.desc}</p>
-                    ${mediaHTML}
-                </div>
-            `;
-        });
-    }
+        let days =
+            now.getDate() -
+            start.getDate();
 
-    function showRandomMessage() {
-        const msgs = window.randomMessages || defaultMessages;
-        const msgBox = document.getElementById('secretMessage');
-        if(msgs.length === 0) {
-            msgBox.innerText = "لا توجد رسائل مضافة بعد!";
-        } else {
-            const randomIdx = Math.floor(Math.random() * msgs.length);
-            msgBox.innerText = msgs[randomIdx];
-        }
-        msgBox.style.display = 'block';
-    }
 
-    let clickCount = 0;
-    function secretAdminTrigger() {
-        clickCount++;
-        setTimeout(() => { clickCount = 0; }, 1000);
-        if (clickCount === 3) {
-            clickCount = 0;
-            const pwd = prompt("أدخل كلمة السر الخاصة بك (1976):");
-            if (pwd === "1976") {
-                document.getElementById('adminPanel').style.display = 'block';
-                renderAdminLists();
-            } else if (pwd !== null) {
-                alert("كلمة السر خاطئة!");
-            }
-        }
-    }
+        if(days < 0){
 
-    function closeAdmin() {
-        document.getElementById('adminPanel').style.display = 'none';
-    }
+            months--;
 
-    function renderAdminLists() {
-        const rList = document.getElementById('adminRandomList');
-        if(rList) {
-            rList.innerHTML = '';
-            (window.randomMessages || defaultMessages).forEach((msg, idx) => {
-                rList.innerHTML += `<div class="list-item"><span>${msg.substring(0,30)}...</span> <button class="delete-btn" onclick="deleteRandom(${idx})">حذف</button></div>`;
-            });
+            days += new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                0
+            ).getDate();
+
         }
 
-        const eList = document.getElementById('adminEventsList');
-        if(eList) {
-            eList.innerHTML = '';
-            (window.events || defaultEvents).forEach((ev, idx) => {
-                eList.innerHTML += `<div class="list-item"><span>${ev.title} (${ev.date})</span> <button class="delete-btn" onclick="deleteEvent(${idx})">حذف</button></div>`;
-            });
+
+        if(months < 0){
+
+            years--;
+            months += 12;
+
         }
 
-        const mList = document.getElementById('adminMemoriesList');
-        if(mList) {
-            mList.innerHTML = '';
-            (window.memories || []).forEach((mem, idx) => {
-                mList.innerHTML += `<div class="list-item"><span>${mem.title}</span> <button class="delete-btn" onclick="deleteMemory(${idx})">حذف</button></div>`;
-            });
-        }
+
+        const diff = now - start;
+
+        const hours =
+            Math.floor(diff/3600000)%24;
+
+        const minutes =
+            Math.floor(diff/60000)%60;
+
+        const seconds =
+            Math.floor(diff/1000)%60;
+
+
+        timer.querySelector(".years")
+            .textContent=years;
+
+        timer.querySelector(".months")
+            .textContent=months;
+
+        timer.querySelector(".days")
+            .textContent=days;
+
+        timer.querySelector(".hours")
+            .textContent=hours;
+
+        timer.querySelector(".minutes")
+            .textContent=minutes;
+
+        timer.querySelector(".seconds")
+            .textContent=seconds;
+
+    });
+
+}
+
+
+/* إضافة عداد */
+
+function addEvent(){
+
+    const title =
+        document.getElementById("eventName")
+        .value.trim();
+
+    const date =
+        document.getElementById("eventDate")
+        .value;
+
+    if(!title || !date){
+
+        alert("أدخل الاسم والتاريخ أولاً");
+
+        return;
     }
 
-    function addRandomMessage() {
-        const txt = document.getElementById('newRandomMsg').value;
-        if(txt) {
-            let msgs = window.randomMessages || defaultMessages;
-            msgs.push(txt);
-            db.ref('messages').set(msgs);
-            document.getElementById('newRandomMsg').value = '';
-            alert("تمت الإضافة ونشرها للجميع بنجاح!");
-        }
-    }
-    function deleteRandom(idx) {
-        let msgs = window.randomMessages || defaultMessages;
-        msgs.splice(idx, 1);
-        db.ref('messages').set(msgs);
+
+    data.events.push({
+
+        id:Date.now(),
+        title:title,
+        date:date
+
+    });
+
+
+    saveData();
+
+    document.getElementById("eventName").value="";
+    document.getElementById("eventDate").value="";
+
+    renderEvents();
+    renderAdmin();
+
+}
+
+
+/* الرسائل */
+
+function showMessage(){
+
+    if(!data.messages.length){
+
+        alert("لا توجد رسائل حالياً");
+
+        return;
     }
 
-    function addEvent() {
-        const title = document.getElementById('eventTitle').value;
-        const date = document.getElementById('eventDate').value;
-        if(title && date) {
-            let evs = window.events || defaultEvents;
-            evs.push({ id: Date.now(), title, date });
-            db.ref('events').set(evs);
-            document.getElementById('eventTitle').value = '';
-            document.getElementById('eventDate').value = '';
-            alert("تمت إضافة المناسبة ونشرها للجميع بنجاح!");
-        }
-    }
-    function deleteEvent(idx) {
-        let evs = window.events || defaultEvents;
-        evs.splice(idx, 1);
-        db.ref('events').set(evs);
+
+    const index =
+        Math.floor(
+            Math.random()*data.messages.length
+        );
+
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent =
+        data.messages[index];
+
+    box.style.display="block";
+
+}
+
+
+function addMessage(){
+
+    const text =
+        document.getElementById("newMessage")
+        .value.trim();
+
+
+    if(!text)return;
+
+
+    data.messages.push(text);
+
+    saveData();
+
+    document.getElementById("newMessage")
+        .value="";
+
+    renderAdmin();
+
+}
+
+
+/* الذكريات */
+
+function addMemory(){
+
+    const title =
+        document.getElementById("memoryTitle")
+        .value.trim();
+
+    const desc =
+        document.getElementById("memoryDesc")
+        .value.trim();
+
+    const media =
+        document.getElementById("memoryMedia")
+        .value.trim();
+
+
+    if(!title || !desc){
+
+        alert("أدخل عنوان الذكرى والتفاصيل");
+
+        return;
     }
 
-    function addMemory() {
-        const title = document.getElementById('memTitle').value;
-        const desc = document.getElementById('memDesc').value;
-        const media = document.getElementById('memMedia').value;
-        if(title && desc) {
-            let mems = window.memories || [];
-            mems.unshift({ id: Date.now(), title, desc, media });
-            db.ref('memories').set(mems);
-            document.getElementById('memTitle').value = '';
-            document.getElementById('memDesc').value = '';
-            document.getElementById('memMedia').value = '';
-            alert("تم نشر الذكرى للجميع بنجاح!");
-        }
-    }
-    function deleteMemory(idx) {
-        let mems = window.memories || [];
-        mems.splice(idx, 1);
-        db.ref('memories').set(mems);
-    }
 
-    renderCounters();
-    updateTimers();
+    data.memories.unshift({
+
+        id:Date.now(),
+        title:title,
+        desc:desc,
+        media:media
+
+    });
+
+
+    saveData();
+
+    document.getElementById("memoryTitle").value="";
+    document.getElementById("memoryDesc").value="";
+    document.getElementById("memoryMedia").value="";
+
     renderMemories();
+    renderAdmin();
+
+}
+
+
+function renderMemories(){
+
+    const box =
+        document.getElementById("memoriesContainer");
+
+    box.innerHTML="";
+
+
+    data.memories.forEach(mem=>{
+
+        let media="";
+
+
+        if(mem.media){
+
+            const url =
+                mem.media.toLowerCase();
+
+
+            if(
+                url.includes(".mp4") ||
+                url.includes(".webm") ||
+                url.includes(".mov")
+            ){
+
+                media=`
+                <video
+                    src="${safeURL(mem.media)}"
+                    controls>
+                </video>`;
+
+            }else{
+
+                media=`
+                <img
+                    src="${safeURL(mem.media)}"
+                    alt="ذكرى">`;
+
+            }
+
+        }
+
+
+        box.innerHTML+=`
+
+        <div class="memory">
+
+            <h3>
+                ${escapeHTML(mem.title)}
+            </h3>
+
+            <p>
+                ${escapeHTML(mem.desc)}
+            </p>
+
+            ${media}
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* الإدارة */
+
+function openAdmin(){
+
+    document.getElementById("admin")
+        .style.display="block";
+
+    renderAdmin();
+
+}
+
+
+function closeAdmin(){
+
+    document.getElementById("admin")
+        .style.display="none";
+
+}
+
+
+/* 5 ضغطات على العنوان */
+
+let clicks=0;
+let clickTimer;
+
+
+document
+.getElementById("siteTitle")
+.addEventListener("click",()=>{
+
+    clicks++;
+
+    clearTimeout(clickTimer);
+
+    clickTimer=setTimeout(()=>{
+        clicks=0;
+    },1000);
+
+
+    if(clicks===5){
+
+        clicks=0;
+
+        document.getElementById("login")
+            .style.display="flex";
+
+        document.getElementById("password")
+            .focus();
+
+    }
+
+});
+
+
+/* الدخول */
+
+function checkPassword(){
+
+    const pass =
+        document.getElementById("password")
+        .value;
+
+
+    if(pass === ADMIN_PASSWORD){
+
+        document.getElementById("login")
+            .style.display="none";
+
+        document.getElementById("password")
+            .value="";
+
+        document.getElementById("loginError")
+            .textContent="";
+
+        openAdmin();
+
+    }else{
+
+        document.getElementById("loginError")
+            .textContent="كلمة المرور خاطئة ❌";
+
+    }
+
+}
+
+
+/* قائمة الإدارة */
+
+function renderAdmin(){
+
+    const events =
+        document.getElementById("eventsAdmin");
+
+    events.innerHTML="";
+
+
+    data.events.forEach(ev=>{
+
+        events.innerHTML+=`
+
+        <div class="item">
+
+            <span>
+                ${escapeHTML(ev.title)}
+                <br>
+                ${ev.date}
+            </span>
+
+            <button
+                class="delete"
+                onclick="deleteEvent(${ev.id})">
+                حذف
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    const messages =
+        document.getElementById("messagesAdmin");
+
+    messages.innerHTML="";
+
+
+    data.messages.forEach((msg,index)=>{
+
+        messages.innerHTML+=`
+
+        <div class="item">
+
+            <span>
+                ${escapeHTML(msg)}
+            </span>
+
+            <button
+                class="delete"
+                onclick="deleteMessage(${index})">
+                حذف
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    const memories =
+        document.getElementById("memoriesAdmin");
+
+    memories.innerHTML="";
+
+
+    data.memories.forEach(mem=>{
+
+        memories.innerHTML+=`
+
+        <div class="item">
+
+            <span>
+                ${escapeHTML(mem.title)}
+            </span>
+
+            <button
+                class="delete"
+                onclick="deleteMemory(${mem.id})">
+                حذف
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+function deleteEvent(id){
+
+    if(!confirm("حذف هذا العداد؟"))return;
+
+    data.events =
+        data.events.filter(
+            x=>x.id!==id
+        );
+
+    saveData();
+
+    renderEvents();
+    renderAdmin();
+
+}
+
+
+function deleteMessage(index){
+
+    if(!confirm("حذف هذه الرسالة؟"))return;
+
+    data.messages.splice(index,1);
+
+    saveData();
+    renderAdmin();
+
+}
+
+
+function deleteMemory(id){
+
+    if(!confirm("حذف هذه الذكرى؟"))return;
+
+    data.memories =
+        data.memories.filter(
+            x=>x.id!==id
+        );
+
+    saveData();
+
+    renderMemories();
+    renderAdmin();
+
+}
+
+
+/* حماية */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function safeURL(url){
+
+    const x=String(url||"");
+
+    if(
+        x.startsWith("https://") ||
+        x.startsWith("http://")
+    ){
+        return escapeHTML(x);
+    }
+
+    return "";
+
+}
+
+
+/* تشغيل */
+
+renderSettings();
+renderEvents();
+renderMemories();
+
+setInterval(
+    updateTimers,
+    1000
+);
+
+updateTimers();
+
 </script>
 
 </body>
