@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Secret Space ❤️</title>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -24,20 +22,18 @@
             position: relative;
             overflow-x: hidden;
         }
-        /* خلفية هالو كيتي كيوت ومتنوعة وغير متكررة */
+        /* خلفية ملصقات هالو كيتي وتيماكس بشكل خافت */
         body::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
-                radial-gradient(circle, rgba(244,63,94,0.08) 10%, transparent 10%),
-                url('https://i.pinimg.com/originals/8e/52/63/8e5263a23a31bb36371714bc1912f2ee.png'), 
-                url('https://i.pinimg.com/736x/82/35/6c/82356c2227d825c952b610c144e3752e.jpg'),
-                url('https://i.pinimg.com/736x/2c/8f/c7/2c8fc72545bc6c8872b8140db59cb833.jpg'),
-                url('https://i.pinimg.com/736x/e4/14/67/e4146747b6672323a63327d55f013d7e.jpg');
-            background-repeat: repeat, space, space, space, space;
-            background-size: 160px, 130px, 140px, 120px, 150px;
-            opacity: 0.16;
+                radial-gradient(circle, rgba(244,63,94,0.05) 10%, transparent 10%),
+                url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=500&auto=format&fit=crop&q=60'), 
+                url('https://i.pinimg.com/originals/8e/52/63/8e5263a23a31bb36371714bc1912f2ee.png');
+            background-repeat: repeat, space, space;
+            background-size: 150px, 120px, 120px;
+            opacity: 0.12;
             z-index: -1;
             pointer-events: none;
         }
@@ -69,7 +65,7 @@
             font-size: 0.85rem;
             margin-bottom: 25px;
         }
-        .counter-box, .chat-box {
+        .counter-box {
             background: rgba(30, 41, 59, 0.85);
             backdrop-filter: blur(8px);
             border: 1px solid #334155;
@@ -77,7 +73,6 @@
             padding: 15px;
             margin-bottom: 20px;
             box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.1);
-            text-align: right;
         }
         .timer {
             display: flex;
@@ -87,7 +82,6 @@
         .time-unit {
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
         .time-num {
             font-size: 1.3rem;
@@ -108,7 +102,7 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
         }
@@ -125,57 +119,9 @@
             border-radius: 12px;
             margin-bottom: 20px;
             line-height: 1.6;
+            animation: fadeIn 0.4s ease-in-out;
             font-size: 1.05rem;
             font-weight: 500;
-        }
-        .chat-messages {
-            height: 200px;
-            overflow-y: auto;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .chat-msg {
-            background: #1e293b;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            max-width: 85%;
-        }
-        .chat-msg .sender {
-            font-size: 0.7rem;
-            color: #fb7185;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 2px;
-        }
-        .chat-input-area {
-            display: flex;
-            gap: 5px;
-            flex-direction: column;
-        }
-        .chat-input-area input {
-            width: 100%;
-            padding: 8px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: white;
-            border-radius: 6px;
-            font-size: 0.85rem;
-        }
-        .chat-input-area button {
-            background: #f43f5e;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
         }
         .card {
             background: rgba(30, 41, 59, 0.85);
@@ -185,11 +131,26 @@
             margin-bottom: 15px;
             text-align: right;
             border-right: 4px solid #f43f5e;
+            position: relative;
         }
-        .card h3 { font-size: 1rem; color: #f8fafc; margin-bottom: 5px; }
-        .card p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 10px; }
-        .card img { width: 100%; border-radius: 8px; margin-top: 10px; max-height: 300px; object-fit: cover; }
-        
+        .card h3 {
+            font-size: 1rem;
+            color: #f8fafc;
+            margin-bottom: 5px;
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .card img, .card video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        /* لوحة التحكم السرية */
         .admin-panel {
             display: none;
             background: #020617;
@@ -198,6 +159,13 @@
             padding: 15px;
             margin-top: 25px;
             text-align: right;
+        }
+        .admin-panel h3 {
+            color: #f43f5e;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 5px;
         }
         .admin-panel input, .admin-panel textarea {
             width: 100%;
@@ -219,117 +187,231 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
-        .delete-btn { background: #ef4444 !important; font-size: 0.75rem; padding: 4px 8px; float: left; }
-        .list-item { background: #0f172a; padding: 8px; border-radius: 6px; margin-bottom: 8px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+        .delete-btn {
+            background: #ef4444 !important;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            float: left;
+        }
+        .list-item {
+            background: #0f172a;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- العنوان السري: انقر 3 مرات لفتح لوحة التحكم -->
     <h1 onclick="secretAdminTrigger()">مساحتنا الخاصة ❤️</h1>
     <div class="couple-name">AMINA ♾️ OUSSAMA</div>
     <p class="subtitle">كل لحظة معك هي بداية لذكرى أجمل</p>
 
-    <!-- العدادات -->
+    <!-- العدادات (سنوات، أشهر، أيام، ساعات، دقائق، ثواني) -->
     <div id="countersContainer"></div>
 
-    <!-- زر رسائل الشوق -->
+    <!-- زر اشتقت لك والرسائل (أكثر من 150 رسالة) -->
     <button class="btn-miss" onclick="showRandomMessage()">اضغطي هنا عندما تشتاقين لي 💌</button>
     <div class="message-box" id="secretMessage"></div>
 
-    <!-- قسم الشات المباشر -->
-    <div class="chat-box">
-        <h3 style="color: #f43f5e; font-size: 1rem; margin-bottom: 8px;">💬 الشات المباشر بيننا</h3>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input-area">
-            <input type="text" id="chatName" placeholder="اكتب اسمك هنا...">
-            <input type="text" id="chatText" placeholder="اكتب رسالتك واضغط إرسال..." onkeypress="checkEnter(event)">
-            <button onclick="sendChatMessage()">إرسال الرسالة</button>
-        </div>
-    </div>
-
-    <!-- قائمة الذكريات -->
+    <!-- قائمة الذكريات والوسائط -->
     <div id="memoriesContainer"></div>
 
     <!-- لوحة التحكم السرية -->
     <div class="admin-panel" id="adminPanel">
-        <h3 style="color:#f43f5e; border-bottom:1px solid #1e293b; padding-bottom:5px; margin-bottom:10px;">لوحة التحكم 🔒</h3>
-        <h3>إدارة رسائل الشوق</h3>
-        <textarea id="newRandomMsg" placeholder="رسالة جديدة..."></textarea>
-        <button onclick="addRandomMessage()">إضافة رسالة</button>
-        <div id="adminRandomList" style="max-height: 100px; overflow-y: auto; margin-bottom: 10px;"></div>
-
-        <h3>إضافة ذكرى جديدة</h3>
-        <input type="text" id="memTitle" placeholder="العنوان">
-        <textarea id="memDesc" placeholder="التفاصيل..."></textarea>
-        <input type="text" id="memMedia" placeholder="رابط الصورة URL">
-        <button onclick="addMemory()">نشر الذكرى للجميع</button>
-        <div id="adminMemoriesList" style="max-height: 120px; overflow-y: auto;"></div>
+        <h3>لوحة التحكم الخاصة بك 🔒</h3>
         
-        <button style="background:#334155; width:100%; margin-top:10px;" onclick="closeAdmin()">إغلاق</button>
+        <h3>إدارة رسائل الشوق (أكثر من 150 جملة)</h3>
+        <textarea id="newRandomMsg" placeholder="اكتب رسالة جديدة..."></textarea>
+        <button onclick="addRandomMessage()">إضافة رسالة جديدة</button>
+        <div id="adminRandomList" style="max-height: 120px; overflow-y: auto; margin-bottom: 15px;"></div>
+
+        <h3>إضافة مناسبة أو عداد جديد</h3>
+        <input type="text" id="eventTitle" placeholder="اسم المناسبة">
+        <input type="date" id="eventDate">
+        <button onclick="addEvent()">إضافة المناسبة</button>
+        <div id="adminEventsList" style="max-height: 120px; overflow-y: auto; margin-bottom: 15px;"></div>
+
+        <h3>إضافة ذكرى جديدة (صورة/فيديو/نص)</h3>
+        <input type="text" id="memTitle" placeholder="عنوان الذكرى">
+        <textarea id="memDesc" placeholder="تفاصيل الذكرى..."></textarea>
+        <input type="text" id="memMedia" placeholder="رابط الصورة أو الفيديو (مباشر URL)">
+        <button onclick="addMemory()">حفظ ونشر الذكرى</button>
+        <div id="adminMemoriesList" style="max-height: 150px; overflow-y: auto;"></div>
+        
+        <button style="background:#334155; width:100%; margin-top:15px;" onclick="closeAdmin()">إغلاق لوحة التحكم</button>
     </div>
 </div>
 
 <script>
-    const firebaseConfig = {
-        databaseURL: "https://siflow-space-default-rtdb.firebaseio.com/"
-    };
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-    const db = firebase.database();
-
     let defaultMessages = [
         "تذكري دائماً أنكِ أجمل جزء في يومي وحياتي كلها! ❤️",
         "حتى وأنتِ بعيدة، أنتِ أقرب شيء لقلبي في كل ثانية. 🌸",
-        "مهما كان يومكِ متعباً، تذكري أن هناك شخصاً يحبكِ جداً وينتظر ضحكتكِ! 🥰"
+        "مهما كان يومكِ متعباً، تذكري أن هناك شخصاً يحبكِ جداً وينتظر ضحكتكِ! 🥰",
+        "عيناكِ هما وطني الأمان، وكل مكان معكِ يصبح جنة صغيرة. ✨",
+        "أنتِ النبض الذي يحرك حياتي، والابتسامة التي تزين وجهي دوماً.",
+        "لو أن الحب كلمات، لكتُبتُ بحقكِ بحوراً لا تنتهي من العشق.",
+        "اشتقت لعينيكِ، لصوتكِ، ولتفاصيلكِ الصغيرة التي تبهج قلبي.",
+        "أنتِ لستِ فقط حبيبتي، أنتِ توأم روحي وكل حياتي.",
+        "أدعو الله في كل صلاة أن يجمعني بكِ ويحفظكِ لي طوال العمر.",
+        "بقربكِ أزاحم الحزن وأنسى كل تعب الدنيا.",
+        "وجودكِ في حياتي يكفي ليجعلني أشعر بأنني امتلكت العالم بأسره.",
+        "كل أغنية حب أستمع إليها أسمع فيها صوتكِ وأتخيلكِ أمامي.",
+        "حين أقول لكِ أحبكِ، أنا لا أقولها عابرة، بل أعيشها في كل نبضة.",
+        "صوتكِ هو الموسيقى المفضلة لدي التي تريح قلبي المتعب.",
+        "أشتاق إليكِ وكأننا لم نلتقِ منذ سنين، رغم أننا افترقنا منذ ساعات.",
+        "أنتِ الحلم الجميل الذي أتحقق منه كل يوم وأحمد الله عليه.",
+        "لا يوجد مكان أحب إلي من قلبي الذي تحتوينه بكل دفء.",
+        "أحبكِ بكل ما فيكِ من عيوب ومزايا، فأنتِ كاملة في عيني.",
+        "مهما بعدت المسافات، قلبي يعيش معكِ أينما كنتِ.",
+        "ابتسامتكِ وحدها قادرة على إنارة أقسى وأظلم أيام حياتي.",
+        "أنتِ النعمة التي أخشى زوالها، والدعاء الدائم في كل سجدة.",
+        "كل تفصيلة صغيرة فيكِ تعني لي الكون وما فيه.",
+        "أنتِ الهدية الجميلة التي أهداني اياها القدر صدفة فملأت كل حياتي.",
+        "أحنُّ إليكِ شوقاً لا تحمله الكلمات ولا توصفه الحروف.",
+        "دمتِ لي حباً لا ينتهي، ورفيقة دربٍ لا تعوض أبداً.",
+        "أحبكِ بقدر ما تتمنين وأضعاف ما تحبينني.",
+        "أنتِ البداية الجميلة لكل يوم سعيد في حياتي.",
+        "حين أكون معكِ، أتمنى أن تتوقف الساعة لتبقى تلك اللحظات أبدية.",
+        "أنتِ السكن والمأوى لروح متعبة لا ترتاح إلا قربكِ.",
+        "قلبي لا ينبض إلا بحبكِ، وعقلي لا يفكر إلا فيكِ.",
+        "أروع ما في طريقي معكِ هو أنني لا أريد الوصول لنهاية هذا الدرب.",
+        "أنتِ أجمل قصيدة كتبها القدر في كتاب عمري.",
+        "يكفيني فخراً أنكِ تحبينني بنفس القدر الذي أهواكِ به.",
+        "أحبكِ بكل جشعي، أريدكِ لي وحدي، وأغار عليكِ من نسمات الهواء.",
+        "معكِ عرفت معنى السعادة الحقيقية التي لم أختبرها قبلكِ.",
+        "أنتِ النور الذي يضيء عتمة أيامي ويهدي خطاي.",
+        "كل دقيقة تقضيها معي تزيدني تعلقاً بكِ وعشقاً لروحكِ.",
+        "أنتِ الحبيبة والصديقة والأخت وكل العائلة بالنسبة لي.",
+        "أشعر بالدفء والأمان كلما تذكرت أنكِ جزء من حياتي.",
+        "أحبكِ ليس لما أنتِ عليه فحسب، بل لما أكونه حين أكون معكِ.",
+        "أنتِ الأمل الذي يعينني على مواجهة قسوة هذه الحياة.",
+        "كل الأمنيات تختصر في أمنية واحدة: أن تبقي بجانبي للأبد.",
+        "أنتِ السعادة التي أبحث عنها طوال عمري ووجدتها فيكِ.",
+        "عيناكِ هما قصتي المفضلة التي لا أملُّ من قراءتها أبداً.",
+        "أحبكِ عدد النجوم في السماء وقطرات المطر في الشتاء.",
+        "أنتِ نبض قلبي الذي لا يستطيع التوقف عن حبكِ ولو لحظة.",
+        "أغلى ما أملك في هذه الدنيا هو ضحكتكِ ورضاكِ.",
+        "أنتِ الفرحة التي دخلت قلبي صدفة وغيرت حياتي بأكملها.",
+        "أحبكِ بعنف، وأخاف عليكِ بضعف، وأشتاق لكِ بلهفة.",
+        "أنتِ الحلم الذي لولا وجوده لما استطعت إكمال طريقي.",
+        "كلما نظرتُ إليكِ أدركت كم أنا محظوظ بوجودكِ قربي.",
+        "أنتِ النبضة الدافئة في برد هذا العالم.",
+        "أحبكِ بحجم السماء وبلا حدود ولا قيود.",
+        "أنتِ الأمان الذي ألوذ به كلما ضاقت بي الدنيا.",
+        "أشتاق لحديثكِ الطويل الذي لا يملُّ منه قلبي أبداً.",
+        "أنتِ الروح الطيبة التي ندر وجودها في هذا الزمان.",
+        "أحبكِ بكل لغات العالم وبكل نبضة من نبضات قلبي.",
+        "أنتِ الحكاية الأجمل التي سأرويها لأيامنا القادمة بفخر.",
+        "معكِ أنتِ فقط أكون على طبيعتي وبدون أي قيود.",
+        "أنتِ النسمة اللطيفة التي تهب على روحي فتنعشها.",
+        "أحبكِ وسأبقى أحبكِ حتى آخر أنفاس في حياتي.",
+        "أنتِ الدفء في كل شتاء، والظل في كل صيف.",
+        "أشتاق لابتسامتكِ التي تنسيني هموم الدنيا وما فيها.",
+        "أنتِ الإنسانة الوحيدة التي تستطيع فهم لغة صمتي.",
+        "أحبكِ اليوم وغداً وإلى أن يرتفع هذا الجسد للرفيق الأعلى.",
+        "أنتِ النور الذي أستضيء به في عتمة أيامي الصعبة.",
+        "كل تفاصيلكِ مرسومة بعناية فائقة في قلبي وعقلي.",
+        "أنتِ الضحكة التي ترتسم على وجهي دون أن أدرك.",
+        "أحبكِ لأنكِ تملئين روحي سعادة واطمئناناً لا يوصف.",
+        "أنتِ الدفء الدافئ الذي أرتمي في حضنه لأرتاح من تعب العالم.",
+        "أشتاق لسماع صوتكِ الدافيء مع كل إشراقة صباح ومساء.",
+        "أنتِ الوردة الوحيدة التي أزهرت في بستان عمري المقفر.",
+        "أحبكِ بقدر ما يحب العطشان قطرة الماء في الصحراء.",
+        "أنتِ الأمل الذي لا يخيب أبداً واليقين الذي لا يتزعزع.",
+        "أنتِ روحي التي أعيش بها وعقلي الذي أفكر به.",
+        "أحبكِ بكل ما أوتي من قوة وبكل ما أملك من مشاعر.",
+        "أنتِ الحبيبة التي طالما حلمت بها وتمنيت لقاءها.",
+        "أشتاق لكتفيكِ لأتكيء عليهما حين تثقل الدنيا على كاهلي.",
+        "أنتِ النجم الساطع في سماء ليلي المظلم.",
+        "أحبكِ ولن أكتفي منكِ مهما طال بنا العمر وتغيرت الأحوال.",
+        "أنتِ الابتسامة التي أبدأ بها يومي والراحة التي أنهي بها ليلتي.",
+        "أنتِ الروح التي تسري في عروقي وتمنحني الحياة.",
+        "أحبكِ بكل جنون العالم وبأعظم معاني العشق.",
+        "أنتِ الأمان الذي يزيل عني كل خوف وقلق.",
+        "أشتاق لبريق عينيكِ الساحرتين كلما غبتِ عني.",
+        "أنتِ الرفيقة المثالية لكل دروب الحياة بحلوها ومُرها.",
+        "أحبكِ يا من ملكتِ القلب والروح والعقل معاً.",
+        "أنتِ النسيم العليل الذي يداوي جراحات أيامي.",
+        "أنتِ الحلم الأجمل الذي تحقق وأصبح واقعاً أعيشه معكِ.",
+        "أحبكِ فوق حب المحبين حباً، وفوق شوق المشتاقين شوقاً.",
+        "أنتِ النور الذي ينير عتمة طريقي ويهديني.",
+        "أشتاق لكِ شوق العصفور لعشه بعد طول مغيب.",
+        "أنتِ الصديقة والحبيبة وكل شيء جميل في حياتي.",
+        "أحبكِ بكل تفاصيلكِ الصغيرة والكبيرة التي أعشقها.",
+        "أنتِ الابتسامة الحقيقية التي لا يمكن أن تزييفها الأيام.",
+        "أنتِ الدفء والحنان الذي أبحث عنه في هذا البرد.",
+        "أحبكِ لأنكِ تفهمينني من نظرة واحدة دون أن أنطق بكلمة.",
+        "أنتِ الروح الجميلة التي نقشت اسمها بحروف من نور في قلبي.",
+        "أشتاق لرؤيتكِ وسماع ضحكتكِ التي تملأ الدنيا سعادة.",
+        "أنتِ الملاذ الآمن لكل عواصف أيامي ومشاكلي.",
+        "أحبكِ عدد أنفاس المخلوقات ورمل السواحل وجبال الأرض.",
+        "أنتِ النبضة التي تعيد الحياة لقلبي الميت.",
+        "أنتِ السعادة التي لا تكتمل أيامي إلا بوجودكِ فيها.",
+        "أحبكِ اليوم أكثر من الأمس، وسأحبكِ غداً أكثر من اليوم.",
+        "أنتِ الوردة الغالية التي أرويها بماء عيوني وروحي.",
+        "أشتاق لكِ كاشتقاق الأرض الجدباء للمطر النازل.",
+        "أنتِ النور الذي لا ينطفئ في حياتي أبداً.",
+        "أحبكِ بكل ما تعنيه كلمة الحب من معاني عميقة.",
+        "أنتِ الحبيبة التي لا يمكنني الاستغناء عنها ولو للحظة.",
+        "أنتِ الفرحة التي تغمر قلبي كلما تذكرت اسمكِ.",
+        "أحبكِ لأنكِ الوحيدة القادرة على تغيير مزاجي السيئ بكلمة.",
+        "أنتِ النسمة التي تطرد عني حرارة الهموم والتعب.",
+        "أشتاق لرائحة عطركِ التي تترك أثراً جميلاً في المكان.",
+        "أنتِ الروح التي لا أستطيع العيش بدونها في هذا العالم.",
+        "أحبكِ فوق كل الكلمات والعبارات التي قد تُقال.",
+        "أنتِ الأمل الباقي في حياتي والبسمة التي لا تغيب.",
+        "أنتِ الملاذ والملجأ الوحيد لقلبي حين يتعرض للرياح العاتية.",
+        "أحبكِ بكل جنون وعقلانية في نفس الوقت.",
+        "أنتِ النجم الذي يهدينا في ظلمات الطرق والمتاهات.",
+        "أشتاق لكِ بكل جوارحي وحواسي ومشاعري الصادقة.",
+        "أنتِ الحبيبة التي لطالما تمنيت أن تكون بجانبي دائماً.",
+        "أحبكِ حتى ينتهي الأجل وتفنى الديار.",
+        "أنتِ النبض الحقيقي الذي يشعرني بأني حي أرزق.",
+        "أنتِ الابتسامة التي أفتخر بها أمام العالم كله.",
+        "أحبكِ لأنكِ أطهر وأطيب قلب عرفته في حياتي.",
+        "أنتِ الدفء الحقيقي الذي أستمد منه قوتي كل يوم.",
+        "أشتاق لكِ كاشتقاق الليل الهادئ لضوء القمر.",
+        "أنتِ الروح الطاهرة التي نقشت في قلبي أروع الذكريات.",
+        "أحبكِ بكل ما أملك من حب وعشق وحنان.",
+        "أنتِ الحبيبة التي تسكنين أعماق روحي ووجداني.",
+        "أنتِ الفرحة التي غمرت أيامي وجعلتها جنة غناء.",
+        "أحبكِ يا أجمل هدية منحني إياها القدر الجميل.",
+        "أنتِ النور الساطع الذي ينير دربي المظلم.",
+        "أشتاق لكِ بكل تفاصيل أيامي وساعات ليلي.",
+        "أنتِ الرفيقة والأم والابنة والحبيبة وكل النساء في نظري.",
+        "أحبكِ بحجم الكون وما فيه من مجرات ونجوم.",
+        "أنتِ الأمان الذي يحيط بي ويحميني من كل شر.",
+        "أنتِ السعادة التي لا أجدها إلا قربكِ ومعكِ.",
+        "أحبكِ وسأبقى أرددها في كل ثانية حتى آخر العمر.",
+        "أنتِ النسمة الجميلة التي تداوي أحزاني وأوجاعي.",
+        "أشتاق إليكِ شوقاً لا يوصفه قلم ولا يكتبه شاعر.",
+        "أنتِ الروح التي تتنفس بها روحي وقلبي.",
+        "أحبكِ بكل صدق ووفاء وإخلاص لا ينتهي.",
+        "أنتِ الحبيبة الغالية التي لا يعوضها أحد في هذا الكون.",
+        "أنتِ النبضة الأولى والأخيرة في قصة عمري."
     ];
 
-    let events = [
+    let randomMessages = JSON.parse(localStorage.getItem('my_messages')) || defaultMessages;
+
+    let events = JSON.parse(localStorage.getItem('my_events')) || [
         { id: 1, title: "بداية تعارفنا ✨", date: "2025-03-02" },
         { id: 2, title: "تاريخ ارتباطنا الرسمي ❤️", date: "2026-01-01" }
     ];
 
-    db.ref('messages').on('value', (snapshot) => {
-        const data = snapshot.val();
-        window.randomMessages = data ? data : defaultMessages;
-    });
-
-    db.ref('memories').on('value', (snapshot) => {
-        const data = snapshot.val();
-        window.memories = data ? data : [{ title: "أول لقاء مميز ✨", desc: "اليوم الذي بدأت فيه أحلى قصة.", media: "" }];
-        renderMemories();
-    });
-
-    db.ref('chat').on('value', (snapshot) => {
-        const chatContainer = document.getElementById('chatMessages');
-        chatContainer.innerHTML = '';
-        const data = snapshot.val();
-        if(data) {
-            Object.values(data).forEach(msg => {
-                chatContainer.innerHTML += `
-                    <div class="chat-msg">
-                        <span class="sender">${msg.name}</span>
-                        <span>${msg.text}</span>
-                    </div>
-                `;
-            });
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-    });
-
-    function sendChatMessage() {
-        const name = document.getElementById('chatName').value.trim();
-        const text = document.getElementById('chatText').value.trim();
-        if(name && text) {
-            db.ref('chat').push({ name, text, time: Date.now() });
-            document.getElementById('chatText').value = '';
-        } else {
-            alert("يرجى كتابة الاسم ورسالتك أولاً!");
-        }
-    }
-
-    function checkEnter(e) {
-        if(e.key === 'Enter') sendChatMessage();
-    }
+    let memories = JSON.parse(localStorage.getItem('my_memories')) || [
+        { id: 1, title: "أول لقاء مميز ✨", desc: "اليوم الذي بدأت فيه أحلى قصة.", media: "" }
+    ];
 
     function renderCounters() {
         const container = document.getElementById('countersContainer');
@@ -357,17 +439,31 @@
             const targetDate = new Date(timer.getAttribute('data-date'));
             let diff = now - targetDate;
             if(diff > 0) {
+                // حساب دقيق للسنوات والأشهر والأيام
                 let years = now.getFullYear() - targetDate.getFullYear();
                 let months = now.getMonth() - targetDate.getMonth();
                 let days = now.getDate() - targetDate.getDate();
-                if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
-                if (months < 0) { years--; months += 12; }
+
+                if (days < 0) {
+                    months--;
+                    let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
                 timer.querySelector('.years').innerText = years;
                 timer.querySelector('.months').innerText = months;
                 timer.querySelector('.days').innerText = days;
-                timer.querySelector('.hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                timer.querySelector('.minutes').innerText = Math.floor((diff / 1000 / 60) % 60);
-                timer.querySelector('.seconds').innerText = Math.floor((diff / 1000) % 60);
+                timer.querySelector('.hours').innerText = hours;
+                timer.querySelector('.minutes').innerText = minutes;
+                timer.querySelector('.seconds').innerText = seconds;
             }
         });
     }
@@ -375,54 +471,74 @@
 
     function renderMemories() {
         const container = document.getElementById('memoriesContainer');
-        if(!container) return;
         container.innerHTML = '';
-        if(window.memories) {
-            window.memories.forEach(mem => {
-                let mediaHTML = mem.media ? `<img src="${mem.media}" alt="Media">` : '';
-                container.innerHTML += `
-                    <div class="card">
-                        <h3>${mem.title}</h3>
-                        <p>${mem.desc}</p>
-                        ${mediaHTML}
-                    </div>
-                `;
-            });
-        }
+        memories.forEach(mem => {
+            let mediaHTML = '';
+            if(mem.media) {
+                if(mem.media.includes('mp4') || mem.media.includes('webm') || mem.media.includes('video')) {
+                    mediaHTML = `<video src="${mem.media}" controls></video>`;
+                } else {
+                    mediaHTML = `<img src="${mem.media}" alt="Memory Media">`;
+                }
+            }
+            container.innerHTML += `
+                <div class="card">
+                    <h3>${mem.title}</h3>
+                    <p>${mem.desc}</p>
+                    ${mediaHTML}
+                </div>
+            `;
+        });
     }
 
     function showRandomMessage() {
-        const msgs = window.randomMessages || defaultMessages;
         const msgBox = document.getElementById('secretMessage');
-        const randomIdx = Math.floor(Math.random() * msgs.length);
-        msgBox.innerText = msgs[randomIdx];
+        if(randomMessages.length === 0) {
+            msgBox.innerText = "لا توجد رسائل مضافة بعد!";
+        } else {
+            const randomIdx = Math.floor(Math.random() * randomMessages.length);
+            msgBox.innerText = randomMessages[randomIdx];
+        }
         msgBox.style.display = 'block';
     }
 
+    // فتح لوحة التحكم بالنقر 3 مرات على العنوان الرئيسي
     let clickCount = 0;
     function secretAdminTrigger() {
         clickCount++;
         setTimeout(() => { clickCount = 0; }, 1000);
         if (clickCount === 3) {
             clickCount = 0;
-            const pwd = prompt("أدخل كلمة السر (1976):");
+            const pwd = prompt("أدخل كلمة السر الخاصة بك (1976):");
             if (pwd === "1976") {
                 document.getElementById('adminPanel').style.display = 'block';
                 renderAdminLists();
+            } else if (pwd !== null) {
+                alert("كلمة السر خاطئة!");
             }
         }
     }
-    function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
+
+    function closeAdmin() {
+        document.getElementById('adminPanel').style.display = 'none';
+    }
 
     function renderAdminLists() {
         const rList = document.getElementById('adminRandomList');
         rList.innerHTML = '';
-        (window.randomMessages || []).forEach((msg, idx) => {
-            rList.innerHTML += `<div class="list-item"><span>${msg.substring(0,25)}...</span> <button class="delete-btn" onclick="deleteRandom(${idx})">حذف</button></div>`;
+        randomMessages.forEach((msg, idx) => {
+            rList.innerHTML += `<div class="list-item"><span>${msg.substring(0,30)}...</span> <button class="delete-btn" onclick="deleteRandom(${idx})">حذف</button></div>`;
         });
+
+        const eList = document.getElementById('adminEventsList');
+        eList.innerHTML = '';
+        events.forEach((ev, idx) => {
+            eList.innerHTML += `<div class="list-item"><span>${ev.title} (${ev.date})</span> <button class="delete-btn" onclick="deleteEvent(${idx})">حذف</button></div>`;
+        });
+
         const mList = document.getElementById('adminMemoriesList');
         mList.innerHTML = '';
-        (window.memories || []).forEach((mem, idx) => {
+        memories.forEach((mem, idx) => {
             mList.innerHTML += `<div class="list-item"><span>${mem.title}</span> <button class="delete-btn" onclick="deleteMemory(${idx})">حذف</button></div>`;
         });
     }
@@ -430,18 +546,36 @@
     function addRandomMessage() {
         const txt = document.getElementById('newRandomMsg').value;
         if(txt) {
-            let msgs = window.randomMessages || defaultMessages;
-            msgs.push(txt);
-            db.ref('messages').set(msgs);
+            randomMessages.push(txt);
+            localStorage.setItem('my_messages', JSON.stringify(randomMessages));
             document.getElementById('newRandomMsg').value = '';
             renderAdminLists();
-            alert("تمت الإضافة للجميع بنجاح!");
+            alert("تمت الإضافة بنجاح!");
         }
     }
     function deleteRandom(idx) {
-        let msgs = window.randomMessages || defaultMessages;
-        msgs.splice(idx, 1);
-        db.ref('messages').set(msgs);
+        randomMessages.splice(idx, 1);
+        localStorage.setItem('my_messages', JSON.stringify(randomMessages));
+        renderAdminLists();
+    }
+
+    function addEvent() {
+        const title = document.getElementById('eventTitle').value;
+        const date = document.getElementById('eventDate').value;
+        if(title && date) {
+            events.push({ id: Date.now(), title, date });
+            localStorage.setItem('my_events', JSON.stringify(events));
+            document.getElementById('eventTitle').value = '';
+            document.getElementById('eventDate').value = '';
+            renderCounters();
+            renderAdminLists();
+            alert("تمت إضافة المناسبة بنجاح!");
+        }
+    }
+    function deleteEvent(idx) {
+        events.splice(idx, 1);
+        localStorage.setItem('my_events', JSON.stringify(events));
+        renderCounters();
         renderAdminLists();
     }
 
@@ -450,25 +584,26 @@
         const desc = document.getElementById('memDesc').value;
         const media = document.getElementById('memMedia').value;
         if(title && desc) {
-            let mems = window.memories || [];
-            mems.unshift({ title, desc, media });
-            db.ref('memories').set(mems);
+            memories.unshift({ id: Date.now(), title, desc, media });
+            localStorage.setItem('my_memories', JSON.stringify(memories));
             document.getElementById('memTitle').value = '';
             document.getElementById('memDesc').value = '';
             document.getElementById('memMedia').value = '';
+            renderMemories();
             renderAdminLists();
-            alert("تم نشر الذكرى للجميع بنجاح!");
+            alert("تم نشر الذكرى بنجاح!");
         }
     }
     function deleteMemory(idx) {
-        let mems = window.memories || [];
-        mems.splice(idx, 1);
-        db.ref('memories').set(mems);
+        memories.splice(idx, 1);
+        localStorage.setItem('my_memories', JSON.stringify(memories));
+        renderMemories();
         renderAdminLists();
     }
 
     renderCounters();
     updateTimers();
+    renderMemories();
 </script>
 
 </body>
