@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Secret Space ❤️</title>
+    <!-- استدعاء قاعدة البيانات السحابية Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -22,20 +25,19 @@
             position: relative;
             overflow-x: hidden;
         }
-        /* خلفية هالو كيتي كيوت ومتنوعة وغير متكررة */
+        /* خلفية هالو كيتي كيوت ومتنوعة وواضحة */
         body::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
-                radial-gradient(circle, rgba(244,63,94,0.06) 10%, transparent 10%),
-                url('https://i.pinimg.com/originals/8e/52/63/8e5263a23a31bb36371714bc1912f2ee.png'), 
-                url('https://i.pinimg.com/736x/82/35/6c/82356c2227d825c952b610c144e3752e.jpg'),
-                url('https://i.pinimg.com/736x/2c/8f/c7/2c8fc72545bc6c8872b8140db59cb833.jpg'),
+                url('https://images.unsplash.com/photo-1534447677768-be436bb09401?w=100&auto=format&fit=crop&q=60'),
+                url('https://upload.wikimedia.org/wikipedia/en/0/00/Hello_Kitty_logo.png'),
+                url('https://i.pinimg.com/736x/8e/52/63/8e5263a23a31bb36371714bc1912f2ee.jpg'),
                 url('https://i.pinimg.com/736x/e4/14/67/e4146747b6672323a63327d55f013d7e.jpg');
-            background-repeat: repeat, space, space, space, space;
-            background-size: 160px, 130px, 140px, 120px, 150px;
-            opacity: 0.15;
+            background-repeat: repeat;
+            background-size: 140px, 120px, 160px, 130px;
+            opacity: 0.12;
             z-index: -1;
             pointer-events: none;
         }
@@ -67,6 +69,50 @@
             font-size: 0.85rem;
             margin-bottom: 25px;
         }
+        .romantic-quote {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px dashed #f43f5e50;
+            padding: 12px;
+            border-radius: 12px;
+            color: #fda4af;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        /* تصميم البطاقة الذهبية ليوم الميلاد */
+        .gold-birthday-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px -5px rgba(234, 179, 8, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .gold-birthday-card::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, #facc15, #ca8a04);
+        }
+        .gold-birthday-title {
+            font-size: 0.85rem;
+            color: #fde047;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .gold-birthday-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fef08a, #facc15, #ca8a04);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(234, 179, 8, 0.2);
+            font-family: 'Georgia', serif;
+        }
+
         .counter-box {
             background: rgba(30, 41, 59, 0.85);
             backdrop-filter: blur(8px);
@@ -218,6 +264,18 @@
     <div class="couple-name">AMINA ♾️ OUSSAMA</div>
     <p class="subtitle">كل لحظة معك هي بداية لذكرى أجمل</p>
 
+    <!-- رسالة رومانسية خاصة -->
+    <div class="romantic-quote">
+        "إلى أميرتي وقطعة من قلبي.. منذ أن التقينا، أصبحتِ أنتِ النبض الذي تحيا به أيامي، وكل ثانية معكِ تساوى عندي الدنيا وما فيها. أحبكِ اليوم وغداً وإلى الأبد. ✨❤️"
+    </div>
+
+    <!-- بطاقة عيد الميلاد الذهبية الأنيقة -->
+    <div class="gold-birthday-card">
+        <div class="gold-birthday-title">✨ يوم ميلاد أميرتي ✨</div>
+        <div class="gold-birthday-text">ولدت من أشرقت لها الأرض وأنارت حياتي.. السبت 24 نوفمبر 2012 ❤️</div>
+    </div>
+
+    <!-- العدادات الأخرى (العلاقة والتعارف) -->
     <div id="countersContainer"></div>
 
     <button class="btn-miss" onclick="showRandomMessage()">اضغطي هنا عندما تشتاقين لي 💌</button>
@@ -225,8 +283,9 @@
 
     <div id="memoriesContainer"></div>
 
+    <!-- لوحة التحكم السرية -->
     <div class="admin-panel" id="adminPanel">
-        <h3>لوحة التحكم الخاصة بك 🔒</h3>
+        <h3>لوحة التحكم السحابية 🔒 (تظهر للجميع)</h3>
         
         <h3>إدارة رسائل الشوق</h3>
         <textarea id="newRandomMsg" placeholder="اكتب رسالة جديدة..."></textarea>
@@ -251,29 +310,55 @@
 </div>
 
 <script>
+    // ربط الموقع بقاعدة البيانات السحابية Firebase لتتزامن التعديلات للجميع
+    const firebaseConfig = {
+        databaseURL: "https://siflow-space-default-rtdb.firebaseio.com/"
+    };
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const db = firebase.database();
+
     let defaultMessages = [
         "تذكري دائماً أنكِ أجمل جزء في يومي وحياتي كلها! ❤️",
         "حتى وأنتِ بعيدة، أنتِ أقرب شيء لقلبي في كل ثانية. 🌸",
         "مهما كان يومكِ متعباً، تذكري أن هناك شخصاً يحبكِ جداً وينتظر ضحكتكِ! 🥰",
-        "عيناكِ هما وطني الأمان، وكل مكان معكِ يصبح جنة صغيرة. ✨",
-        "أنتِ النبض الذي يحرك حياتي، والابتسامة التي تزين وجهي دوماً."
+        "عيناكِ هما وطني الأمان، وكل مكان معكِ يصبح جنة صغيرة. ✨"
     ];
 
-    let randomMessages = JSON.parse(localStorage.getItem('my_messages')) || defaultMessages;
-
-    let events = JSON.parse(localStorage.getItem('my_events')) || [
+    let defaultEvents = [
         { id: 1, title: "بداية تعارفنا ✨", date: "2025-03-02" },
         { id: 2, title: "تاريخ ارتباطنا الرسمي ❤️", date: "2026-01-01" }
     ];
 
-    let memories = JSON.parse(localStorage.getItem('my_memories')) || [
+    let defaultMemories = [
         { id: 1, title: "أول لقاء مميز ✨", desc: "اليوم الذي بدأت فيه أحلى قصة.", media: "" }
     ];
 
+    // جلب البيانات من السحابة بشكل مباشر
+    db.ref('messages').on('value', (snapshot) => {
+        const data = snapshot.val();
+        window.randomMessages = data ? data : defaultMessages;
+        renderAdminLists();
+    });
+
+    db.ref('events').on('value', (snapshot) => {
+        const data = snapshot.val();
+        window.events = data ? data : defaultEvents;
+        renderCounters();
+        renderAdminLists();
+    });
+
+    db.ref('memories').on('value', (snapshot) => {
+        const data = snapshot.val();
+        window.memories = data ? data : defaultMemories;
+        renderMemories();
+        renderAdminLists();
+    });
+
     function renderCounters() {
         const container = document.getElementById('countersContainer');
+        if(!container) return;
         container.innerHTML = '';
-        events.forEach(ev => {
+        (window.events || defaultEvents).forEach(ev => {
             container.innerHTML += `
                 <div class="counter-box">
                     <p style="color: #fda4af; font-size: 0.85rem; font-weight: bold;">${ev.title}:</p>
@@ -327,8 +412,9 @@
 
     function renderMemories() {
         const container = document.getElementById('memoriesContainer');
+        if(!container) return;
         container.innerHTML = '';
-        memories.forEach(mem => {
+        (window.memories || defaultMemories).forEach(mem => {
             let mediaHTML = '';
             if(mem.media) {
                 if(mem.media.includes('mp4') || mem.media.includes('webm') || mem.media.includes('video')) {
@@ -348,12 +434,13 @@
     }
 
     function showRandomMessage() {
+        const msgs = window.randomMessages || defaultMessages;
         const msgBox = document.getElementById('secretMessage');
-        if(randomMessages.length === 0) {
+        if(msgs.length === 0) {
             msgBox.innerText = "لا توجد رسائل مضافة بعد!";
         } else {
-            const randomIdx = Math.floor(Math.random() * randomMessages.length);
-            msgBox.innerText = randomMessages[randomIdx];
+            const randomIdx = Math.floor(Math.random() * msgs.length);
+            msgBox.innerText = msgs[randomIdx];
         }
         msgBox.style.display = 'block';
     }
@@ -380,58 +467,62 @@
 
     function renderAdminLists() {
         const rList = document.getElementById('adminRandomList');
-        rList.innerHTML = '';
-        randomMessages.forEach((msg, idx) => {
-            rList.innerHTML += `<div class="list-item"><span>${msg.substring(0,30)}...</span> <button class="delete-btn" onclick="deleteRandom(${idx})">حذف</button></div>`;
-        });
+        if(rList) {
+            rList.innerHTML = '';
+            (window.randomMessages || defaultMessages).forEach((msg, idx) => {
+                rList.innerHTML += `<div class="list-item"><span>${msg.substring(0,30)}...</span> <button class="delete-btn" onclick="deleteRandom(${idx})">حذف</button></div>`;
+            });
+        }
 
         const eList = document.getElementById('adminEventsList');
-        eList.innerHTML = '';
-        events.forEach((ev, idx) => {
-            eList.innerHTML += `<div class="list-item"><span>${ev.title} (${ev.date})</span> <button class="delete-btn" onclick="deleteEvent(${idx})">حذف</button></div>`;
-        });
+        if(eList) {
+            eList.innerHTML = '';
+            (window.events || defaultEvents).forEach((ev, idx) => {
+                eList.innerHTML += `<div class="list-item"><span>${ev.title} (${ev.date})</span> <button class="delete-btn" onclick="deleteEvent(${idx})">حذف</button></div>`;
+            });
+        }
 
         const mList = document.getElementById('adminMemoriesList');
-        mList.innerHTML = '';
-        memories.forEach((mem, idx) => {
-            mList.innerHTML += `<div class="list-item"><span>${mem.title}</span> <button class="delete-btn" onclick="deleteMemory(${idx})">حذف</button></div>`;
-        });
+        if(mList) {
+            mList.innerHTML = '';
+            (window.memories || defaultMemories).forEach((mem, idx) => {
+                mList.innerHTML += `<div class="list-item"><span>${mem.title}</span> <button class="delete-btn" onclick="deleteMemory(${idx})">حذف</button></div>`;
+            });
+        }
     }
 
     function addRandomMessage() {
         const txt = document.getElementById('newRandomMsg').value;
         if(txt) {
-            randomMessages.push(txt);
-            localStorage.setItem('my_messages', JSON.stringify(randomMessages));
+            let msgs = window.randomMessages || defaultMessages;
+            msgs.push(txt);
+            db.ref('messages').set(msgs);
             document.getElementById('newRandomMsg').value = '';
-            renderAdminLists();
-            alert("تمت الإضافة بنجاح!");
+            alert("تمت الإضافة ونشرها للجميع بنجاح!");
         }
     }
     function deleteRandom(idx) {
-        randomMessages.splice(idx, 1);
-        localStorage.setItem('my_messages', JSON.stringify(randomMessages));
-        renderAdminLists();
+        let msgs = window.randomMessages || defaultMessages;
+        msgs.splice(idx, 1);
+        db.ref('messages').set(msgs);
     }
 
     function addEvent() {
         const title = document.getElementById('eventTitle').value;
         const date = document.getElementById('eventDate').value;
         if(title && date) {
-            events.push({ id: Date.now(), title, date });
-            localStorage.setItem('my_events', JSON.stringify(events));
+            let evs = window.events || defaultEvents;
+            evs.push({ id: Date.now(), title, date });
+            db.ref('events').set(evs);
             document.getElementById('eventTitle').value = '';
             document.getElementById('eventDate').value = '';
-            renderCounters();
-            renderAdminLists();
-            alert("تمت إضافة المناسبة بنجاح!");
+            alert("تمت إضافة المناسبة ونشرها للجميع بنجاح!");
         }
     }
     function deleteEvent(idx) {
-        events.splice(idx, 1);
-        localStorage.setItem('my_events', JSON.stringify(events));
-        renderCounters();
-        renderAdminLists();
+        let evs = window.events || defaultEvents;
+        evs.splice(idx, 1);
+        db.ref('events').set(evs);
     }
 
     function addMemory() {
@@ -439,21 +530,19 @@
         const desc = document.getElementById('memDesc').value;
         const media = document.getElementById('memMedia').value;
         if(title && desc) {
-            memories.unshift({ id: Date.now(), title, desc, media });
-            localStorage.setItem('my_memories', JSON.stringify(memories));
+            let mems = window.memories || defaultMemories;
+            mems.unshift({ id: Date.now(), title, desc, media });
+            db.ref('memories').set(mems);
             document.getElementById('memTitle').value = '';
             document.getElementById('memDesc').value = '';
             document.getElementById('memMedia').value = '';
-            renderMemories();
-            renderAdminLists();
-            alert("تم نشر الذكرى بنجاح!");
+            alert("تم نشر الذكرى للجميع بنجاح!");
         }
     }
     function deleteMemory(idx) {
-        memories.splice(idx, 1);
-        localStorage.setItem('my_memories', JSON.stringify(memories));
-        renderMemories();
-        renderAdminLists();
+        let mems = window.memories || defaultMemories;
+        mems.splice(idx, 1);
+        db.ref('memories').set(mems);
     }
 
     renderCounters();
