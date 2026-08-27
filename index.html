@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
         
-        /* خلفية صورة هالو كيتي المرفقة ثابتة ومكررة مع طبقة عتمة خفيفة لقراءة واضحة */
+        /* خلفية صورة هالو كيتي الثابتة */
         body::before {
             content: "";
             position: fixed;
@@ -46,9 +46,33 @@
             position: relative;
             z-index: 1;
         }
+
+        /* مجسم هالو كيتي المتحرك في الأعلى */
+        .hello-kitty-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hello-kitty-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid #f43f5e;
+            background-image: url('1000118576.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+            animation: floatKitty 3s ease-in-out infinite;
+        }
+        @keyframes floatKitty {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
         h1 {
             color: #f43f5e;
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 2rem;
             cursor: pointer;
             user-select: none;
@@ -67,6 +91,42 @@
             font-size: 0.85rem;
             margin-bottom: 25px;
         }
+
+        /* مشغل الموسيقى الأنيق */
+        .music-player-box {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid #f43f5e40;
+            border-radius: 14px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .music-info {
+            font-size: 0.9rem;
+            color: #fda4af;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .music-btn {
+            background: #f43f5e;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+
         .romantic-quote {
             background: rgba(244, 63, 94, 0.1);
             border: 1px dashed #f43f5e50;
@@ -77,7 +137,7 @@
             margin-bottom: 20px;
             line-height: 1.5;
         }
-        /* بطاقة يوم الميلاد الذهبية الأنيقة */
+        
         .gold-birthday-card {
             background: rgba(30, 41, 59, 0.9);
             border: 1px solid rgba(234, 179, 8, 0.4);
@@ -196,7 +256,7 @@
             max-height: 300px;
             object-fit: cover;
         }
-        /* لوحة التحكم السرية */
+        
         .admin-panel {
             display: none;
             background: #020617;
@@ -258,9 +318,24 @@
 <body>
 
 <div class="container">
+    <!-- مجسم هلو كيتي المتحرك -->
+    <div class="hello-kitty-container">
+        <div class="hello-kitty-avatar" title="Hello Kitty ❤️"></div>
+    </div>
+
     <h1 onclick="secretAdminTrigger()">مساحتنا الخاصة ❤️</h1>
     <div class="couple-name">AMINA ♾️ OUSSAMA</div>
     <p class="subtitle">كل لحظة معك هي بداية لذكرى أجمل</p>
+
+    <!-- مشغل الموسيقى المخصص -->
+    <div class="music-player-box">
+        <div class="music-info">
+            <span>🎶</span> <span>هدية الموسيقى الخاصة لكِ</span>
+        </div>
+        <button class="music-btn" id="playMusicBtn" onclick="toggleMusic()">تشغيل</button>
+        <!-- عنصر الصوت المخفي -->
+        <audio id="bgMusic" src="https://docs.google.com/uc?export=download&id=1wEG2mddnx7EOp5a0YU5zsbJ96Rvtn6-j" preload="auto"></audio>
+    </div>
 
     <!-- رسالة رومانسية خاصة -->
     <div class="romantic-quote">
@@ -319,7 +394,6 @@
         { id: 2, title: "تاريخ ارتباطنا الرسمي ❤️", date: "2026-01-01" }
     ];
 
-    // الـ 120 جملة شوق وحب مختلفة ومتنوعة بالتحديد
     const defaultMessages = [
         "1. أشتاق إليكِ لدرجة أنني أتمنى لو أستطيع اختصار المسافات والأزمان لأكون بقربك الآن 💖",
         "2. كلما عصفت بي ريح الشوق، أغمض عيني وأتخيل ضحكتكِ فتهدأ روحي تماماً ✨",
@@ -353,7 +427,7 @@
         "30. ليتني أملك سحر الكلمات لأصف لكِ كم أنا متيم بحبكِ وكم أشتقت إليكِ الآن ✨",
         "31. أشتاق لرائحة عطركِ العالقة في وسادتي، تذكرني بكِ طوال الليل 🌙",
         "32. في كل أغنية رومانسية أسمعها، لا أرى فيها سوى وجهكِ وصوتكِ العذب 🎧",
-        "33. أفتقد الأمان الذي أشعر به حين تكونين جواري، فأنا بدونكِ أبحث عن ملجأ 🏰",
+        "33. أفتقدكِ الأمان الذي أشعر به حين تكونين جواري، فأنا بدونكِ أبحث عن ملجأ 🏰",
         "34. اشتقت لحديثنا الطويل الذي لا ينتهي والذي يبدأ بكلمة وينتهي بصباح الخير 💬",
         "35. هل تشعرين بي الآن؟ قلبي ينبض باسمكِ في كل ثانية من شدة الشوق والحنين 💓",
         "36. أفتقدكِ يا من أضفتِ لحياتي بهجة لم أكن أعرفها من قبل 🎉",
@@ -362,12 +436,12 @@
         "39. أفتقدكِ بشدة حين تواجهني المواقف الصعبة وأتمنى لو كنتِ هنا لتدعميني 🤝",
         "40. اشتقت لضحكتكِ التي ترسم السعادة على وجهي مهما كانت ظروفي قاسية 😊",
         "41. كأنني أدمنتكِ لدرجة أن غيابكِ لعدة ساعات يصيبني بالاشتياق الجنوني 🧪",
-        "42. أفتقد نظراتكِ الحنونة التي تخترق دفاعاتي وتصل إلى أعماق روحي مباشرة 🎯",
+        "42. أفتقدكِ نظراتكِ الحنونة التي تخترق دفاعاتي وتصل إلى أعماق روحي مباشرة 🎯",
         "43. اشتقت لأن أنادي باسمكِ وأنتِ تردين عليّ بابتسامة دافئة تذيب قلبي 🗣️",
         "44. الشوق إليكِ يشبه النار الهادئة، تدفئني حيناً وتكوي قلبي أحياناً أخرى 🔥",
         "45. أفتقدكِ في كل زاوية من غرفتي، كأن ظلكِ ما زال يملأ المكان روعةً وبهاءً 🏠",
         "46. اشتقت لأن أمشي بجانبكِ ونمسك بأيدينا وكأننا امتلكنا العالم بأسره 👫",
-        "47. أفتقد الأوقات التي كنا نضحك فيها على أتفه الأسباب بلا إزعاج 😂",
+        "47. أفتقدكِ الأوقات التي كنا نضحك فيها على أتفه الأسباب بلا إزعاج 😂",
         "48. اشتقت لكِ يا توأم الروح ويا من سكني عشقها حتى العظم 🦴",
         "49. كم تمنيت لو أن الشوق يترجم إلى عناق، لكنت عانقتكِ الآن بلا توقف 🤗",
         "50. أفتقدكِ بقدر ما أخشى فقدانكِ يوماً، فحبي لكِ خوف وعشق مقدس 🛡️",
@@ -379,7 +453,7 @@
         "56. اشتقت لكل كلمة حب قلتها لي، وكل وعد عاهدتني به على الوفاء 📜",
         "57. أفتقدكِ كما يفتقد النبات قطرات المطر بعد شحٍ طويل 🌱",
         "58. اشتقت لأن أغمض عيني وأفتحها فأجدكِ أمامي تماماً كما أتمناكِ ✨",
-        "59. أفتقد صوت تنفسكِ الهادئ حين تقتربين مني في لحظات الصفاء 🌬️",
+        "59. أفتقدكِ صوت تنفسكِ الهادئ حين تقتربين مني في لحظات الصفاء 🌬️",
         "60. اشتقت لأن أقول لكِ وجهات نظري في كل شيء وتستمعين لي باهتمام 👂",
         "61. أفتقدكِ بحجم الشوق الذي يملأ صدري ولا أستطيع بوحه لأحد سواه 🤐",
         "62. اشتقت لأن تكوني ملجئي الوحيد حين تضيق بي مساحات هذا العالم 🌍",
@@ -413,7 +487,7 @@
         "90. اشتقت لأن أحكي لكِ عن تفاصيل يومي التافهة وتستمعي لي بشغف 🗣️",
         "91. أفتقدكِ بقدر حبات الرمل في الصحراء وبعدد قطرات البحر الشاسع 🏖️",
         "92. اشتقت لأن أشارككِ طعامي ومشروبي المفضل وتضحكي عليّ 🍕",
-        "93. أفتقدكِ حين يحل الليل بهدوئه المخيف فأبحث عن طيفكِ لأأنس به 🌃",
+        "93. أفتقدكِ حين يحل الليل بهدوءه المخيف فأبحث عن طيفكِ لأأنس به 🌃",
         "94. اشتقت لأن أضع رأسي على كتفكِ وأنسى هموم الدنيا وأثقالها 🛋️",
         "95. أفتقدكِ يا من جعلتِ لحياتي طعماً آخر ومعنىً أعمق بكثير 🍒",
         "96. اشتقت لملامح وجهكِ حين تعصبين وتغارين عليّ بشكل كيوت 😡",
@@ -440,7 +514,7 @@
         "117. أفتقدكِ وكأن الشوق مرض لا شفاء منه إلا برؤياكِ وسماع صوتكِ 💊",
         "118. اشتقت لأن أكتب اسمكِ على رمل الشاطئ وأترك الأمواج تحافظ عليه 🌊",
         "119. أفتقدكِ يا أجمل وردة نبتت في بستان عمري وأنتِ سر سعادتي الأبدية 🌷",
-        "120. اشتقت لكِ بجميع تفاصيلكِ، بحزنكِ وفرحكِ، بغضبكِ ورضاكِ، فأنتِ كل شيء لي ❤️"
+        "120. اشتقت لكِ بجميع تفاصيلكِ، بحزنكِ وفرحكِ، بغضبكِ رضاكِ، فأنتِ كل شيء لي ❤️"
     ];
 
     db.ref('messages').on('value', (snapshot) => {
@@ -462,6 +536,25 @@
         renderMemories();
         renderAdminLists();
     });
+
+    // التحكم في مشغل الموسيقى
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('playMusicBtn');
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play().then(() => {
+                musicBtn.innerText = "إيقاف ⏸";
+                musicBtn.style.background = "#e11d48";
+            }).catch(e => {
+                alert("تعذر تشغيل الصوت تلقائياً، يرجى المحاولة مرة أخرى.");
+            });
+        } else {
+            music.pause();
+            musicBtn.innerText = "تشغيل ▶";
+            musicBtn.style.background = "#f43f5e";
+        }
+    }
 
     function renderCounters() {
         const container = document.getElementById('countersContainer');
