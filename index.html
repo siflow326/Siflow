@@ -139,6 +139,40 @@ h1{
     }
 }
 
+/* عيد ميلاد الأميرة الصغيرة */
+.birthday-amina{
+    text-align:center;
+    border:2px solid #ffb3d1;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.96),
+        rgba(255,235,245,.96)
+    );
+    animation:softGlowAmina 2.5s infinite alternate;
+}
+
+@keyframes softGlowAmina{
+    from{
+        box-shadow:0 5px 20px rgba(213,45,104,.10);
+    }
+    to{
+        box-shadow:0 5px 30px rgba(213,45,104,.28);
+    }
+}
+
+.amina-birthday-title{
+    color:#d52d68;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.amina-birthday-date{
+    color:#b92d61;
+    font-size:19px;
+    font-weight:bold;
+}
+
 /* عيد ميلاد كتكوت أمونة */
 .birthday-katkot{
     text-align:center;
@@ -561,6 +595,19 @@ footer{
             <span class="label">تاريخ عيد الميلاد</span>
         </div>
 
+    </div>
+
+</div>
+
+
+<div class="card birthday-amina">
+
+    <div class="amina-birthday-title">
+        👑 عيد ميلاد الاميرة الصغيرة 👑
+    </div>
+
+    <div class="amina-birthday-date">
+        السبت 24 نوفمبر 2012 💖✨
     </div>
 
 </div>
@@ -1554,4 +1601,3 @@ updateTimers();
 
 </body>
 </html>
-
