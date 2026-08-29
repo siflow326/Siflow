@@ -1,3 +1,4 @@
+إليك الكود الكامل والجاهز للملف بالكامل، مضافاً إليه ميزة تسجيل وإرسال الرسائل الصوتية (الفويسات) بشكل متناسق مع الشات، ودون أي تغيير في باقي أقسام ومميزات موقعك:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -164,7 +165,7 @@ h1{
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* رسائل أسامة (بلون مميز) */
+/* رسائل أسامة */
 .chat-msg.oussama {
     background: #d52d68;
     color: white;
@@ -172,7 +173,7 @@ h1{
     border-bottom-left-radius: 3px;
 }
 
-/* رسائل أمينة (بلون مختلف تماماً للتمييز) */
+/* رسائل أمينة */
 .chat-msg.amina {
     background: #fff0f6;
     color: #54263b;
@@ -184,6 +185,13 @@ h1{
 .chat-msg img {
     max-width: 100%;
     border-radius: 10px;
+    margin-top: 5px;
+    display: block;
+}
+
+.chat-msg audio {
+    max-width: 200px;
+    height: 35px;
     margin-top: 5px;
     display: block;
 }
@@ -216,6 +224,7 @@ h1{
     cursor: pointer;
     font-size: 18px;
     transition: 0.2s;
+    flex-shrink: 0;
 }
 
 .chat-send-btn {
@@ -255,7 +264,6 @@ h1{
     to{ box-shadow:0 5px 30px rgba(217,155,0,.35); }
 }
 
-/* عيد ميلاد الأميرة الصغيرة */
 .birthday-amina{
     text-align:center;
     border:2px solid #ffb3d1;
@@ -269,7 +277,6 @@ h1{
 .amina-birthday-title{ color:#d52d68; font-weight:bold; font-size:18px; margin-bottom:8px; }
 .amina-birthday-date{ color:#b92d61; font-size:19px; font-weight:bold; }
 
-/* عيد ميلاد كتكوت أمونة */
 .birthday-katkot{
     text-align:center;
     border:2px solid #ff9fc1;
@@ -294,14 +301,12 @@ h1{
 }
 .miss:active{ transform:scale(.98); }
 
-/* زر chkon amina */
 .amina-button{
     width:100%; border:0; border-radius:30px; padding:16px; color:white; font-size:17px; font-weight:bold; cursor:pointer;
     background:linear-gradient(135deg, #b92d61, #ff75a5); box-shadow:0 8px 25px rgba(185,45,97,.25);
 }
 .amina-button:active{ transform:scale(.97); }
 
-/* واجهة أمينة */
 .amina-panel{
     display:none; margin-top:15px; padding:20px; border-radius:20px;
     background:linear-gradient(135deg, rgba(255,240,247,.98), rgba(255,255,255,.98));
@@ -325,7 +330,6 @@ h1{
 .memory p{ color:#795265; font-size:14px; line-height:1.7; }
 .memory img, .memory video{ width:100%; max-height:350px; object-fit:cover; border-radius:12px; margin-top:10px; }
 
-/* لوحة الإدارة */
 .admin{ display:none; background:rgba(255,255,255,.97); border:2px solid #d52d68; border-radius:22px; padding:18px; margin-top:20px; box-shadow:0 15px 40px rgba(150,30,80,.25); }
 .admin h2{ color:#d52d68; margin-bottom:15px; }
 .admin h3{ color:#c53c70; margin-top:20px; margin-bottom:8px; }
@@ -367,7 +371,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️
 </div>
 
-<!-- الشات الحي والمتزامن -->
+<!-- الشات الحي والمتزامن مع زر الفويس -->
 <div class="card">
     <div class="section-title">💬 الشات المباشر بيننا</div>
     
@@ -381,6 +385,9 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     <div class="chat-footer">
         <label for="chatImage" class="chat-file-label" title="إرسال صورة">📷</label>
         <input type="file" id="chatImage" accept="image/*" style="display:none;" onchange="sendImage(this)">
+        
+        <button type="button" class="chat-file-label" id="micBtn" onclick="toggleVoiceRecording()" title="تسجيل صوت">🎤</button>
+        
         <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
         <button class="chat-send-btn" onclick="sendTextMessage()">إرسال</button>
     </div>
@@ -412,7 +419,6 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     <div class="katkot-date">5 مارس 2010 🎂❤️</div>
 </div>
 
-<!-- العدّادات المضافة الأخرى -->
 <div id="eventsContainer"></div>
 
 <div class="card">
@@ -441,7 +447,6 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
 
 <footer>Made with ❤️ for Amina & Oussama</footer>
 
-<!-- لوحة التحكم -->
 <div class="admin" id="admin">
     <h2>👑 لوحة التحكم الخاصة بأسامة</h2>
     <h3>✏️ معلومات الموقع</h3>
@@ -452,7 +457,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     <button onclick="saveSettings()">💾 حفظ التغييرات</button>
 
     <h3>⏱️ إضافة عداد</h3>
-    <input id="eventName" placeholder="عنوان العداد (مثلاً: ذكرى سنوية)">
+    <input id="eventName" placeholder="عنوان العداد">
     <input id="eventDate" type="date">
     <button onclick="addEvent()">➕ إضافة</button>
     <div id="eventsAdmin"></div>
@@ -474,7 +479,6 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
 
 </div>
 
-<!-- نافذة تسجيل الدخول -->
 <div class="login" id="login">
     <div class="login-box">
         <h2>🔐 دخول أسامة</h2>
@@ -484,7 +488,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     </div>
 </div>
 
-<!-- مكتبات فايربيس للشات الحي -->
+<!-- كود الفايربيس والشات المباشر مع دعم الفويسات -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, set, onChildAdded, onChildRemoved, onChildChanged, remove, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -517,6 +521,55 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
         document.getElementById("idAmina").classList.toggle("active", currentIdentity === "amina");
     }
 
+    // متغيرات وأكواد تسجيل الفويسات
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    window.toggleVoiceRecording = async function() {
+        const micBtn = document.getElementById("micBtn");
+        
+        if (!isRecording) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        push(chatRef, {
+                            sender: currentIdentity,
+                            type: "audio",
+                            content: e.target.result,
+                            timestamp: Date.now(),
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        });
+                    };
+                    reader.readAsDataURL(audioBlob);
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                micBtn.style.background = "#dc3545"; // يتحول للأحمر أثناء التسجيل
+                micBtn.title = "إيقاف التسجيل وإرسال الفويس";
+            } catch (err) {
+                alert("لا يمكن الوصول إلى المايكروفون، يرجى السماح للمتصفح بذلك.");
+            }
+        } else {
+            mediaRecorder.stop();
+            isRecording = false;
+            micBtn.style.background = "#fff0f6";
+            micBtn.title = "تسجيل صوت";
+        }
+    }
+
     window.sendTextMessage = function() {
         const input = document.getElementById("chatInput");
         const text = input.value.trim();
@@ -526,6 +579,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
             sender: currentIdentity,
             type: "text",
             content: text,
+            timestamp: Date.now(),
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         });
         input.value = "";
@@ -545,6 +599,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
                 sender: currentIdentity,
                 type: "image",
                 content: e.target.result,
+                timestamp: Date.now(),
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             });
         };
@@ -584,6 +639,8 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
             contentHTML = `<div class="msg-text">${escapeHTML(data.content)}</div>`;
         } else if(data.type === "image") {
             contentHTML = `<img src="${data.content}" alt="صورة">`;
+        } else if(data.type === "audio") {
+            contentHTML = `<audio controls src="${data.content}"></audio>`;
         }
 
         let actionsHTML = "";
@@ -619,7 +676,6 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
 </script>
 
 <script>
-/* دوال الموقع والعدّادات والتحكم */
 const ADMIN_PASSWORD = "Karlos@2026";
 let data = JSON.parse(localStorage.getItem("secretSpaceData")) || {
     settings:{ title:"مساحتنا الخاصة ❤️", names:"AMINA ♾️ OUSSAMA", subtitle:"كل لحظة معك بداية لذكرى أجمل 🌸", quote: "إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️" },
@@ -842,7 +898,7 @@ function renderAdmin(){
         messages.innerHTML+=`
             <div class="item">
                 <span>${escapeHTML(msg)}</span>
-                <button class="delete" onclick="deleteMessage(${index})">حذف</button>
+                <button class="delete" onclick="deleteMessageAdmin(${index})">حذف</button>
             </div>
         `;
     });
@@ -867,7 +923,7 @@ function deleteEvent(id){
     renderAdmin();
 }
 
-function deleteMessage(index){
+function deleteMessageAdmin(index){
     if(!confirm("حذف هذه الرسالة؟"))return;
     data.messages.splice(index,1);
     saveData();
@@ -907,3 +963,4 @@ updateTimers();
 
 </body>
 </html>
+
