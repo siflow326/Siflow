@@ -118,8 +118,8 @@ h1{
     margin-bottom:12px;
 }
 
-/* عيد ميلاد أمينة العداد والتفاصيل */
-.birthday{
+/* عداد تنازلي لعيد الميلاد */
+.birthday-countdown{
     text-align:center;
     border:2px solid #ffd36b;
     background:linear-gradient(
@@ -127,18 +127,16 @@ h1{
         rgba(255,255,255,.95),
         rgba(255,247,218,.95)
     );
+    animation:softGlowBirthday 2.5s infinite alternate;
 }
 
-.birthday-title{
-    color:#d99b00;
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.birthday-date{
-    color:#b87500;
-    font-size:18px;
-    font-weight:bold;
+@keyframes softGlowBirthday{
+    from{
+        box-shadow:0 5px 20px rgba(217,155,0,.15);
+    }
+    to{
+        box-shadow:0 5px 30px rgba(217,155,0,.35);
+    }
 }
 
 /* عيد ميلاد كتكوت أمونة */
@@ -525,14 +523,44 @@ footer{
 </div>
 
 
-<div class="card birthday">
+<div class="card birthday-countdown">
 
-    <div class="birthday-title">
-        🎀 يوم ميلاد أميرتي 🎀
+    <div class="section-title" style="color:#b87500; margin-bottom:8px;">
+        🎀 كم تبقى لعيد ميلاد صغيرتي 🎀
     </div>
 
-    <div class="birthday-date">
-        السبت 24 نوفمبر 2012 👑❤️
+    <div class="timer" id="birthdayTimer" data-birthdate="11-24">
+
+        <div class="unit">
+            <span class="number months">0</span>
+            <span class="label">شهر</span>
+        </div>
+
+        <div class="unit">
+            <span class="number days">0</span>
+            <span class="label">يوم</span>
+        </div>
+
+        <div class="unit">
+            <span class="number hours">0</span>
+            <span class="label">ساعة</span>
+        </div>
+
+        <div class="unit">
+            <span class="number minutes">0</span>
+            <span class="label">دقيقة</span>
+        </div>
+
+        <div class="unit">
+            <span class="number seconds">0</span>
+            <span class="label">ثانية</span>
+        </div>
+
+        <div class="unit" style="grid-column: span 3; background: #fff8e8;">
+            <span class="number" style="font-size:15px; color:#d99b00;" id="birthdayDateText">24 نوفمبر</span>
+            <span class="label">تاريخ عيد الميلاد</span>
+        </div>
+
     </div>
 
 </div>
@@ -739,16 +767,11 @@ let data = JSON.parse(
     events:[
         {
             id:1,
-            title:"عيد ميلاد أميرتي 🎀",
-            date:"2012-11-24"
-        },
-        {
-            id:2,
             title:"بداية تعارفنا ✨",
             date:"2025-03-02"
         },
         {
-            id:3,
+            id:2,
             title:"تاريخ ارتباطنا الرسمي ❤️",
             date:"2026-01-01"
         }
@@ -909,8 +932,43 @@ function renderEvents(){
 
 function updateTimers(){
 
+    // عداد التنازلي لعيد الميلاد (24 نوفمبر من كل سنة)
+    const bTimer = document.getElementById("birthdayTimer");
+    if(bTimer){
+        const now = new Date();
+        let currentYear = now.getFullYear();
+        let nextBirthday = new Date(currentYear, 10, 24); // الشهور تبدأ من 0 (10 = نوفمبر)
+        
+        if(now > nextBirthday){
+            nextBirthday = new Date(currentYear + 1, 10, 24);
+        }
+
+        const diff = nextBirthday - now;
+
+        let tempDate = new Date(now.getTime());
+        let months = (nextBirthday.getFullYear() - tempDate.getFullYear()) * 12 + (nextBirthday.getMonth() - tempDate.getMonth());
+        tempDate.setMonth(tempDate.getMonth() + months);
+        if(tempDate > nextBirthday){
+            months--;
+            tempDate.setMonth(tempDate.getMonth() - 1);
+        }
+
+        const days = Math.floor((nextBirthday - tempDate) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / 3600000) % 24);
+        const minutes = Math.floor((diff / 60000) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        bTimer.querySelector(".months").textContent = months;
+        bTimer.querySelector(".days").textContent = days;
+        bTimer.querySelector(".hours").textContent = hours;
+        bTimer.querySelector(".minutes").textContent = minutes;
+        bTimer.querySelector(".seconds").textContent = seconds;
+    }
+
+
+    // العدادات الأخرى (منذ تاريخ كذا...)
     document
-    .querySelectorAll(".timer")
+    .querySelectorAll(".card .timer:not(#birthdayTimer)")
     .forEach(timer=>{
 
         const start =
@@ -968,23 +1026,23 @@ function updateTimers(){
             Math.floor(diff/1000)%60;
 
 
-        timer.querySelector(".years")
-            .textContent=years;
-
-        timer.querySelector(".months")
-            .textContent=months;
-
-        timer.querySelector(".days")
-            .textContent=days;
-
-        timer.querySelector(".hours")
-            .textContent=hours;
-
-        timer.querySelector(".minutes")
-            .textContent=minutes;
-
-        timer.querySelector(".seconds")
-            .textContent=seconds;
+        const yrEl = timer.querySelector(".years");
+        if(yrEl) yrEl.textContent=years;
+        
+        const moEl = timer.querySelector(".months");
+        if(moEl) moEl.textContent=months;
+        
+        const dyEl = timer.querySelector(".days");
+        if(dyEl) dyEl.textContent=days;
+        
+        const hrEl = timer.querySelector(".hours");
+        if(hrEl) hrEl.textContent=hours;
+        
+        const minEl = timer.querySelector(".minutes");
+        if(minEl) minEl.textContent=minutes;
+        
+        const secEl = timer.querySelector(".seconds");
+        if(secEl) secEl.textContent=seconds;
 
     });
 
@@ -1451,16 +1509,16 @@ function deleteMemory(id){
 
 /* حماية */
 
-function escapeHTML(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
+(function escapeHTMLSetup(){
+    window.escapeHTML = function(value){
+        return String(value ?? "")
+            .replace(/&/g,"&amp;")
+            .replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;")
+            .replace(/"/g,"&quot;")
+            .replace(/'/g,"&#039;");
+    }
+})();
 
 
 function safeURL(url){
@@ -1496,3 +1554,4 @@ updateTimers();
 
 </body>
 </html>
+
