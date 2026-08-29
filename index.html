@@ -1,4 +1,3 @@
-إليك الكود الكامل والجاهز للملف بالكامل، مضافاً إليه ميزة تسجيل وإرسال الرسائل الصوتية (الفويسات) بشكل متناسق مع الشات، ودون أي تغيير في باقي أقسام ومميزات موقعك:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -152,7 +151,18 @@ h1{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+/* مؤشر الكتابة */
+.typing-indicator {
+    font-size: 12px;
+    color: #d52d68;
+    height: 18px;
+    padding: 0 5px;
+    margin-bottom: 8px;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .chat-msg {
@@ -371,7 +381,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️
 </div>
 
-<!-- الشات الحي والمتزامن مع زر الفويس -->
+<!-- الشات الحي والمتزامن مع مؤشر الكتابة والفويسات -->
 <div class="card">
     <div class="section-title">💬 الشات المباشر بيننا</div>
     
@@ -381,6 +391,9 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     </div>
 
     <div class="chat-box" id="chatBox"></div>
+    
+    <!-- مؤشر الكتابة -->
+    <div class="typing-indicator" id="typingIndicator"></div>
 
     <div class="chat-footer">
         <label for="chatImage" class="chat-file-label" title="إرسال صورة">📷</label>
@@ -388,7 +401,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
         
         <button type="button" class="chat-file-label" id="micBtn" onclick="toggleVoiceRecording()" title="تسجيل صوت">🎤</button>
         
-        <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+        <input type="text" id="chatInput" placeholder="اكتب رسالتك هنا..." oninput="handleTyping()" onkeypress="handleKeyPress(event)">
         <button class="chat-send-btn" onclick="sendTextMessage()">إرسال</button>
     </div>
 </div>
@@ -434,7 +447,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
         <div class="amina-text">
             amina hiya lhaja chaba fhyat oussha wlhaja chaba li rbi rz9o biha hiya machi tfla wkhlas no hiya bnti wkhti wmrty womry whobi weach9i wmama hiya lkhazna tae asrari whiya lbir ta3 jrahi hiya li tdawi hmomi wtrdli dahkti hiya machi haja jat wtroh mea lw9t hiya lhaja chaba li nawi nkml meaha hyati🫶🏻🫶🏻❤️
             <br><br>
-            Kayn nas ychofoha tfla brk ms ana nchofha flosa wkatkota chaba wsghyoura wfo9 kaml hada hnina bzaaaff wchaba 🫠🥹🌹🤏🏻🤏🏻♾️ wrani meah kolyom wnkon fhzana 9bl frhtha wfi mrdha 9bl mrdi wndir kolch daymn bach nchofha frhana amina nti hobi matstahlich lhzan wlbka wdahktk chaba lazm daymn nchofha wtb9a bayna❤️‍🩹🤏🏻♾️
+            Kayn nas ychofoha tfla brk ms ana nchofha flosa wkatkota chaba wsghyoura wfo9 kaml hada hnina bzaaaff wchaba 🫠🥹🌹🤏🏻🤏🏻♾️ wrani meah kolyom wnkon fhzana 9bl frhtha wfi mrdha 9bl mrdi wndir kolch daymn bach nchofha frhana amina nti hobi matstahlich lhzan wlbka wdahktk ketlazm daymn nchofha wtb9a bayna❤️‍🩹🤏🏻♾️
         </div>
         <div class="amina-sign">AMINA ♾️ OUSSA ❤️</div>
     </div>
@@ -488,10 +501,10 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     </div>
 </div>
 
-<!-- كود الفايربيس والشات المباشر مع دعم الفويسات -->
+<!-- كود الفايربيس والشات مع الفويسات ومؤشر الكتابة -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, push, set, onChildAdded, onChildRemoved, onChildChanged, remove, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, push, set, onChildAdded, onChildRemoved, onChildChanged, remove, update, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDt7Dq3mvwXMSDW29MI2Kws4Vi7WpieE0E",
@@ -506,6 +519,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const chatRef = ref(db, 'chats');
+    const typingRef = ref(db, 'typing');
 
     let currentIdentity = localStorage.getItem("chatIdentity") || "oussama";
     updateIdentityUI();
@@ -521,7 +535,32 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
         document.getElementById("idAmina").classList.toggle("active", currentIdentity === "amina");
     }
 
-    // متغيرات وأكواد تسجيل الفويسات
+    // مؤشر الكتابة (Typing)
+    let typingTimeout;
+    window.handleTyping = function() {
+        const otherUser = currentIdentity === "oussama" ? "amina" : "oussama";
+        set(ref(db, 'typing/' + currentIdentity), true);
+        
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+            set(ref(db, 'typing/' + currentIdentity), false);
+        }, 1500);
+    }
+
+    onValue(typingRef, (snapshot) => {
+        const val = snapshot.val() || {};
+        const typingEl = document.getElementById("typingIndicator");
+        const otherUser = currentIdentity === "oussama" ? "amina" : "oussama";
+        
+        if (val[otherUser]) {
+            const nameText = otherUser === "amina" ? "أمينة" : "أسامة";
+            typingEl.textContent = `${nameText} جاري الكتابة... ✍️`;
+        } else {
+            typingEl.textContent = "";
+        }
+    });
+
+    // تسجيل الفويسات
     let mediaRecorder;
     let audioChunks = [];
     let isRecording = false;
@@ -557,7 +596,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
 
                 mediaRecorder.start();
                 isRecording = true;
-                micBtn.style.background = "#dc3545"; // يتحول للأحمر أثناء التسجيل
+                micBtn.style.background = "#dc3545";
                 micBtn.title = "إيقاف التسجيل وإرسال الفويس";
             } catch (err) {
                 alert("لا يمكن الوصول إلى المايكروفون، يرجى السماح للمتصفح بذلك.");
@@ -575,6 +614,7 @@ footer{ text-align:center; padding:20px; color:#956276; font-size:12px; }
         const text = input.value.trim();
         if(!text) return;
 
+        set(ref(db, 'typing/' + currentIdentity), false);
         push(chatRef, {
             sender: currentIdentity,
             type: "text",
@@ -963,4 +1003,3 @@ updateTimers();
 
 </body>
 </html>
-
