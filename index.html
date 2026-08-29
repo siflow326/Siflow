@@ -22,7 +22,6 @@ body{
     background:#ffdce9;
 }
 
-/* خلفية Hello Kitty */
 body::before{
     content:"";
     position:fixed;
@@ -141,6 +140,40 @@ h1{
     font-weight:bold;
 }
 
+/* عيد ميلاد كتكوت أمونة */
+.birthday-katkot{
+    text-align:center;
+    border:2px solid #ff9fc1;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.96),
+        rgba(255,231,242,.96)
+    );
+    animation:softGlow 2.5s infinite alternate;
+}
+
+.katkot-title{
+    color:#d52d68;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.katkot-date{
+    color:#b92d61;
+    font-size:19px;
+    font-weight:bold;
+}
+
+@keyframes softGlow{
+    from{
+        box-shadow:0 5px 20px rgba(213,45,104,.10);
+    }
+    to{
+        box-shadow:0 5px 30px rgba(213,45,104,.28);
+    }
+}
+
 .timer{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -187,6 +220,93 @@ h1{
 
 .miss:active{
     transform:scale(.98);
+}
+
+/* زر chkon amina */
+.amina-button{
+    width:100%;
+    border:0;
+    border-radius:30px;
+    padding:16px;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #b92d61,
+        #ff75a5
+    );
+
+    box-shadow:0 8px 25px rgba(185,45,97,.25);
+}
+
+.amina-button:active{
+    transform:scale(.97);
+}
+
+/* واجهة أمينة */
+.amina-panel{
+    display:none;
+    margin-top:15px;
+    padding:20px;
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,240,247,.98),
+            rgba(255,255,255,.98)
+        );
+
+    border:2px solid #ffb3cc;
+
+    box-shadow:
+        0 12px 35px rgba(180,50,100,.18);
+
+    animation:aminaOpen .5s ease;
+}
+
+@keyframes aminaOpen{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.amina-heading{
+    text-align:center;
+    color:#d52d68;
+    font-size:23px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.amina-hearts{
+    text-align:center;
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.amina-text{
+    text-align:center;
+    color:#704657;
+    line-height:2;
+    font-size:15px;
+}
+
+.amina-sign{
+    text-align:center;
+    margin-top:15px;
+    color:#d52d68;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .message{
@@ -357,12 +477,17 @@ footer{
 }
 
 @media(max-width:400px){
+
     h1{
         font-size:24px;
     }
 
     .number{
         font-size:18px;
+    }
+
+    .amina-text{
+        font-size:14px;
     }
 }
 </style>
@@ -399,21 +524,40 @@ footer{
 </div>
 
 
+<!-- عيد ميلاد أمينة -->
+
 <div class="card birthday">
 
-<div class="birthday-title">
-    🎀 يوم ميلاد أميرتي 🎀
+    <div class="birthday-title">
+        🎀 يوم ميلاد أميرتي 🎀
+    </div>
+
+    <div class="birthday-date">
+        السبت 24 نوفمبر 2012 👑❤️
+    </div>
+
 </div>
 
-<div class="birthday-date">
-    السبت 24 نوفمبر 2012 👑❤️
-</div>
+
+<!-- عيد ميلاد كتكوت أمونة -->
+
+<div class="card birthday-katkot">
+
+    <div class="katkot-title">
+        🐣 عيد ميلاد كتكوت أمونة الصغير 🐣
+    </div>
+
+    <div class="katkot-date">
+        5 مارس 2010 🎂❤️
+    </div>
 
 </div>
 
 
 <div id="eventsContainer"></div>
 
+
+<!-- زر الشوق -->
 
 <div class="card">
 
@@ -425,6 +569,81 @@ footer{
 
 </div>
 
+
+<!-- chkon amina -->
+
+<div class="card">
+
+<button class="amina-button" onclick="showAmina()">
+    🫶🏻 chkon amina
+</button>
+
+<div class="amina-panel" id="aminaPanel">
+
+    <div class="amina-hearts">
+        🫶🏻🌹🤏🏻❤️‍🩹♾️
+    </div>
+
+    <div class="amina-heading">
+        AMINA ❤️
+    </div>
+
+    <div class="amina-text">
+
+        AMINA hiya lhaja chaba f hyat Oussa،
+        wlhaja chaba li rbi rz9o biha ❤️
+
+        <br><br>
+
+        machi tfla wkhlaṣ،
+        no hiya insanة غالية بزاف،
+        قريبة للقلب ومكانتها كبيرة.
+
+        <br><br>
+
+        هي اللي تعرف أسراري،
+        وهي اللي نقدر نحكيلها على اللي في قلبي،
+        وهي اللي تقدر تردلي ضحكتي في أصعب الأيام 🥹🌹
+
+        <br><br>
+
+        machi haja jat wtroh mea lw9t،
+        hiya lhaja chaba li nawi nkml meaha
+        أجمل فصول حياتي.
+
+        <br><br>
+
+        Kayn nas ychofoha tfla brk،
+        ms ana nchofha
+        floṣa wkatkota chaba wsghyoura،
+        wfo9 kaml hada hnina bzaaaff wchaba 🫠🥹🌹🤏🏻
+
+        <br><br>
+
+        w rani meaha kolyom،
+        w nتمناها ديما تكون فرحانة،
+        ونكون واقف معاها في أيام الحزن
+        قبل أيام الفرح.
+
+        <br><br>
+
+        Amina،
+        nti insanة غالية بزاف،
+        وما تستاهليش الحزن ولا البكا،
+        وضحكتك شابة ولازم ديما تبقى باينة ❤️‍🩹🤏🏻♾️
+
+    </div>
+
+    <div class="amina-sign">
+        AMINA ♾️ OUSSA ❤️
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- الذكريات -->
 
 <div class="card">
 
@@ -884,6 +1103,33 @@ function showMessage(){
 
 }
 
+
+/* واجهة chkon amina */
+
+function showAmina(){
+
+    const panel =
+        document.getElementById("aminaPanel");
+
+    if(panel.style.display === "block"){
+
+        panel.style.display="none";
+
+    }else{
+
+        panel.style.display="block";
+
+        panel.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    }
+
+}
+
+
+/* إضافة رسالة */
 
 function addMessage(){
 
