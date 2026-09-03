@@ -250,12 +250,11 @@ h1{
     margin-top:5px;
     opacity:.8;
     justify-content:flex-end;
-    align-items:center;
-    flex-wrap:wrap;
 }
 
 .msg-actions span{
     cursor:pointer;
+    text-decoration:underline;
 }
 
 .birthday-countdown{
@@ -391,8 +390,14 @@ h1{
 }
 
 @keyframes aminaOpen{
-    from{opacity:0;transform:translateY(15px) scale(.97);}
-    to{opacity:1;transform:translateY(0) scale(1);}
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
 .amina-heading{
@@ -610,141 +615,140 @@ footer{
 </header>
 
 <div class="card quote" id="quote">
-    إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️
+إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️
 </div>
 
 <div class="card">
 
-    <div class="section-title">💬 الشات المباشر بيننا</div>
+<div class="section-title">💬 الشات المباشر بيننا</div>
 
-    <div class="identity-selector">
-        <button type="button" class="identity-btn active" id="idOussama" onclick="setIdentity('oussama')">
-            أنا أسامة 🥊
-        </button>
+<div class="identity-selector">
+<button type="button" class="identity-btn active" id="idOussama" onclick="setIdentity('oussama')">
+أنا أسامة 🥊
+</button>
 
-        <button type="button" class="identity-btn" id="idAmina" onclick="setIdentity('amina')">
-            أنا أمينة 👑
-        </button>
-    </div>
+<button type="button" class="identity-btn" id="idAmina" onclick="setIdentity('amina')">
+أنا أمينة 👑
+</button>
+</div>
 
-    <div class="chat-box" id="chatBox"></div>
+<div class="chat-box" id="chatBox"></div>
 
-    <div class="typing-indicator" id="typingIndicator"></div>
+<div class="typing-indicator" id="typingIndicator"></div>
 
-    <div class="chat-footer">
+<div class="chat-footer">
 
-        <label for="chatImage" class="chat-file-label" title="إرسال صورة">
-            📷
-        </label>
+<label for="chatImage" class="chat-file-label" title="إرسال صورة">
+📷
+</label>
 
-        <input
-            type="file"
-            id="chatImage"
-            accept="image/*"
-            style="display:none;"
-            onchange="sendImage(this)"
-        >
+<input
+type="file"
+id="chatImage"
+accept="image/*"
+style="display:none;"
+onchange="sendImage(this)"
+>
 
-        <button
-            type="button"
-            class="chat-file-label"
-            id="micBtn"
-            onclick="toggleVoiceRecording()"
-            title="تسجيل صوت"
-        >
-            🎤
-        </button>
+<button
+type="button"
+class="chat-file-label"
+id="micBtn"
+onclick="toggleVoiceRecording()"
+title="تسجيل صوت"
+>
+🎤
+</button>
 
-        <input
-            type="text"
-            id="chatInput"
-            placeholder="اكتب رسالتك هنا..."
-            oninput="handleTyping()"
-            onkeypress="handleKeyPress(event)"
-        >
+<input
+type="text"
+id="chatInput"
+placeholder="اكتب رسالتك هنا..."
+oninput="handleTyping()"
+onkeypress="handleKeyPress(event)"
+>
 
-        <button class="chat-send-btn" onclick="sendTextMessage()">
-            إرسال
-        </button>
+<button
+class="chat-send-btn"
+onclick="sendTextMessage()"
+>
+إرسال
+</button>
 
-    </div>
-
+</div>
 </div>
 
 <div class="card birthday-countdown">
 
-    <div class="section-title" style="color:#b87500;margin-bottom:8px;">
-        🎀 كم تبقى لعيد ميلاد صغيرتي 🎀
-    </div>
+<div class="section-title" style="color:#b87500;margin-bottom:8px;">
+🎀 كم تبقى لعيد ميلاد صغيرتي 🎀
+</div>
 
-    <div class="timer" id="birthdayTimer" data-birthdate="11-24">
+<div class="timer" id="birthdayTimer">
 
-        <div class="unit">
-            <span class="number months">0</span>
-            <span class="label">شهر</span>
-        </div>
+<div class="unit">
+<span class="number months">0</span>
+<span class="label">شهر</span>
+</div>
 
-        <div class="unit">
-            <span class="number days">0</span>
-            <span class="label">يوم</span>
-        </div>
+<div class="unit">
+<span class="number days">0</span>
+<span class="label">يوم</span>
+</div>
 
-        <div class="unit">
-            <span class="number hours">0</span>
-            <span class="label">ساعة</span>
-        </div>
+<div class="unit">
+<span class="number hours">0</span>
+<span class="label">ساعة</span>
+</div>
 
-        <div class="unit">
-            <span class="number minutes">0</span>
-            <span class="label">دقيقة</span>
-        </div>
+<div class="unit">
+<span class="number minutes">0</span>
+<span class="label">دقيقة</span>
+</div>
 
-        <div class="unit">
-            <span class="number seconds">0</span>
-            <span class="label">ثانية</span>
-        </div>
+<div class="unit">
+<span class="number seconds">0</span>
+<span class="label">ثانية</span>
+</div>
 
-        <div class="unit" style="grid-column:span 3;background:#fff8e8;">
+<div class="unit" style="grid-column:span 3;background:#fff8e8;">
+<span
+class="number"
+style="font-size:15px;color:#d99b00;"
+id="birthdayDateText"
+>
+24 نوفمبر
+</span>
 
-            <span
-                class="number"
-                style="font-size:15px;color:#d99b00;"
-                id="birthdayDateText"
-            >
-                24 نوفمبر
-            </span>
+<span class="label">
+تاريخ عيد الميلاد
+</span>
+</div>
 
-            <span class="label">
-                تاريخ عيد الميلاد
-            </span>
-
-        </div>
-
-    </div>
-
+</div>
 </div>
 
 <div class="card birthday-amina">
 
-    <div class="amina-birthday-title">
-        👑 عيد ميلاد الاميرة الصغيرة 👑
-    </div>
+<div class="amina-birthday-title">
+👑 عيد ميلاد الاميرة الصغيرة 👑
+</div>
 
-    <div class="amina-birthday-date">
-        السبت 24 نوفمبر 2012 💖✨
-    </div>
+<div class="amina-birthday-date">
+السبت 24 نوفمبر 2012 💖✨
+</div>
 
 </div>
 
 <div class="card birthday-katkot">
 
-    <div class="katkot-title">
-        🐣 عيد ميلاد كتكوت أمونة الصغير 🐣
-    </div>
+<div class="katkot-title">
+🐣 عيد ميلاد كتكوت أمونة الصغير 🐣
+</div>
 
-    <div class="katkot-date">
-        5 مارس 2010 🎂❤️
-    </div>
+<div class="katkot-date">
+5 مارس 2010 🎂❤️
+</div>
 
 </div>
 
@@ -752,138 +756,129 @@ footer{
 
 <div class="card">
 
-    <button class="miss" onclick="showMessage()">
-        💌 اضغطي هنا عندما تشتاقين لي
-    </button>
+<button class="miss" onclick="showMessage()">
+💌 اضغطي هنا عندما تشتاقين لي
+</button>
 
-    <div class="message" id="message"></div>
-
-</div>
-
-<div class="card">
-
-    <button class="amina-button" onclick="showAmina()">
-        🫶🏻 chkon amina
-    </button>
-
-    <div class="amina-panel" id="aminaPanel">
-
-        <div class="amina-hearts">
-            🫶🏻🌹🤏🏻❤️‍🩹♾️
-        </div>
-
-        <div class="amina-heading">
-            AMINA ❤️
-        </div>
-
-        <div class="amina-text">
-
-            amina hiya lhaja chaba fhyat oussha wlhaja chaba li rbi rz9o biha hiya machi tfla wkhlas no hiya bnti wkhti wmrty womry whobi weach9i wmama hiya lkhazna tae asrari whiya lbir ta3 jrahi hiya li tdawi hmomi wtrdli dahkti hiya machi haja jat wtroh mea lw9t hiya lhaja chaba li nawi nkml meaha hyati🫶🏻🫶🏻❤️
-
-            <br><br>
-
-            Kayn nas ychofoha tfla brk ms ana nchofha flosa wkatkota chaba wsghyoura wfo9 kaml hada hnina bzaaaff wchaba 🫠🥹🌹🤏🏻🤏🏻♾️ wrani meah kolyom wnkon fhzana 9bl frhtha wfi mrdha 9bl mrdi wndir kolch daymn bach nchofha frhana amina nti hobi matstahlich lhzan wlbka wdahktk ketlazm daymn nchofha wtb9a bayna❤️‍🩹🤏🏻♾️
-
-        </div>
-
-        <div class="amina-sign">
-            AMINA ♾️ OUSSA ❤️
-        </div>
-
-    </div>
+<div class="message" id="message"></div>
 
 </div>
 
 <div class="card">
 
-    <div class="section-title">
-        📸 ذكرياتنا
-    </div>
+<button class="amina-button" onclick="showAmina()">
+🫶🏻 chkon amina
+</button>
 
-    <div id="memoriesContainer"></div>
+<div class="amina-panel" id="aminaPanel">
+
+<div class="amina-hearts">
+🫶🏻🌹🤏🏻❤️‍🩹♾️
+</div>
+
+<div class="amina-heading">
+AMINA ❤️
+</div>
+
+<div class="amina-text">
+amina hiya lhaja chaba fhyat oussha wlhaja chaba li rbi rz9o biha hiya machi tfla wkhlas no hiya bnti wkhti wmrty womry whobi weach9i wmama hiya lkhazna tae asrari whiya lbir ta3 jrahi hiya li tdawi hmomi wtrdli dahkti hiya machi haja jat wtroh mea lw9t hiya lhaja chaba li nawi nkml meaha hyati🫶🏻🫶🏻❤️
+<br><br>
+Kayn nas ychofoha tfla brk ms ana nchofha flosa wkatkota chaba wsghyoura wfo9 kaml hada hnina bzaaaff wchaba 🫠🥹🌹🤏🏻🤏🏻♾️ wrani meah kolyom wnkon fhzana 9bl frhtha wfi mrdha 9bl mrdi wndir kolch daymn bach nchofha frhana amina nti hobi matstahlich lhzan wlbka wdahktk ketlazm daymn nchofha wtb9a bayna❤️‍🩹🤏🏻♾️
+</div>
+
+<div class="amina-sign">
+AMINA ♾️ OUSSA ❤️
+</div>
+
+</div>
+</div>
+
+<div class="card">
+
+<div class="section-title">
+📸 ذكرياتنا
+</div>
+
+<div id="memoriesContainer"></div>
 
 </div>
 
 <footer>
-    Made with ❤️ for Amina & Oussama
+Made with ❤️ for Amina & Oussama
 </footer>
 
 <div class="admin" id="admin">
 
-    <h2>👑 لوحة التحكم الخاصة بأسامة</h2>
+<h2>👑 لوحة التحكم الخاصة بأسامة</h2>
 
-    <h3>✏️ معلومات الموقع</h3>
+<h3>✏️ معلومات الموقع</h3>
 
-    <input id="editTitle" placeholder="عنوان الموقع">
-    <input id="editNames" placeholder="الأسماء">
-    <input id="editSubtitle" placeholder="الوصف">
+<input id="editTitle" placeholder="عنوان الموقع">
+<input id="editNames" placeholder="الأسماء">
+<input id="editSubtitle" placeholder="الوصف">
 
-    <textarea
-        id="editQuote"
-        placeholder="الرسالة الرئيسية"
-    ></textarea>
+<textarea
+id="editQuote"
+placeholder="الرسالة الرئيسية"
+></textarea>
 
-    <button onclick="saveSettings()">
-        💾 حفظ التغييرات
-    </button>
+<button onclick="saveSettings()">
+💾 حفظ التغييرات
+</button>
 
-    <h3>⏱️ إضافة عداد</h3>
+<h3>⏱️ إضافة عداد</h3>
 
-    <input
-        id="eventName"
-        placeholder="عنوان العداد"
-    >
+<input id="eventName" placeholder="عنوان العداد">
+<input id="eventDate" type="date">
 
-    <input
-        id="eventDate"
-        type="date"
-    >
+<button onclick="addEvent()">
+➕ إضافة
+</button>
 
-    <button onclick="addEvent()">
-        ➕ إضافة
-    </button>
+<div id="eventsAdmin"></div>
 
-    <div id="eventsAdmin"></div>
+<h3>💌 إضافة رسالة شوق</h3>
 
-    <h3>💌 إضافة رسالة شوق</h3>
+<input
+id="newMessage"
+placeholder="اكتب رسالة جديدة..."
+>
 
-    <input
-        id="newMessage"
-        placeholder="اكتب رسالة جديدة..."
-    >
+<button onclick="addMessage()">
+➕ إضافة الرسالة
+</button>
 
-    <button onclick="addMessage()">
-        ➕ إضافة الرسالة
-    </button>
+<div id="messagesAdmin"></div>
 
-    <div id="messagesAdmin"></div>
+<h3>📸 إضافة ذكرى</h3>
 
-    <h3>📸 إضافة ذكرى</h3>
+<input
+id="memoryTitle"
+placeholder="عنوان الذكرى"
+>
 
-    <input
-        id="memoryTitle"
-        placeholder="عنوان الذكرى"
-    >
+<textarea
+id="memoryDesc"
+placeholder="التفاصيل..."
+></textarea>
 
-    <textarea
-        id="memoryDesc"
-        placeholder="التفاصيل..."
-    ></textarea>
+<input
+id="memoryMedia"
+placeholder="رابط الصورة أو الفيديو"
+>
 
-    <input
-        id="memoryMedia"
-        placeholder="رابط الصورة أو الفيديو"
-    >
+<button onclick="addMemory()">
+📤 نشر الذكرى
+</button>
 
-    <button onclick="addMemory()">
-        📤 نشر الذكرى
-    </button>
+<div id="memoriesAdmin"></div>
 
-    <div id="memoriesAdmin"></div>
-
-    <button class="close" onclick="closeAdmin()">
-        إغلاق لوحة التحكم
-    </button>
+<button
+class="close"
+onclick="closeAdmin()"
+>
+إغلاق لوحة التحكم
+</button>
 
 </div>
 
@@ -891,67 +886,67 @@ footer{
 
 <div class="login" id="login">
 
-    <div class="login-box">
+<div class="login-box">
 
-        <h2>🔐 دخول أسامة</h2>
+<h2>🔐 دخول أسامة</h2>
 
-        <input
-            id="password"
-            type="password"
-            placeholder="كلمة المرور"
-        >
+<input
+id="password"
+type="password"
+placeholder="كلمة المرور"
+>
 
-        <button onclick="checkPassword()">
-            دخول
-        </button>
+<button onclick="checkPassword()">
+دخول
+</button>
 
-        <div class="error" id="loginError"></div>
+<div class="error" id="loginError"></div>
 
-    </div>
-
+</div>
 </div>
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import {
+initializeApp
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
 import {
-    getDatabase,
-    ref,
-    push,
-    set,
-    onChildAdded,
-    onChildRemoved,
-    onChildChanged,
-    remove,
-    update,
-    onValue
-}
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+getDatabase,
+ref,
+push,
+set,
+onChildAdded,
+onChildRemoved,
+onChildChanged,
+remove,
+update,
+onValue
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyDt7Dq3mvwXMSDW29MI2Kws4Vi7WpieE0E",
+apiKey:
+"AIzaSyDt7Dq3mvwXMSDW29MI2Kws4Vi7WpieE0E",
 
-    authDomain:
-        "our-secret-space-d6be1.firebaseapp.com",
+authDomain:
+"our-secret-space-d6be1.firebaseapp.com",
 
-    databaseURL:
-        "https://our-secret-space-d6be1-default-rtdb.firebaseio.com",
+databaseURL:
+"https://our-secret-space-d6be1-default-rtdb.firebaseio.com",
 
-    projectId:
-        "our-secret-space-d6be1",
+projectId:
+"our-secret-space-d6be1",
 
-    storageBucket:
-        "our-secret-space-d6be1.appspot.com",
+storageBucket:
+"our-secret-space-d6be1.appspot.com",
 
-    messagingSenderId:
-        "81731842262",
+messagingSenderId:
+"81731842262",
 
-    appId:
-        "1:81731842262:web:ebf752509889f7fd8106f7"
+appId:
+"1:81731842262:web:ebf752509889f7fd8106f7"
+
 };
 
 const app = initializeApp(firebaseConfig);
@@ -962,1852 +957,1854 @@ const chatRef = ref(db,"chats");
 
 const typingRef = ref(db,"typing");
 
+
+/* =====================================================
+   🔴🔴🔴 DISCORD WEBHOOK 🔴🔴🔴
+
+   ضع Webhook الجديد هنا فقط
+
+   مثال:
+   const DISCORD_WEBHOOK_URL =
+   "https://discord.com/api/webhooks/....";
+
+   ===================================================== */
+
+const DISCORD_WEBHOOK_URL =
+"https://discord.com/api/webhooks/1545181635429793972/DntS_GuDvYakdISaLXimAPpf1Uj-T25gFg_BA-2e3flW3JgS6ER00y4GIxz25TX5A8Yo";
+
+
+/* =====================================================
+   إرسال إشعار Discord
+   ===================================================== */
+
+async function sendDiscordNotification(sender,type){
+
+if(
+!DISCORD_WEBHOOK_URL ||
+DISCORD_WEBHOOK_URL === "ضع رابط Discord Webhook هنا"
+){
+return;
+}
+
+let message = "";
+
+if(type === "text"){
+
+message =
+sender === "oussama"
+
+? "💌 **أسامة أرسل رسالة في الموقع الخاص بكما**"
+
+: "💌 **أمينة أرسلت رسالة في الموقع الخاص بكما**";
+
+}
+
+else if(type === "image"){
+
+message =
+sender === "oussama"
+
+? "📷 **أسامة أرسل صورة في الموقع الخاص بكما**"
+
+: "📷 **أمينة أرسلت صورة في الموقع الخاص بكما**";
+
+}
+
+else if(type === "audio"){
+
+message =
+sender === "oussama"
+
+? "🎤 **أسامة أرسل رسالة صوتية في الموقع الخاص بكما**"
+
+: "🎤 **أمينة أرسلت رسالة صوتية في الموقع الخاص بكما**";
+
+}
+
+try{
+
+await fetch(
+DISCORD_WEBHOOK_URL,
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+content:message
+})
+
+}
+);
+
+}catch(error){
+
+console.error(
+"Discord notification error:",
+error
+);
+
+}
+
+}
+
+
+/* =====================================================
+   الهوية
+   ===================================================== */
+
 let currentIdentity =
-    localStorage.getItem("chatIdentity") || "oussama";
+localStorage.getItem("chatIdentity") ||
+"oussama";
 
 updateIdentityUI();
 
-window.setIdentity = function(role){
+window.setIdentity=function(role){
 
-    currentIdentity = role;
+currentIdentity=role;
 
-    localStorage.setItem(
-        "chatIdentity",
-        role
-    );
+localStorage.setItem(
+"chatIdentity",
+role
+);
 
-    updateIdentityUI();
+updateIdentityUI();
+
 };
 
 function updateIdentityUI(){
 
-    document
-        .getElementById("idOussama")
-        .classList
-        .toggle(
-            "active",
-            currentIdentity === "oussama"
-        );
+document
+.getElementById("idOussama")
+.classList
+.toggle(
+"active",
+currentIdentity==="oussama"
+);
 
-    document
-        .getElementById("idAmina")
-        .classList
-        .toggle(
-            "active",
-            currentIdentity === "amina"
-        );
+document
+.getElementById("idAmina")
+.classList
+.toggle(
+"active",
+currentIdentity==="amina"
+);
+
 }
 
-/* =========================
+
+/* =====================================================
    مؤشر الكتابة
-========================= */
+   ===================================================== */
 
 let typingTimeout;
 
-window.handleTyping = function(){
+window.handleTyping=function(){
 
-    set(
-        ref(db,"typing/"+currentIdentity),
-        true
-    );
+set(
+ref(
+db,
+"typing/"+currentIdentity
+),
+true
+);
 
-    clearTimeout(typingTimeout);
+clearTimeout(typingTimeout);
 
-    typingTimeout = setTimeout(()=>{
+typingTimeout=setTimeout(()=>{
 
-        set(
-            ref(db,"typing/"+currentIdentity),
-            false
-        );
+set(
+ref(
+db,
+"typing/"+currentIdentity
+),
+false
+);
 
-    },1500);
+},1500);
+
 };
 
-onValue(typingRef,(snapshot)=>{
+onValue(
+typingRef,
+(snapshot)=>{
 
-    const val = snapshot.val() || {};
+const val=snapshot.val()||{};
 
-    const typingEl =
-        document.getElementById(
-            "typingIndicator"
-        );
+const typingEl=
+document.getElementById(
+"typingIndicator"
+);
 
-    const otherUser =
-        currentIdentity === "oussama"
-        ? "amina"
-        : "oussama";
+const otherUser=
+currentIdentity==="oussama"
+?"amina"
+:"oussama";
 
-    if(val[otherUser]){
+if(val[otherUser]){
 
-        const nameText =
-            otherUser === "amina"
-            ? "أمينة"
-            : "أسامة";
+const nameText=
+otherUser==="amina"
+?"أمينة"
+:"أسامة";
 
-        typingEl.textContent =
-            `${nameText} جاري الكتابة... ✍️`;
+typingEl.textContent=
+`${nameText} جاري الكتابة... ✍️`;
 
-    }else{
+}else{
 
-        typingEl.textContent = "";
+typingEl.textContent="";
 
-    }
+}
 
-});
+}
+);
 
-/* =========================
-   تسجيل الفويس
-========================= */
+
+/* =====================================================
+   تسجيل الصوت
+   ===================================================== */
 
 let mediaRecorder;
 
-let audioChunks = [];
+let audioChunks=[];
 
-let isRecording = false;
+let isRecording=false;
 
-window.toggleVoiceRecording =
+window.toggleVoiceRecording=
 async function(){
 
-    const micBtn =
-        document.getElementById("micBtn");
+const micBtn=
+document.getElementById("micBtn");
 
-    if(!isRecording){
+if(!isRecording){
 
-        try{
+try{
 
-            const stream =
-                await navigator
-                    .mediaDevices
-                    .getUserMedia({
-                        audio:true
-                    });
+const stream=
+await navigator
+.mediaDevices
+.getUserMedia({
+audio:true
+});
 
-            mediaRecorder =
-                new MediaRecorder(stream);
+mediaRecorder=
+new MediaRecorder(stream);
 
-            audioChunks = [];
+audioChunks=[];
 
-            mediaRecorder.ondataavailable =
-                (event)=>{
+mediaRecorder.ondataavailable=
+(event)=>{
 
-                    audioChunks.push(
-                        event.data
-                    );
-
-                };
-
-            mediaRecorder.onstop =
-                ()=>{
-
-                    const audioBlob =
-                        new Blob(
-                            audioChunks,
-                            {
-                                type:"audio/webm"
-                            }
-                        );
-
-                    const reader =
-                        new FileReader();
-
-                    reader.onload =
-                        function(e){
-
-                            push(chatRef,{
-
-                                sender:
-                                    currentIdentity,
-
-                                type:
-                                    "audio",
-
-                                content:
-                                    e.target.result,
-
-                                /*
-                                 * وقت الإرسال الحقيقي
-                                 */
-                                timestamp:
-                                    Date.now()
-
-                            });
-
-                        };
-
-                    reader.readAsDataURL(
-                        audioBlob
-                    );
-
-                    stream
-                        .getTracks()
-                        .forEach(
-                            track =>
-                                track.stop()
-                        );
-                };
-
-            mediaRecorder.start();
-
-            isRecording = true;
-
-            micBtn.style.background =
-                "#dc3545";
-
-            micBtn.title =
-                "إيقاف التسجيل وإرسال الفويس";
-
-        }catch(err){
-
-            alert(
-                "لا يمكن الوصول إلى المايكروفون، يرجى السماح للمتصفح بذلك."
-            );
-
-        }
-
-    }else{
-
-        mediaRecorder.stop();
-
-        isRecording = false;
-
-        micBtn.style.background =
-            "#fff0f6";
-
-        micBtn.title =
-            "تسجيل صوت";
-
-    }
+audioChunks.push(
+event.data
+);
 
 };
 
-/* =========================
+mediaRecorder.onstop=()=>{
+
+const audioBlob=
+new Blob(
+audioChunks,
+{
+type:"audio/webm"
+}
+);
+
+const reader=
+new FileReader();
+
+reader.onload=function(e){
+
+push(
+chatRef,
+{
+
+sender:
+currentIdentity,
+
+type:
+"audio",
+
+content:
+e.target.result,
+
+timestamp:
+Date.now(),
+
+time:
+new Date()
+.toLocaleTimeString(
+[],
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+)
+
+}
+);
+
+/* Discord */
+sendDiscordNotification(
+currentIdentity,
+"audio"
+);
+
+};
+
+reader.readAsDataURL(
+audioBlob
+);
+
+stream
+.getTracks()
+.forEach(
+track=>track.stop()
+);
+
+};
+
+mediaRecorder.start();
+
+isRecording=true;
+
+micBtn.style.background=
+"#dc3545";
+
+micBtn.title=
+"إيقاف التسجيل وإرسال الفويس";
+
+}catch(err){
+
+alert(
+"لا يمكن الوصول إلى المايكروفون، يرجى السماح للمتصفح بذلك."
+);
+
+}
+
+}else{
+
+mediaRecorder.stop();
+
+isRecording=false;
+
+micBtn.style.background=
+"#fff0f6";
+
+micBtn.title=
+"تسجيل صوت";
+
+}
+
+};
+
+
+/* =====================================================
    إرسال رسالة نصية
-========================= */
+   ===================================================== */
 
-window.sendTextMessage =
-function(){
+window.sendTextMessage=function(){
 
-    const input =
-        document.getElementById(
-            "chatInput"
-        );
+const input=
+document.getElementById(
+"chatInput"
+);
 
-    const text =
-        input.value.trim();
+const text=
+input.value.trim();
 
-    if(!text) return;
+if(!text)return;
 
-    set(
-        ref(
-            db,
-            "typing/"+currentIdentity
-        ),
-        false
-    );
+set(
+ref(
+db,
+"typing/"+currentIdentity
+),
+false
+);
 
-    /*
-     * timestamp يتم إنشاؤه
-     * في لحظة الإرسال بالضبط
-     */
-    push(chatRef,{
+push(
+chatRef,
+{
 
-        sender:
-            currentIdentity,
+sender:
+currentIdentity,
 
-        type:
-            "text",
+type:
+"text",
 
-        content:
-            text,
+content:
+text,
 
-        timestamp:
-            Date.now()
+timestamp:
+Date.now(),
 
-    });
+time:
+new Date()
+.toLocaleTimeString(
+[],
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+)
 
-    input.value = "";
+}
+);
+
+/* Discord */
+sendDiscordNotification(
+currentIdentity,
+"text"
+);
+
+input.value="";
 
 };
 
-window.handleKeyPress =
-function(e){
 
-    if(e.key === "Enter"){
+window.handleKeyPress=function(e){
 
-        sendTextMessage();
+if(e.key==="Enter"){
 
-    }
+sendTextMessage();
+
+}
 
 };
 
-/* =========================
+
+/* =====================================================
    إرسال صورة
-========================= */
+   ===================================================== */
 
-window.sendImage =
-function(input){
+window.sendImage=function(input){
 
-    const file =
-        input.files[0];
+const file=input.files[0];
 
-    if(!file) return;
+if(!file)return;
 
-    const reader =
-        new FileReader();
+const reader=
+new FileReader();
 
-    reader.onload =
-        function(e){
+reader.onload=function(e){
 
-            push(chatRef,{
+push(
+chatRef,
+{
 
-                sender:
-                    currentIdentity,
+sender:
+currentIdentity,
 
-                type:
-                    "image",
+type:
+"image",
 
-                content:
-                    e.target.result,
+content:
+e.target.result,
 
-                timestamp:
-                    Date.now()
+timestamp:
+Date.now(),
 
-            });
+time:
+new Date()
+.toLocaleTimeString(
+[],
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+)
 
-        };
+}
+);
 
-    reader.readAsDataURL(file);
-
-    input.value = "";
+/* Discord */
+sendDiscordNotification(
+currentIdentity,
+"image"
+);
 
 };
 
-/* =========================
-   الشات
-========================= */
+reader.readAsDataURL(file);
 
-const chatBox =
-    document.getElementById(
-        "chatBox"
-    );
+input.value="";
+
+};
+
+
+/* =====================================================
+   الوقت والتاريخ الكامل للرسائل
+   ===================================================== */
+
+function formatMessageDate(timestamp){
+
+if(!timestamp)
+return "وقت غير معروف";
+
+const date=
+new Date(
+Number(timestamp)
+);
+
+return date.toLocaleString(
+"ar-DZ",
+{
+
+weekday:"long",
+
+year:"numeric",
+
+month:"long",
+
+day:"numeric",
+
+hour:"2-digit",
+
+minute:"2-digit",
+
+second:"2-digit",
+
+hour12:false
+
+}
+);
+
+}
+
+
+/* =====================================================
+   عرض الشات
+   ===================================================== */
+
+const chatBox=
+document.getElementById(
+"chatBox"
+);
 
 onChildAdded(
-    chatRef,
-    (snapshot)=>{
+chatRef,
+(snapshot)=>{
 
-        const data =
-            snapshot.val();
+const data=
+snapshot.val();
 
-        const key =
-            snapshot.key;
+const key=
+snapshot.key;
 
-        appendMessageUI(
-            key,
-            data
-        );
+appendMessageUI(
+key,
+data
+);
 
-    }
+}
 );
 
 onChildRemoved(
-    chatRef,
-    (snapshot)=>{
+chatRef,
+(snapshot)=>{
 
-        const el =
-            document.getElementById(
-                "msg-"+snapshot.key
-            );
+const el=
+document.getElementById(
+"msg-"+snapshot.key
+);
 
-        if(el) el.remove();
+if(el)
+el.remove();
 
-    }
+}
 );
 
 onChildChanged(
-    chatRef,
-    (snapshot)=>{
+chatRef,
+(snapshot)=>{
 
-        const data =
-            snapshot.val();
+const data=
+snapshot.val();
 
-        const el =
-            document.getElementById(
-                "msg-"+snapshot.key
-            );
-
-        if(el){
-
-            const textEl =
-                el.querySelector(
-                    ".msg-text"
-                );
-
-            if(textEl){
-
-                textEl.textContent =
-                    data.content +
-                    " (معدلة ✏️)";
-
-            }
-
-        }
-
-    }
+const el=
+document.getElementById(
+"msg-"+snapshot.key
 );
 
-/* =========================
-   تنسيق وقت الرسالة
-========================= */
+if(el){
 
-function formatMessageTime(timestamp){
+const textEl=
+el.querySelector(
+".msg-text"
+);
 
-    /*
-     * إذا كانت رسالة قديمة جداً
-     * بدون timestamp نستخدم وقت
-     * البيانات القديمة إن وجد.
-     */
-    if(!timestamp){
+if(textEl){
 
-        return "وقت غير معروف";
-
-    }
-
-    const messageDate =
-        new Date(timestamp);
-
-    const now =
-        new Date();
-
-    const today =
-        new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate()
-        );
-
-    const yesterday =
-        new Date(today);
-
-    yesterday.setDate(
-        yesterday.getDate() - 1
-    );
-
-    const messageDay =
-        new Date(
-            messageDate.getFullYear(),
-            messageDate.getMonth(),
-            messageDate.getDate()
-        );
-
-    let dateText = "";
-
-    if(
-        messageDay.getTime() ===
-        today.getTime()
-    ){
-
-        dateText = "اليوم";
-
-    }else if(
-        messageDay.getTime() ===
-        yesterday.getTime()
-    ){
-
-        dateText = "أمس";
-
-    }else{
-
-        dateText =
-            String(
-                messageDate.getDate()
-            ).padStart(2,"0")
-            + "/"
-            +
-            String(
-                messageDate.getMonth()+1
-            ).padStart(2,"0")
-            + "/"
-            +
-            messageDate.getFullYear();
-
-    }
-
-    const hours =
-        String(
-            messageDate.getHours()
-        ).padStart(2,"0");
-
-    const minutes =
-        String(
-            messageDate.getMinutes()
-        ).padStart(2,"0");
-
-    const seconds =
-        String(
-            messageDate.getSeconds()
-        ).padStart(2,"0");
-
-    return `${dateText} — ${hours}:${minutes}:${seconds}`;
+textEl.textContent=
+data.content+
+" (معدلة ✏️)";
 
 }
 
-/* =========================
-   عرض الرسالة
-========================= */
+}
+
+}
+);
+
 
 function appendMessageUI(
-    key,
-    data
+key,
+data
 ){
 
-    const div =
-        document.createElement("div");
+const div=
+document.createElement(
+"div"
+);
 
-    div.className =
-        `chat-msg ${data.sender}`;
+div.className=
+`chat-msg ${data.sender}`;
 
-    div.id =
-        "msg-"+key;
+div.id=
+"msg-"+key;
 
-    let contentHTML = "";
+let contentHTML="";
 
-    if(data.type === "text"){
+if(data.type==="text"){
 
-        contentHTML =
-            `<div class="msg-text">${
-                escapeHTML(data.content)
-            }</div>`;
-
-    }else if(
-        data.type === "image"
-    ){
-
-        contentHTML =
-            `<img src="${
-                safeImageData(data.content)
-            }" alt="صورة">`;
-
-    }else if(
-        data.type === "audio"
-    ){
-
-        contentHTML =
-            `<audio controls src="${
-                safeAudioData(data.content)
-            }"></audio>`;
-
-    }
-
-    /*
-     * هنا نستخدم timestamp الحقيقي
-     * المحفوظ مع الرسالة.
-     */
-    const messageTime =
-        formatMessageTime(
-            data.timestamp
-        );
-
-    let actionsHTML = "";
-
-    if(
-        data.sender === currentIdentity
-    ){
-
-        actionsHTML = `
-
-            <div class="msg-actions">
-
-                ${
-                    data.type === "text"
-                    ?
-                    `<span onclick="editMessage('${key}')">
-                        تعديل
-                    </span>`
-                    :
-                    ""
-                }
-
-                <span
-                    onclick="deleteMessage('${key}')"
-                >
-                    حذف
-                </span>
-
-                <span>
-                    ${messageTime}
-                </span>
-
-            </div>
-        `;
-
-    }else{
-
-        actionsHTML = `
-
-            <div class="msg-actions">
-
-                <span>
-                    ${messageTime}
-                </span>
-
-            </div>
-
-        `;
-
-    }
-
-    div.innerHTML =
-        contentHTML +
-        actionsHTML;
-
-    chatBox.appendChild(div);
-
-    chatBox.scrollTop =
-        chatBox.scrollHeight;
+contentHTML=
+`<div class="msg-text">
+${escapeHTML(data.content)}
+</div>`;
 
 }
 
-/* =========================
-   حذف رسالة
-========================= */
+else if(data.type==="image"){
 
-window.deleteMessage =
-function(key){
+contentHTML=
+`<img
+src="${data.content}"
+alt="صورة"
+>`;
 
-    if(
-        confirm("حذف هذه الرسالة؟")
-    ){
+}
 
-        remove(
-            ref(
-                db,
-                "chats/"+key
-            )
-        );
+else if(data.type==="audio"){
 
-    }
+contentHTML=
+`<audio
+controls
+src="${data.content}"
+></audio>`;
+
+}
+
+const exactTime=
+formatMessageDate(
+data.timestamp
+);
+
+let actionsHTML="";
+
+if(
+data.sender===
+currentIdentity
+){
+
+actionsHTML=`
+
+<div class="msg-actions">
+
+${
+data.type==="text"
+
+? `<span onclick="editMessage('${key}', '${escapeHTML(data.content)}')">
+تعديل
+</span>`
+
+: ""
+}
+
+<span
+onclick="deleteMessage('${key}')"
+>
+حذف
+</span>
+
+<span>
+${exactTime}
+</span>
+
+</div>
+
+`;
+
+}else{
+
+actionsHTML=
+`<div class="msg-actions">
+<span>${exactTime}</span>
+</div>`;
+
+}
+
+div.innerHTML=
+contentHTML+
+actionsHTML;
+
+chatBox.appendChild(div);
+
+chatBox.scrollTop=
+chatBox.scrollHeight;
+
+}
+
+
+/* =====================================================
+   حذف رسالة الشات
+   ===================================================== */
+
+window.deleteMessage=function(key){
+
+if(
+confirm("حذف هذه الرسالة؟")
+){
+
+remove(
+ref(
+db,
+"chats/"+key
+)
+);
+
+}
 
 };
 
-/* =========================
+
+/* =====================================================
    تعديل رسالة
-========================= */
+   ===================================================== */
 
-window.editMessage =
-function(key){
+window.editMessage=
+function(key,oldText){
 
-    const messageRef =
-        ref(
-            db,
-            "chats/"+key
-        );
+const newText=
+prompt(
+"تعديل الرسالة:",
+oldText
+);
 
-    onValue(
-        messageRef,
-        (snapshot)=>{
+if(
+newText!==null &&
+newText.trim()!==""
+){
 
-            const data =
-                snapshot.val();
-
-            if(!data) return;
-
-            const newText =
-                prompt(
-                    "تعديل الرسالة:",
-                    data.content
-                );
-
-            if(
-                newText !== null &&
-                newText.trim() !== ""
-            ){
-
-                update(
-                    messageRef,
-                    {
-                        content:
-                            newText.trim()
-                    }
-                );
-
-            }
-
-        },
-        {
-            onlyOnce:true
-        }
-    );
-
-};
-
-/* =========================
-   حماية HTML
-========================= */
-
-window.escapeHTML =
-function(value){
-
-    return String(value ?? "")
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-};
-
-/*
- * الصور الموجودة داخل Firebase
- * تأتي كـ Data URL.
- */
-function safeImageData(value){
-
-    const x =
-        String(value || "");
-
-    if(
-        x.startsWith("data:image/")
-    ){
-
-        return x;
-
-    }
-
-    return "";
+update(
+ref(
+db,
+"chats/"+key
+),
+{
+content:
+newText.trim()
+}
+);
 
 }
 
-/*
- * الفويسات الموجودة داخل Firebase
- * تأتي كـ Data URL.
- */
-function safeAudioData(value){
-
-    const x =
-        String(value || "");
-
-    if(
-        x.startsWith("data:audio/")
-    ){
-
-        return x;
-
-    }
-
-    return "";
-
-}
+};
 
 </script>
+
 
 <script>
 
 const ADMIN_PASSWORD =
-    "Karlos@2026";
+"Karlos@2026";
+
 
 let data =
-    JSON.parse(
-        localStorage.getItem(
-            "secretSpaceData"
-        )
-    ) ||
-    {
+JSON.parse(
+localStorage.getItem(
+"secretSpaceData"
+)
+)
+||{
 
-        settings:{
+settings:{
 
-            title:
-                "مساحتنا الخاصة ❤️",
+title:
+"مساحتنا الخاصة ❤️",
 
-            names:
-                "AMINA ♾️ OUSSAMA",
+names:
+"AMINA ♾️ OUSSAMA",
 
-            subtitle:
-                "كل لحظة معك بداية لذكرى أجمل 🌸",
+subtitle:
+"كل لحظة معك بداية لذكرى أجمل 🌸",
 
-            quote:
-                "إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️"
+quote:
+"إلى أجمل شخص دخل حياتي، أتمنى أن تبقى ذكرياتنا دائماً أجمل ما نحتفظ به في قلوبنا ❤️"
 
-        },
+},
 
-        events:[
+events:[
 
-            {
-                id:1,
-                title:"بداية تعارفنا ✨",
-                date:"2025-03-02"
-            },
+{
+id:1,
+title:"بداية تعارفنا ✨",
+date:"2025-03-02"
+},
 
-            {
-                id:2,
-                title:"تاريخ ارتباطنا الرسمي ❤️",
-                date:"2026-01-01"
-            }
+{
+id:2,
+title:"تاريخ ارتباطنا الرسمي ❤️",
+date:"2026-01-01"
+}
 
-        ],
+],
 
-        messages:[
+messages:[
 
-            "أشتاق إليكِ كثيراً، وأتمنى أن تكوني بخير دائماً ❤️",
+"أشتاق إليكِ كثيراً، وأتمنى أن تكوني بخير دائماً ❤️",
 
-            "بعض الأشخاص يجعلون الحياة أجمل بمجرد وجودهم 🌸",
+"بعض الأشخاص يجعلون الحياة أجمل بمجرد وجودهم 🌸",
 
-            "كل ذكرى جميلة معك تستحق أن تبقى للأبد ✨",
+"كل ذكرى جميلة معك تستحق أن تبقى للأبد ✨",
 
-            "أتمنى أن تبتسمي اليوم، لأن ابتسامتك تستحق كل شيء 💕",
+"أتمنى أن تبتسمي اليوم، لأن ابتسامتك تستحق كل شيء 💕",
 
-            "مهما مر الوقت، تبقى الذكريات الجميلة في القلب ❤️",
+"مهما مر الوقت، تبقى الذكريات الجميلة في القلب ❤️",
 
-            "وجودك في حياتي جعل للكثير من الأيام معنى أجمل 🌷",
+"وجودك في حياتي جعل للكثير من الأيام معنى أجمل 🌷",
 
-            "أحياناً تكفي ذكرى جميلة واحدة لتجعل يومنا أفضل ✨",
+"أحياناً تكفي ذكرى جميلة واحدة لتجعل يومنا أفضل ✨",
 
-            "أتمنى أن تجمعنا دائماً أيام أجمل من التي مضت 💗",
+"أتمنى أن تجمعنا دائماً أيام أجمل من التي مضت 💗",
 
-            "كل لحظة جميلة تصبح يوماً ما ذكرى نبتسم عندما نتذكرها 🎀",
+"كل لحظة جميلة تصبح يوماً ما ذكرى نبتسم عندما نتذكرها 🎀",
 
-            "رسالة صغيرة لتذكيرك بأنك شخص مميز جداً ❤️"
+"رسالة صغيرة لتذكيرك بأنك شخص مميز جداً ❤️"
 
-        ],
+],
 
-        memories:[
+memories:[
 
-            {
-                id:1,
-                title:"أول ذكرى ✨",
-                desc:"هنا يمكنك إضافة أجمل ذكرياتكم.",
-                media:""
-            }
+{
+id:1,
 
-        ]
+title:
+"أول ذكرى ✨",
 
-    };
+desc:
+"هنا يمكنك إضافة أجمل ذكرياتكم.",
 
-function saveData(){
-
-    localStorage.setItem(
-        "secretSpaceData",
-        JSON.stringify(data)
-    );
+media:""
 
 }
 
-function renderSettings(){
-
-    document.getElementById(
-        "siteTitle"
-    ).textContent =
-        data.settings.title;
-
-    document.getElementById(
-        "names"
-    ).textContent =
-        data.settings.names;
-
-    document.getElementById(
-        "subtitle"
-    ).textContent =
-        data.settings.subtitle;
-
-    document.getElementById(
-        "quote"
-    ).textContent =
-        data.settings.quote;
-
-    document.getElementById(
-        "editTitle"
-    ).value =
-        data.settings.title;
-
-    document.getElementById(
-        "editNames"
-    ).value =
-        data.settings.names;
-
-    document.getElementById(
-        "editSubtitle"
-    ).value =
-        data.settings.subtitle;
-
-    document.getElementById(
-        "editQuote"
-    ).value =
-        data.settings.quote;
-
-}
-
-function saveSettings(){
-
-    data.settings.title =
-        document.getElementById(
-            "editTitle"
-        ).value;
-
-    data.settings.names =
-        document.getElementById(
-            "editNames"
-        ).value;
-
-    data.settings.subtitle =
-        document.getElementById(
-            "editSubtitle"
-        ).value;
-
-    data.settings.quote =
-        document.getElementById(
-            "editQuote"
-        ).value;
-
-    saveData();
-
-    renderSettings();
-
-    alert(
-        "تم حفظ التغييرات ❤️"
-    );
-
-}
-
-function renderEvents(){
-
-    const box =
-        document.getElementById(
-            "eventsContainer"
-        );
-
-    box.innerHTML = "";
-
-    data.events.forEach(
-        ev=>{
-
-            box.innerHTML += `
-
-                <div class="card">
-
-                    <div class="section-title">
-                        ${escapeHTML(ev.title)}
-                    </div>
-
-                    <div
-                        class="timer"
-                        data-date="${ev.date}"
-                    >
-
-                        <div class="unit">
-                            <span class="number years">
-                                0
-                            </span>
-                            <span class="label">
-                                سنة
-                            </span>
-                        </div>
-
-                        <div class="unit">
-                            <span class="number months">
-                                0
-                            </span>
-                            <span class="label">
-                                شهر
-                            </span>
-                        </div>
-
-                        <div class="unit">
-                            <span class="number days">
-                                0
-                            </span>
-                            <span class="label">
-                                يوم
-                            </span>
-                        </div>
-
-                        <div class="unit">
-                            <span class="number hours">
-                                0
-                            </span>
-                            <span class="label">
-                                ساعة
-                            </span>
-                        </div>
-
-                        <div class="unit">
-                            <span class="number minutes">
-                                0
-                            </span>
-                            <span class="label">
-                                دقيقة
-                            </span>
-                        </div>
-
-                        <div class="unit">
-                            <span class="number seconds">
-                                0
-                            </span>
-                            <span class="label">
-                                ثانية
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-}
-
-function updateTimers(){
-
-    const bTimer =
-        document.getElementById(
-            "birthdayTimer"
-        );
-
-    if(bTimer){
-
-        const now =
-            new Date();
-
-        let currentYear =
-            now.getFullYear();
-
-        let nextBirthday =
-            new Date(
-                currentYear,
-                10,
-                24
-            );
-
-        if(
-            now > nextBirthday
-        ){
-
-            nextBirthday =
-                new Date(
-                    currentYear+1,
-                    10,
-                    24
-                );
-
-        }
-
-        const diff =
-            nextBirthday-now;
-
-        let tempDate =
-            new Date(
-                now.getTime()
-            );
-
-        let months =
-            (
-                nextBirthday.getFullYear()
-                -
-                tempDate.getFullYear()
-            ) * 12
-            +
-            (
-                nextBirthday.getMonth()
-                -
-                tempDate.getMonth()
-            );
-
-        tempDate.setMonth(
-            tempDate.getMonth()
-            +
-            months
-        );
-
-        if(
-            tempDate >
-            nextBirthday
-        ){
-
-            months--;
-
-            tempDate.setMonth(
-                tempDate.getMonth()-1
-            );
-
-        }
-
-        const days =
-            Math.floor(
-                (
-                    nextBirthday-tempDate
-                )
-                /
-                (
-                    1000*60*60*24
-                )
-            );
-
-        const hours =
-            Math.floor(
-                (diff/3600000)%24
-            );
-
-        const minutes =
-            Math.floor(
-                (diff/60000)%60
-            );
-
-        const seconds =
-            Math.floor(
-                (diff/1000)%60
-            );
-
-        bTimer.querySelector(
-            ".months"
-        ).textContent =
-            months;
-
-        bTimer.querySelector(
-            ".days"
-        ).textContent =
-            days;
-
-        bTimer.querySelector(
-            ".hours"
-        ).textContent =
-            hours;
-
-        bTimer.querySelector(
-            ".minutes"
-        ).textContent =
-            minutes;
-
-        bTimer.querySelector(
-            ".seconds"
-        ).textContent =
-            seconds;
-
-    }
-
-    document.querySelectorAll(
-        ".card .timer:not(#birthdayTimer)"
-    ).forEach(
-        timer=>{
-
-            const start =
-                new Date(
-                    timer.dataset.date+
-                    "T00:00:00"
-                );
-
-            const now =
-                new Date();
-
-            if(now < start) return;
-
-            let years =
-                now.getFullYear()
-                -
-                start.getFullYear();
-
-            let months =
-                now.getMonth()
-                -
-                start.getMonth();
-
-            let days =
-                now.getDate()
-                -
-                start.getDate();
-
-            if(days < 0){
-
-                months--;
-
-                days +=
-                    new Date(
-                        now.getFullYear(),
-                        now.getMonth(),
-                        0
-                    ).getDate();
-
-            }
-
-            if(months < 0){
-
-                years--;
-
-                months += 12;
-
-            }
-
-            const diff =
-                now-start;
-
-            const hours =
-                Math.floor(
-                    diff/3600000
-                )%24;
-
-            const minutes =
-                Math.floor(
-                    diff/60000
-                )%60;
-
-            const seconds =
-                Math.floor(
-                    diff/1000
-                )%60;
-
-            const yrEl =
-                timer.querySelector(
-                    ".years"
-                );
-
-            if(yrEl)
-                yrEl.textContent =
-                    years;
-
-            const moEl =
-                timer.querySelector(
-                    ".months"
-                );
-
-            if(moEl)
-                moEl.textContent =
-                    months;
-
-            const dyEl =
-                timer.querySelector(
-                    ".days"
-                );
-
-            if(dyEl)
-                dyEl.textContent =
-                    days;
-
-            const hrEl =
-                timer.querySelector(
-                    ".hours"
-                );
-
-            if(hrEl)
-                hrEl.textContent =
-                    hours;
-
-            const minEl =
-                timer.querySelector(
-                    ".minutes"
-                );
-
-            if(minEl)
-                minEl.textContent =
-                    minutes;
-
-            const secEl =
-                timer.querySelector(
-                    ".seconds"
-                );
-
-            if(secEl)
-                secEl.textContent =
-                    seconds;
-
-        }
-    );
-
-}
-
-function addEvent(){
-
-    const title =
-        document.getElementById(
-            "eventName"
-        ).value.trim();
-
-    const date =
-        document.getElementById(
-            "eventDate"
-        ).value;
-
-    if(!title || !date){
-
-        alert(
-            "أدخل الاسم والتاريخ أولاً"
-        );
-
-        return;
-
-    }
-
-    data.events.push({
-
-        id:
-            Date.now(),
-
-        title:
-            title,
-
-        date:
-            date
-
-    });
-
-    saveData();
-
-    document.getElementById(
-        "eventName"
-    ).value = "";
-
-    document.getElementById(
-        "eventDate"
-    ).value = "";
-
-    renderEvents();
-
-    renderAdmin();
-
-}
-
-function showMessage(){
-
-    if(!data.messages.length){
-
-        alert(
-            "لا توجد رسائل حالياً"
-        );
-
-        return;
-
-    }
-
-    const index =
-        Math.floor(
-            Math.random()*
-            data.messages.length
-        );
-
-    const box =
-        document.getElementById(
-            "message"
-        );
-
-    box.textContent =
-        data.messages[index];
-
-    box.style.display =
-        "block";
-
-}
-
-function showAmina(){
-
-    const panel =
-        document.getElementById(
-            "aminaPanel"
-        );
-
-    if(
-        panel.style.display ===
-        "block"
-    ){
-
-        panel.style.display =
-            "none";
-
-    }else{
-
-        panel.style.display =
-            "block";
-
-        panel.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }
-
-}
-
-function addMessage(){
-
-    const text =
-        document.getElementById(
-            "newMessage"
-        ).value.trim();
-
-    if(!text) return;
-
-    data.messages.push(
-        text
-    );
-
-    saveData();
-
-    document.getElementById(
-        "newMessage"
-    ).value = "";
-
-    renderAdmin();
-
-}
-
-function addMemory(){
-
-    const title =
-        document.getElementById(
-            "memoryTitle"
-        ).value.trim();
-
-    const desc =
-        document.getElementById(
-            "memoryDesc"
-        ).value.trim();
-
-    const media =
-        document.getElementById(
-            "memoryMedia"
-        ).value.trim();
-
-    if(!title || !desc){
-
-        alert(
-            "أدخل عنوان الذكرى والتفاصيل"
-        );
-
-        return;
-
-    }
-
-    data.memories.unshift({
-
-        id:
-            Date.now(),
-
-        title:
-            title,
-
-        desc:
-            desc,
-
-        media:
-            media
-
-    });
-
-    saveData();
-
-    document.getElementById(
-        "memoryTitle"
-    ).value = "";
-
-    document.getElementById(
-        "memoryDesc"
-    ).value = "";
-
-    document.getElementById(
-        "memoryMedia"
-    ).value = "";
-
-    renderMemories();
-
-    renderAdmin();
-
-}
-
-function renderMemories(){
-
-    const box =
-        document.getElementById(
-            "memoriesContainer"
-        );
-
-    box.innerHTML = "";
-
-    data.memories.forEach(
-        mem=>{
-
-            let media = "";
-
-            if(mem.media){
-
-                const url =
-                    mem.media.toLowerCase();
-
-                if(
-                    url.includes(".mp4") ||
-                    url.includes(".webm") ||
-                    url.includes(".mov")
-                ){
-
-                    media =
-                        `<video
-                            src="${safeURL(mem.media)}"
-                            controls
-                        ></video>`;
-
-                }else{
-
-                    media =
-                        `<img
-                            src="${safeURL(mem.media)}"
-                            alt="ذكرى"
-                        >`;
-
-                }
-
-            }
-
-            box.innerHTML += `
-
-                <div class="memory">
-
-                    <h3>
-                        ${escapeHTML(mem.title)}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(mem.desc)}
-                    </p>
-
-                    ${media}
-
-                </div>
-
-            `;
-
-        }
-    );
-
-}
-
-function openAdmin(){
-
-    document.getElementById(
-        "admin"
-    ).style.display =
-        "block";
-
-    renderAdmin();
-
-}
-
-function closeAdmin(){
-
-    document.getElementById(
-        "admin"
-    ).style.display =
-        "none";
-
-}
-
-let clicks = 0;
-
-let clickTimer;
-
-document.getElementById(
-    "siteTitle"
-).addEventListener(
-    "click",
-    ()=>{
-
-        clicks++;
-
-        clearTimeout(
-            clickTimer
-        );
-
-        clickTimer =
-            setTimeout(
-                ()=>{
-                    clicks=0;
-                },
-                1000
-            );
-
-        if(clicks === 5){
-
-            clicks=0;
-
-            document.getElementById(
-                "login"
-            ).style.display =
-                "flex";
-
-            document.getElementById(
-                "password"
-            ).focus();
-
-        }
-
-    }
-);
-
-function checkPassword(){
-
-    const pass =
-        document.getElementById(
-            "password"
-        ).value;
-
-    if(
-        pass === ADMIN_PASSWORD
-    ){
-
-        document.getElementById(
-            "login"
-        ).style.display =
-            "none";
-
-        document.getElementById(
-            "password"
-        ).value = "";
-
-        document.getElementById(
-            "loginError"
-        ).textContent = "";
-
-        openAdmin();
-
-    }else{
-
-        document.getElementById(
-            "loginError"
-        ).textContent =
-            "كلمة المرور خاطئة ❌";
-
-    }
-
-}
-
-function renderAdmin(){
-
-    const events =
-        document.getElementById(
-            "eventsAdmin"
-        );
-
-    events.innerHTML = "";
-
-    data.events.forEach(
-        ev=>{
-
-            events.innerHTML += `
-
-                <div class="item">
-
-                    <span>
-                        ${escapeHTML(ev.title)}
-                        <br>
-                        ${ev.date}
-                    </span>
-
-                    <button
-                        class="delete"
-                        onclick="deleteEvent(${ev.id})"
-                    >
-                        حذف
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-    const messages =
-        document.getElementById(
-            "messagesAdmin"
-        );
-
-    messages.innerHTML = "";
-
-    data.messages.forEach(
-        (msg,index)=>{
-
-            messages.innerHTML += `
-
-                <div class="item">
-
-                    <span>
-                        ${escapeHTML(msg)}
-                    </span>
-
-                    <button
-                        class="delete"
-                        onclick="deleteMessageAdmin(${index})"
-                    >
-                        حذف
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-    const memories =
-        document.getElementById(
-            "memoriesAdmin"
-        );
-
-    memories.innerHTML = "";
-
-    data.memories.forEach(
-        mem=>{
-
-            memories.innerHTML += `
-
-                <div class="item">
-
-                    <span>
-                        ${escapeHTML(mem.title)}
-                    </span>
-
-                    <button
-                        class="delete"
-                        onclick="deleteMemory(${mem.id})"
-                    >
-                        حذف
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-}
-
-function deleteEvent(id){
-
-    if(
-        !confirm(
-            "حذف هذا العداد؟"
-        )
-    ) return;
-
-    data.events =
-        data.events.filter(
-            x=>x.id!==id
-        );
-
-    saveData();
-
-    renderEvents();
-
-    renderAdmin();
-
-}
-
-function deleteMessageAdmin(index){
-
-    if(
-        !confirm(
-            "حذف هذه الرسالة؟"
-        )
-    ) return;
-
-    data.messages.splice(
-        index,
-        1
-    );
-
-    saveData();
-
-    renderAdmin();
-
-}
-
-function deleteMemory(id){
-
-    if(
-        !confirm(
-            "حذف هذه الذكرى؟"
-        )
-    ) return;
-
-    data.memories =
-        data.memories.filter(
-            x=>x.id!==id
-        );
-
-    saveData();
-
-    renderMemories();
-
-    renderAdmin();
-
-}
-
-window.escapeHTML =
-function(value){
-
-    return String(value ?? "")
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+]
 
 };
 
-function safeURL(url){
 
-    const x =
-        String(url || "");
+function saveData(){
 
-    if(
-        x.startsWith("https://") ||
-        x.startsWith("http://")
-    ){
-
-        return escapeHTML(x);
-
-    }
-
-    return "";
+localStorage.setItem(
+"secretSpaceData",
+JSON.stringify(data)
+);
 
 }
+
+
+function renderSettings(){
+
+document.getElementById(
+"siteTitle"
+).textContent=
+data.settings.title;
+
+document.getElementById(
+"names"
+).textContent=
+data.settings.names;
+
+document.getElementById(
+"subtitle"
+).textContent=
+data.settings.subtitle;
+
+document.getElementById(
+"quote"
+).textContent=
+data.settings.quote;
+
+document.getElementById(
+"editTitle"
+).value=
+data.settings.title;
+
+document.getElementById(
+"editNames"
+).value=
+data.settings.names;
+
+document.getElementById(
+"editSubtitle"
+).value=
+data.settings.subtitle;
+
+document.getElementById(
+"editQuote"
+).value=
+data.settings.quote;
+
+}
+
+
+function saveSettings(){
+
+data.settings.title=
+document.getElementById(
+"editTitle"
+).value;
+
+data.settings.names=
+document.getElementById(
+"editNames"
+).value;
+
+data.settings.subtitle=
+document.getElementById(
+"editSubtitle"
+).value;
+
+data.settings.quote=
+document.getElementById(
+"editQuote"
+).value;
+
+saveData();
+
+renderSettings();
+
+alert(
+"تم حفظ التغييرات ❤️"
+);
+
+}
+
+
+function renderEvents(){
+
+const box=
+document.getElementById(
+"eventsContainer"
+);
+
+box.innerHTML="";
+
+data.events.forEach(
+ev=>{
+
+box.innerHTML+=`
+
+<div class="card">
+
+<div class="section-title">
+${escapeHTML(ev.title)}
+</div>
+
+<div
+class="timer"
+data-date="${ev.date}"
+>
+
+<div class="unit">
+<span class="number years">0</span>
+<span class="label">سنة</span>
+</div>
+
+<div class="unit">
+<span class="number months">0</span>
+<span class="label">شهر</span>
+</div>
+
+<div class="unit">
+<span class="number days">0</span>
+<span class="label">يوم</span>
+</div>
+
+<div class="unit">
+<span class="number hours">0</span>
+<span class="label">ساعة</span>
+</div>
+
+<div class="unit">
+<span class="number minutes">0</span>
+<span class="label">دقيقة</span>
+</div>
+
+<div class="unit">
+<span class="number seconds">0</span>
+<span class="label">ثانية</span>
+</div>
+
+</div>
+</div>
+
+`;
+
+}
+);
+
+}
+
+
+function updateTimers(){
+
+const bTimer=
+document.getElementById(
+"birthdayTimer"
+);
+
+if(bTimer){
+
+const now=
+new Date();
+
+let currentYear=
+now.getFullYear();
+
+let nextBirthday=
+new Date(
+currentYear,
+10,
+24
+);
+
+if(now>nextBirthday){
+
+nextBirthday=
+new Date(
+currentYear+1,
+10,
+24
+);
+
+}
+
+const diff=
+nextBirthday-now;
+
+let tempDate=
+new Date(
+now.getTime()
+);
+
+let months=
+(nextBirthday.getFullYear()
+-tempDate.getFullYear())
+*12+
+(nextBirthday.getMonth()
+-tempDate.getMonth());
+
+tempDate.setMonth(
+tempDate.getMonth()+months
+);
+
+if(tempDate>nextBirthday){
+
+months--;
+
+tempDate.setMonth(
+tempDate.getMonth()-1
+);
+
+}
+
+const days=
+Math.floor(
+(nextBirthday-tempDate)/
+(1000*60*60*24)
+);
+
+const hours=
+Math.floor(
+(diff/3600000)%24
+);
+
+const minutes=
+Math.floor(
+(diff/60000)%60
+);
+
+const seconds=
+Math.floor(
+(diff/1000)%60
+);
+
+bTimer.querySelector(
+".months"
+).textContent=
+months;
+
+bTimer.querySelector(
+".days"
+).textContent=
+days;
+
+bTimer.querySelector(
+".hours"
+).textContent=
+hours;
+
+bTimer.querySelector(
+".minutes"
+).textContent=
+minutes;
+
+bTimer.querySelector(
+".seconds"
+).textContent=
+seconds;
+
+}
+
+
+document
+.querySelectorAll(
+".card .timer:not(#birthdayTimer)"
+)
+.forEach(
+timer=>{
+
+const start=
+new Date(
+timer.dataset.date+
+"T00:00:00"
+);
+
+const now=
+new Date();
+
+if(now<start)
+return;
+
+let years=
+now.getFullYear()-
+start.getFullYear();
+
+let months=
+now.getMonth()-
+start.getMonth();
+
+let days=
+now.getDate()-
+start.getDate();
+
+if(days<0){
+
+months--;
+
+days+=
+new Date(
+now.getFullYear(),
+now.getMonth(),
+0
+).getDate();
+
+}
+
+if(months<0){
+
+years--;
+
+months+=12;
+
+}
+
+const diff=
+now-start;
+
+const hours=
+Math.floor(
+diff/3600000
+)%24;
+
+const minutes=
+Math.floor(
+diff/60000
+)%60;
+
+const seconds=
+Math.floor(
+diff/1000
+)%60;
+
+const yrEl=
+timer.querySelector(
+".years"
+);
+
+if(yrEl)
+yrEl.textContent=
+years;
+
+const moEl=
+timer.querySelector(
+".months"
+);
+
+if(moEl)
+moEl.textContent=
+months;
+
+const dyEl=
+timer.querySelector(
+".days"
+);
+
+if(dyEl)
+dyEl.textContent=
+days;
+
+const hrEl=
+timer.querySelector(
+".hours"
+);
+
+if(hrEl)
+hrEl.textContent=
+hours;
+
+const minEl=
+timer.querySelector(
+".minutes"
+);
+
+if(minEl)
+minEl.textContent=
+minutes;
+
+const secEl=
+timer.querySelector(
+".seconds"
+);
+
+if(secEl)
+secEl.textContent=
+seconds;
+
+}
+);
+
+}
+
+
+function addEvent(){
+
+const title=
+document.getElementById(
+"eventName"
+).value.trim();
+
+const date=
+document.getElementById(
+"eventDate"
+).value;
+
+if(!title||!date){
+
+alert(
+"أدخل الاسم والتاريخ أولاً"
+);
+
+return;
+
+}
+
+data.events.push({
+
+id:Date.now(),
+
+title:title,
+
+date:date
+
+});
+
+saveData();
+
+document.getElementById(
+"eventName"
+).value="";
+
+document.getElementById(
+"eventDate"
+).value="";
+
+renderEvents();
+
+renderAdmin();
+
+}
+
+
+function showMessage(){
+
+if(!data.messages.length){
+
+alert(
+"لا توجد رسائل حالياً"
+);
+
+return;
+
+}
+
+const index=
+Math.floor(
+Math.random()*
+data.messages.length
+);
+
+const box=
+document.getElementById(
+"message"
+);
+
+box.textContent=
+data.messages[index];
+
+box.style.display=
+"block";
+
+}
+
+
+function showAmina(){
+
+const panel=
+document.getElementById(
+"aminaPanel"
+);
+
+if(
+panel.style.display==="block"
+){
+
+panel.style.display="none";
+
+}else{
+
+panel.style.display="block";
+
+panel.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+}
+
+}
+
+
+function addMessage(){
+
+const text=
+document.getElementById(
+"newMessage"
+)
+.value.trim();
+
+if(!text)
+return;
+
+data.messages.push(text);
+
+saveData();
+
+document.getElementById(
+"newMessage"
+).value="";
+
+renderAdmin();
+
+}
+
+
+function addMemory(){
+
+const title=
+document.getElementById(
+"memoryTitle"
+)
+.value.trim();
+
+const desc=
+document.getElementById(
+"memoryDesc"
+)
+.value.trim();
+
+const media=
+document.getElementById(
+"memoryMedia"
+)
+.value.trim();
+
+if(!title||!desc){
+
+alert(
+"أدخل عنوان الذكرى والتفاصيل"
+);
+
+return;
+
+}
+
+data.memories.unshift({
+
+id:Date.now(),
+
+title:title,
+
+desc:desc,
+
+media:media
+
+});
+
+saveData();
+
+document.getElementById(
+"memoryTitle"
+).value="";
+
+document.getElementById(
+"memoryDesc"
+).value="";
+
+document.getElementById(
+"memoryMedia"
+).value="";
+
+renderMemories();
+
+renderAdmin();
+
+}
+
+
+function renderMemories(){
+
+const box=
+document.getElementById(
+"memoriesContainer"
+);
+
+box.innerHTML="";
+
+data.memories.forEach(
+mem=>{
+
+let media="";
+
+if(mem.media){
+
+const url=
+mem.media.toLowerCase();
+
+if(
+url.includes(".mp4")||
+url.includes(".webm")||
+url.includes(".mov")
+){
+
+media=`
+
+<video
+src="${safeURL(mem.media)}"
+controls
+></video>
+
+`;
+
+}else{
+
+media=`
+
+<img
+src="${safeURL(mem.media)}"
+alt="ذكرى"
+>
+
+`;
+
+}
+
+}
+
+box.innerHTML+=`
+
+<div class="memory">
+
+<h3>
+${escapeHTML(mem.title)}
+</h3>
+
+<p>
+${escapeHTML(mem.desc)}
+</p>
+
+${media}
+
+</div>
+
+`;
+
+}
+);
+
+}
+
+
+function openAdmin(){
+
+document.getElementById(
+"admin"
+).style.display=
+"block";
+
+renderAdmin();
+
+}
+
+
+function closeAdmin(){
+
+document.getElementById(
+"admin"
+).style.display=
+"none";
+
+}
+
+
+let clicks=0;
+
+let clickTimer;
+
+
+document
+.getElementById("siteTitle")
+.addEventListener(
+"click",
+()=>{
+
+clicks++;
+
+clearTimeout(
+clickTimer
+);
+
+clickTimer=
+setTimeout(
+()=>{
+clicks=0;
+},
+1000
+);
+
+if(clicks===5){
+
+clicks=0;
+
+document.getElementById(
+"login"
+).style.display=
+"flex";
+
+document.getElementById(
+"password"
+).focus();
+
+}
+
+}
+);
+
+
+function checkPassword(){
+
+const pass=
+document.getElementById(
+"password"
+).value;
+
+if(
+pass===
+ADMIN_PASSWORD
+){
+
+document.getElementById(
+"login"
+).style.display=
+"none";
+
+document.getElementById(
+"password"
+).value="";
+
+document.getElementById(
+"loginError"
+).textContent="";
+
+openAdmin();
+
+}else{
+
+document.getElementById(
+"loginError"
+).textContent=
+"كلمة المرور خاطئة ❌";
+
+}
+
+}
+
+
+function renderAdmin(){
+
+const events=
+document.getElementById(
+"eventsAdmin"
+);
+
+events.innerHTML="";
+
+data.events.forEach(
+ev=>{
+
+events.innerHTML+=`
+
+<div class="item">
+
+<span>
+
+${escapeHTML(ev.title)}
+
+<br>
+
+${ev.date}
+
+</span>
+
+<button
+class="delete"
+onclick="deleteEvent(${ev.id})"
+>
+حذف
+</button>
+
+</div>
+
+`;
+
+}
+);
+
+
+const messages=
+document.getElementById(
+"messagesAdmin"
+);
+
+messages.innerHTML="";
+
+data.messages.forEach(
+(msg,index)=>{
+
+messages.innerHTML+=`
+
+<div class="item">
+
+<span>
+${escapeHTML(msg)}
+</span>
+
+<button
+class="delete"
+onclick="deleteMessageAdmin(${index})"
+>
+حذف
+</button>
+
+</div>
+
+`;
+
+}
+);
+
+
+const memories=
+document.getElementById(
+"memoriesAdmin"
+);
+
+memories.innerHTML="";
+
+data.memories.forEach(
+mem=>{
+
+memories.innerHTML+=`
+
+<div class="item">
+
+<span>
+${escapeHTML(mem.title)}
+</span>
+
+<button
+class="delete"
+onclick="deleteMemory(${mem.id})"
+>
+حذف
+</button>
+
+</div>
+
+`;
+
+}
+);
+
+}
+
+
+function deleteEvent(id){
+
+if(
+!confirm(
+"حذف هذا العداد؟"
+)
+)
+return;
+
+data.events=
+data.events.filter(
+x=>x.id!==id
+);
+
+saveData();
+
+renderEvents();
+
+renderAdmin();
+
+}
+
+
+function deleteMessageAdmin(index){
+
+if(
+!confirm(
+"حذف هذه الرسالة؟"
+)
+)
+return;
+
+data.messages.splice(
+index,
+1
+);
+
+saveData();
+
+renderAdmin();
+
+}
+
+
+function deleteMemory(id){
+
+if(
+!confirm(
+"حذف هذه الذكرى؟"
+)
+)
+return;
+
+data.memories=
+data.memories.filter(
+x=>x.id!==id
+);
+
+saveData();
+
+renderMemories();
+
+renderAdmin();
+
+}
+
+
+window.escapeHTML=
+function(value){
+
+return String(
+value??""
+)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+};
+
+
+function safeURL(url){
+
+const x=
+String(url||"");
+
+if(
+x.startsWith("https://")||
+x.startsWith("http://")
+){
+
+return escapeHTML(x);
+
+}
+
+return "";
+
+}
+
 
 renderSettings();
 
@@ -2816,8 +2813,8 @@ renderEvents();
 renderMemories();
 
 setInterval(
-    updateTimers,
-    1000
+updateTimers,
+1000
 );
 
 updateTimers();
